@@ -1,4 +1,5 @@
 import { AppPage } from './pages/AppPage'
+import { LoginSignup } from './pages/LoginSignup'
 
 const routes = [
     {
@@ -7,8 +8,8 @@ const routes = [
         isExact: true
     },
     {
-        path: '/workproject',
-        component: AppPage,
+        path: '/auth',
+        component: LoginSignup,
         isExact: true
     },
 ]
