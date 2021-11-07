@@ -1,0 +1,9 @@
+.app-page {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    @include for-normal-layout {
+        flex-direction: row;
+        align-items: unset;
+    }
+}

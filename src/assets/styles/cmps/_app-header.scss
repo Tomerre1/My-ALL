@@ -1,0 +1,14 @@
+.app-header {
+    background: #4e71ff;
+    box-shadow: 0 2px 7px 0px #0000001a;
+    height: 50px;
+    a > img.logo {
+        height: 30px;
+        object-fit: contain;
+        transform: scale(1);
+        transition: transform 0.1s ease-in;
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
