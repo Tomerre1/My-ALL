@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 // import { onLogin, onSignup } from "../store/user.actions";
-import { GoogleLogin } from "react-google-login";
 import { Formik } from "formik";
 import * as Yup from 'yup';
 import TextField from '@material-ui/core/TextField';
@@ -26,37 +25,21 @@ export function LoginSignup(props) {
       .min(4, "קצר מדי")
       .max(50, "ארוך מדי")
       .required("נדרש למלא שם משתמש בשדה זה"),
-
-
   });
-
-  const CLIENT_ID =
-    "1066940480428-m4n85h2lafgf2m7v5j7prda0tmigel93.apps.googleusercontent.com";
-
-  const onSuccess = async (res) => {
-    const fullname = res.profileObj.name;
-    console.log('%c  fullname:', 'color: #00000;background: #aaefe5;', fullname);
-    const username = `${res.profileObj.givenName} `;
-    console.log('%c  username:', 'color: #00000;background: #aaefe5;', username);
-    const password = res.profileObj.googleId;
-    console.log('%c  password:', 'color: #00000;background: #aaefe5;', password);
-    const imgUrl = res.profileObj.imageUrl;
-    console.log('%c  imgUrl:', 'color: #00000;background: #aaefe5;', imgUrl);
-
-    // isLogin
-    //   ? await props.onLogin({ username, password })
-    //   : await props.onSignup({ username, password, imgUrl, fullname });
-    // props.history.push("/workspace/");
-  };
-
-  const onFail = (response) => {
-    console.dir(response);
-  };
 
   const onSubmit = async (values, { resetForm }) => {
     const { fullname, password, username } = values;
     if (username.trim() && password.trim()) {
       if (!isLogin) {
+        fetch('http://127.0.0.1:8000/login/', {
+          'method': 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Token 5cbce175d45037d379e125dd7a65104063e8b7a5'
+          },
+          body: JSON.stringify({ first_name: fullname, last_name: fullname })
+
+        }).then(resp => resp.json())
         // props.onSignup({ username, password, fullname, imgUrl: "" });
         console.log('%c  fullname signup:', 'color: #00000;background: #aaefe5;', fullname);
         console.log('%c  password signup:', 'color: #00000;background: #aaefe5;', password);
@@ -143,13 +126,6 @@ export function LoginSignup(props) {
               <button className="login-submit">
                 {isLogin ? "התחבר" : "הרשם"}
               </button>
-              <GoogleLogin
-                clientId={CLIENT_ID}
-                buttonText={isLogin ? "התחבר באמצעות חשבון גוגל" : "הרשם באמצעות חשבון גוגל"}
-                onSuccess={onSuccess}
-                onFailure={onFail}
-                cookiePolicy={"single_host_origin"}
-              />
             </form>
           )}
         </Formik>
