@@ -7,31 +7,27 @@ export const userService = {
     logout,
     signup,
     getLoggedinUser,
-    getUsers,
+    query,
 }
 
-async function getUsers() {
-    const users = httpService.get('user')
+async function query() {
+    const users = httpService.get('user/')
     return users
 }
 
-
 async function login(userCred) {
-    const user = await httpService.post('auth/login', userCred)
+    const user = await httpService.post('login/', userCred)
     if (user) return _saveLocalUser(user)
 
 }
 
 async function signup(userCred) {
-    console.log('%c  userCred:', 'color: #00000;background: #aaefe5;', userCred);
-    // const user = await httpService.post('auth/signup', userCred)
-    const user = await httpService.post('auth/login', userCred)
+    const user = await httpService.post('signup/', userCred)
     return user
 }
 
 async function logout() {
-    return await httpService.post('auth/logout')
-
+    return await httpService.post('logout/')
 }
 
 function _saveLocalUser(user) {

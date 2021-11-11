@@ -1,14 +1,9 @@
-import Axios from 'axios'
+
 const TOKEN = '5cbce175d45037d379e125dd7a65104063e8b7a5'
 
 const BASE_URL = process.env.NODE_ENV === 'production'
     ? '/api/'
-    : '//localhost:3030/api/'
-
-
-var axios = Axios.create({
-    withCredentials: true
-})
+    : '//localhost:8000/'
 
 export const httpService = {
     get(endpoint, data) {
@@ -27,14 +22,17 @@ export const httpService = {
 
 async function ajax(endpoint, method = 'GET', data = null) {
     try {
-        const res = await axios({
-            url: `${BASE_URL}${endpoint}`,
-            headers: { 'Authorization': `Token ${TOKEN}`, 'Content-Type': 'application/json' },
+        const res = await fetch(`${BASE_URL}${endpoint}`, {
             method,
-            data,
-            params: (method === 'GET') ? data : null
-        })
-        return res.data
+            headers: {
+                'Authorization': `Token ${TOKEN}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            params: (method === 'GET') ? data : null,
+
+        }).then(res => res.json())
+        return res
     } catch (err) {
         console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: ${data}`)
         console.dir(err)

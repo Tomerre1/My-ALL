@@ -24,13 +24,21 @@ export function LoginSignup(props) {
         'סיסמא צריכה להכיל אותיות גדלות,אותיות קטנות,מספרים ותו מיוחד'
       ),
     userId: Yup.string()
-      .min(8, "קצר מדי")
-      .max(10, "ארוך מדי")
-      .required("נדרש למלא תעודת זהות בשדה זה"),
+      .min(9, "קצר מדי")
+      .max(9, "ארוך מדי")
+      .required("נדרש למלא תעודת זהות בשדה זה")
+      .matches(
+        /^\d+$/,
+        ' תעודת זהות הינה רק עם מספרים'
+      ),
     parentId: Yup.string()
-      .min(8, "קצר מדי")
-      .max(10, "ארוך מדי")
-      .required("נדרש למלא תעודת זהות בשדה זה"),
+      .min(9, "קצר מדי")
+      .max(9, "ארוך מדי")
+      .required("נדרש למלא תעודת זהות בשדה זה")
+      .matches(
+        /^\d+$/,
+        ' תעודת זהות הינה רק עם מספרים'
+      ),
     userType: Yup.string()
       .required("נדרש לבחור בשדה זה"),
 
@@ -40,12 +48,12 @@ export function LoginSignup(props) {
     const { fullName, password, userId, userType, parentId } = values;
     if (userId.trim() && password.trim()) {
       if (!isLogin) {
-        userService.signup({ fullName, password, userId, userType, parentId })
+        userService.signup({ fullname: fullName, password, userId, userType, parentId })
         // props.onSignup({ userId, password, fullname, imgUrl: "" });
-        // props.history.push("/workspace");
+        props.history.push("/auth");
       } else {
-        // props.onLogin({ userId, password });
-        // props.history.push("/workspace");
+        userService.login({ userId, password })
+        props.history.push("/");
       }
     }
   };
