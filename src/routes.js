@@ -1,5 +1,6 @@
 import { AppPage } from './pages/AppPage'
 import { LoginSignup } from './pages/LoginSignup'
+import { MedicineTable } from './cmps/Doctor/Medicine/MedicineTable'
 
 const routes = [
     {
@@ -10,6 +11,11 @@ const routes = [
     {
         path: '/auth',
         component: LoginSignup,
+        isExact: true
+    },
+    {
+        path: '/doctor',
+        component: MedicineTable,
         isExact: true
     },
 ]

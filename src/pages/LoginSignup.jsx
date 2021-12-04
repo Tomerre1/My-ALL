@@ -53,12 +53,12 @@ export function LoginSignup(props) {
         props.history.push("/auth");
       } else {
         userService.login({ userId, password })
-        props.history.push("/");
+        props.history.push("/doctor");
       }
     }
   };
   return (
-    <div className="login-signup  flex column align-center">
+    <div className="login-signup  flex column align-center" style={{ direction: 'rtl' }}>
       <div className="login-container flex column">
         {isLogin ? <p>התחברות </p> : <p>הרשמה</p>}
         <Formik
