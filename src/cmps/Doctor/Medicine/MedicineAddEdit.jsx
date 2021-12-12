@@ -74,7 +74,6 @@ export function MedicineAddEdit({
       setValues({
         ...recordForEdit,
       });
-    return setRecordForEdit(null);
   }, [recordForEdit]);
 
   return (
@@ -87,7 +86,7 @@ export function MedicineAddEdit({
         label='שם תרופה'
         value={values.medicineName}
         onChange={handleInputChange}
-        disabled={values.id ? true : false}
+        disabled={recordForEdit ? true : false}
         error={errors.medicineName}
       />
       <Controls.Input
@@ -143,9 +142,9 @@ export function MedicineAddEdit({
       <div className='flex justify-center'>
         <Controls.Button
           type='submit'
-          text={!values.id ? 'הכנס תרופה' : 'עדכן תרופה'}
+          text={!recordForEdit ? 'הכנס תרופה' : 'עדכן תרופה'}
         />
-        {!values.id && (
+        {!recordForEdit && (
           <Controls.Button
             text='אפס שדות'
             color='default'

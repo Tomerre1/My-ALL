@@ -28,7 +28,7 @@ async function ajax(endpoint, method = 'GET', data = null) {
                 'Authorization': `Token ${TOKEN}`,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data),
+            body: (method === 'GET') ? null : JSON.stringify(data),
             params: (method === 'GET') ? data : null,
 
         }).then(res => res.json())

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,6 +10,7 @@ import { Popup } from '../../Popup';
 import { MedicineAddEdit } from './MedicineAddEdit';
 import Button from './controls/Button';
 import { MedicineRow } from './MedicineRow';
+import { medicineService } from './../../../services/medicine.service';
 
 export function MedicineTable() {
   const [openPopup, setOpenPopup] = useState(false);
@@ -18,30 +19,43 @@ export function MedicineTable() {
 
   const openInPopup = (row) => {
     setRecordForEdit(row);
+    setOpenPopup(true);
+  };
+
+  useEffect(() => {
+    async function queryMedicines() {
+      const medicines = await medicineService.query();
+      setMedicines(medicines);
+    }
+    queryMedicines();
+  }, []);
+
+  const addOrEdit = async (record) => {
     console.log(
       '%c  recordForEdit:',
       'color: white;background: red;',
       recordForEdit
     );
-    setOpenPopup(true);
-  };
-  const addOrEdit = (record) => {
-    console.log('%c  record:', 'color: white;background: red;', record);
-    if (record.id) {
+    if (recordForEdit) {
+      const updatedMedicine = await medicineService.updateMedicine(record);
       const newMedicines = medicines.map((medicine) =>
-        medicine.id === record.id ? record : medicine
+        medicine.medicineName === record.medicineName
+          ? updatedMedicine
+          : medicine
       );
       setMedicines(newMedicines);
       setRecordForEdit(null);
     } else {
-      setMedicines([...medicines, { ...record, id: record.medicineName }]);
+      const newMedicine = await medicineService.addMedicine(record);
+      setMedicines([...medicines, newMedicine]);
     }
     setOpenPopup(false);
   };
 
-  const deleteMedicine = (deleteMedicine) => {
+  const deleteMedicine = async (deleteMedicine) => {
+    await medicineService.removeMedicine(deleteMedicine);
     const newMedicines = medicines.filter(
-      (medicine) => medicine.id !== deleteMedicine.id
+      (medicine) => medicine.medicineName !== deleteMedicine.medicineName
     );
     setMedicines(newMedicines);
   };
@@ -63,7 +77,7 @@ export function MedicineTable() {
           <TableBody>
             {medicines.map((row) => (
               <MedicineRow
-                key={row.name}
+                key={row.medicineName}
                 row={row}
                 openInPopup={openInPopup}
                 deleteMedicine={deleteMedicine}
