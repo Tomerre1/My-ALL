@@ -22,6 +22,7 @@ async function login(userCred) {
 }
 
 async function signup(userCred) {
+    console.log('%c  userCred:', 'color: white;background: red;', userCred);
     const user = await httpService.post('signup/', userCred)
     return user
 }

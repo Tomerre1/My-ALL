@@ -25,7 +25,6 @@ async function removeMedicine(medicine) {
 
 
 async function updateMedicine(medicine) {
-    console.log('%c  medicine from medicineService:', 'color: white;background: red;', medicine);
     const updatedMedicine = await httpService.put('medicine/updatemedicine/', medicine)
     return updatedMedicine
 }
