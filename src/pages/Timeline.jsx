@@ -1,42 +1,3 @@
-html,
-    body {
-    margin: 0;
-    padding: 0;
-    background: #eee;
-}
-.App {
-    font - family: sans - serif;
-    text - align: center;
-    /* display: flex;
-    justify-content: space-around;
-    flex-direction: column; */
-}
-
-/* CUSTOM LINE COLOR */
-/* The line */
-.vertical - timeline::after {
-    background: #424242;
-}
-.done.vertical - timeline.vertical - timeline - custom - line::before {
-    background: #424242;
-}
-.undone.vertical - timeline.vertical - timeline - custom - line::before {
-    background: white;
-}
-/* .vertical-timeline {
-  width: 100% !important;
-} */
-
-.done,
-.undone {
-    margin: unset;
-}
-/* Icon container's border */
-.done.vertical - timeline.vertical - timeline - custom - line
-    .vertical - timeline - element - icon {
-    box - shadow: 0 0 0 4px #1976d2, inset 0 2px 0 rgba(0, 0, 0, 0.08),
-        0 3px 0 4px rgba(0, 0, 0, 0.05);
-}
 
 import React from "react";
 import {
@@ -47,12 +8,11 @@ import SchoolIcon from "@material-ui/icons/School";
 import WorkIcon from "@material-ui/icons/Work";
 import StarIcon from "@material-ui/icons/Star";
 import "react-vertical-timeline-component/style.min.css";
-import "./styles.css";
 
-export default function App() {
+export function Timeline() {
     return (
-        <div className="App">
-            <h1>Hello CodeSandbox</h1>
+        <div className="time-line-container">
+            <h1>מסלול ההתקדמות שלי</h1>
             <VerticalTimeline>
                 <VerticalTimelineElement
                     className="done vertical-timeline-element--work vertical-timeline vertical-timeline-custom-line "

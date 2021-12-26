@@ -1,0 +1,48 @@
+.time-line-container {
+    text-align: center;
+    padding: 20px;
+}
+
+/* CUSTOM LINE COLOR */
+/* The line */
+
+.vertical-timeline::before {
+    background: transparent;
+}
+
+.done.vertical-timeline.vertical-timeline-custom-line::before {
+    background: #424242;
+}
+.undone.vertical-timeline.vertical-timeline-custom-line::before {
+    background: white;
+}
+.vertical-timeline {
+    width: 100% !important;
+}
+
+.done,
+.undone {
+    margin: unset;
+}
+/* Icon container's border */
+.done.vertical-timeline.vertical-timeline-custom-line .vertical-timeline-element-icon {
+    box-shadow: 0 0 0 4px #1976d2, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+}
+
+@media only screen and (min-width: 1170px) {
+    .vertical-timeline.vertical-timeline--two-columns .vertical-timeline-element:not(:last-child)::before {
+        left: 50%;
+        top: 60px;
+        margin-left: -2px;
+    }
+}
+
+.vertical-timeline-element:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 30px;
+    left: 18px;
+    height: calc(100%);
+    width: 4px;
+    background: white;
+}
