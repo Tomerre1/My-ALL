@@ -7,15 +7,17 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 1500,
     timerProgressBar: true,
+    animation: true,
 })
+
 
 export function onLogin(credentials) {
     return (dispatch) => {
         return userService.login(credentials)
             .then(user => {
                 Toast.fire({
-                    animation: true,
-                    title: 'Signed in Successfully'
+                    title: user ? 'התחברות נעשתה בהצלחה' : 'איימיל או סיסמא לא נכונים',
+                    icon: user ? 'success' : 'error',
                 });
                 dispatch({
                     type: 'SET_USER',
@@ -25,15 +27,6 @@ export function onLogin(credentials) {
                 return user;
             })
             .catch(err => {
-                Toast.fire({
-                    animation: true,
-                    title: 'Signed in Successfully',
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                });
                 console.log('Cannot login', err)
             })
     }
@@ -43,6 +36,10 @@ export function onSignup(credentials) {
     return (dispatch) => {
         return userService.signup(credentials)
             .then(user => {
+                Toast.fire({
+                    title: 'ההרשמה בוצעה בהצלחה',
+                    icon: 'success',
+                });
                 dispatch({
                     type: 'SET_USER',
                     user
@@ -59,10 +56,17 @@ export function onSignup(credentials) {
 export function onLogout() {
     return (dispatch) => {
         userService.logout()
-            .then(() => dispatch({
-                type: 'SET_USER',
-                user: null
-            }))
+            .then(() => {
+                Toast.fire({
+                    title: 'התנתקות בוצעה בהצלחה',
+                    icon: 'success',
+                });
+                dispatch({
+                    type: 'SET_USER',
+                    user: null
+                })
+            }
+            )
             .catch(err => {
                 console.log('Cannot logout', err)
             })

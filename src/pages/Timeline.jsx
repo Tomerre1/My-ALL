@@ -48,6 +48,7 @@ export function Timeline(props) {
             confirmButtonText: 'כן',
             cancelButtonText: 'לא'
         })
+        
         if (result.value) {
             const currLevel = path.find(steps => steps.find(step => step.isCurrStep))
             const currLevelIndex = path.findIndex(level => level === currLevel)

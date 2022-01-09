@@ -38,19 +38,12 @@ export function LoginSignup(props) {
 
     if (mail.trim() && password.trim()) {
       if (!isLogin) {
-        await userService.signup({
-          mail,
-          fullname: fullName,
-          password,
-          userType: 'מטופל'
-        });
+        dispatch(onSignup({ mail, fullname: fullName, password, userType: 'מטופל' }));
         props.history.push('/auth');
         resetForm();
         setIsLogin(true);
       } else {
         const user = await dispatch(onLogin({ mail, password }));
-        // const user =  userService.login({ mail, password });
-        console.log('%c  user:', 'color: white;background: red;', user);
         //user successfully logged in
         if (user) {
           console.log('%c  user2:', 'color: white;background: red;', user);
