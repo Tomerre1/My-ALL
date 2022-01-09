@@ -30,12 +30,16 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.116);
     width: 90%;
     gap: 20px;
-    p:last-child {
+    button {
+      cursor: pointer;
+    }
+    button:last-child {
       font-weight: bold;
       color: rgba(0, 0, 0, 0.6);
       font-size: rem(13px);
       line-height: 1.4375em;
       letter-spacing: 0.00938em;
+      background: green;
     }
     @include for-normal-layout {
       .login-container {

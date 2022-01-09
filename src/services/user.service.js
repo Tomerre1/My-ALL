@@ -24,7 +24,11 @@ async function login(userCred) {
 async function signup(userCred) {
     console.log('%c  userCred:', 'color: white;background: red;', userCred);
     const user = await httpService.post('signup/', userCred)
+    console.log('%c  user:', 'color: white;background: red;', user);
     return user
+    // const user = await httpService.get('getalluser/')
+    // console.log('%c  user:', 'color: white;background: red;', user);
+    // return user
 }
 
 async function logout() {

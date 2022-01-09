@@ -2,80 +2,61 @@ import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import { userService } from '../services/user.service';
-import { useEffect } from 'react';
 
 export function LoginSignup(props) {
   const [isLogin, setIsLogin] = useState(true);
-  const userTypes = ['רופא', 'מטופל', 'הורה'];
-
   const validationSchemaRegister = Yup.object().shape({
     fullName: Yup.string()
-      .min(4, 'קצר מדי')
       .max(50, 'ארוך מדי')
       .required('נדרש למלא שם מלא בשדה זה'),
     password: Yup.string()
       .min(8, 'קצר מדי')
       .required('נדרש למלא סיסמא בשדה זה')
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        'סיסמא צריכה להכיל אותיות גדלות,אותיות קטנות,מספרים ותו מיוחד'
-      ),
-    userId: Yup.string()
-      .min(9, 'קצר מדי')
-      .max(9, 'ארוך מדי')
-      .required('נדרש למלא תעודת זהות בשדה זה')
-      .matches(/^\d+$/, ' תעודת זהות הינה רק עם מספרים'),
-    parentId: Yup.string()
-      .min(9, 'קצר מדי')
-      .max(9, 'ארוך מדי')
-      .required('נדרש למלא תעודת זהות בשדה זה')
-      .matches(/^\d+$/, ' תעודת זהות הינה רק עם מספרים'),
-    userType: Yup.string().required('נדרש לבחור בשדה זה'),
+    // .matches(
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+    //   'סיסמא צריכה להכיל אותיות גדלות,אותיות קטנות,מספרים ותו מיוחד'
+    // )
+    ,
+    mail: Yup.string()
+      .email('נדרש להזין אימייל תקין')
+      .required('נדרש למלא אימייל')
   });
-
   const validationSchemaLogin = Yup.object().shape({
     password: Yup.string()
-      .min(8, 'קצר מדי')
-      .required('נדרש למלא סיסמא בשדה זה')
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        'סיסמא צריכה להכיל אותיות גדלות,אותיות קטנות,מספרים ותו מיוחד'
-      ),
-    userId: Yup.string()
-      .min(9, 'קצר מדי')
-      .max(9, 'ארוך מדי')
-      .required('נדרש למלא תעודת זהות בשדה זה')
-      .matches(/^\d+$/, ' תעודת זהות הינה רק עם מספרים'),
+      .required('נדרש למלא סיסמא בשדה זה'),
+    mail: Yup.string()
+      .required('נדרש למלא אימייל')
   });
 
-  useEffect(() => {
-    console.log('%c  isLogin:', 'color: white;background: red;', isLogin);
-  }, [isLogin]);
   const onSubmit = async (values, { resetForm }) => {
-    const { fullName, password, userId, userType, parentId } = values;
-    console.log(
-      '%c  fullName, password, userId, userType, parentId:',
-      'color: white;background: red;'
-    );
-    if (userId.trim() && password.trim()) {
+    const { fullName, password, mail } = values;
+    console.log('%c  fullName, password, mail:', 'color: white;background: red;', fullName, password, mail);
+
+    if (mail.trim() && password.trim()) {
       if (!isLogin) {
         await userService.signup({
+          mail,
           fullname: fullName,
           password,
-          userId,
-          userType,
-          parentId,
+          userType: 'מטופל'
         });
+        props.history.push('/auth');
+        resetForm();
         setIsLogin(true);
       } else {
-        const user = await userService.login({ userId, password });
-        if (user.userType === 'רופא') props.history.push('/doctor');
-        else props.history.push('/');
+        const user = await userService.login({ mail, password });
+        //user successfully logged in
+        if (user) {
+          if (user.userType === 'רופא') props.history.push('/admin');
+          if (user.userType === 'מטופל') props.history.push('/userpage');
+        } else { //wrong password or mail
+          props.history.push('/auth');
+        }
       }
     }
   };
+
   return (
     <div
       className='login-signup  flex column align-center'
@@ -86,11 +67,9 @@ export function LoginSignup(props) {
         <Formik
           onSubmit={onSubmit}
           initialValues={{
-            userId: '',
+            mail: '',
             password: '',
             fullName: '',
-            parentId: '',
-            userType: '',
           }}
           validationSchema={
             isLogin ? validationSchemaLogin : validationSchemaRegister
@@ -100,20 +79,20 @@ export function LoginSignup(props) {
           {(props) => (
             <form className='flex column' onSubmit={props.handleSubmit}>
               <div className='flex column'>
-                <label htmlFor='userId' className='auth-label'>
-                  תעודת זהות
+                <label htmlFor='mail' className='auth-label'>
+                  אימייל
                 </label>
                 <TextField
                   variant='outlined'
-                  placeholder='הכנס תעודת זהות'
-                  id='userId'
-                  name='userId'
+                  placeholder='הכנס אימייל'
+                  id='mail'
+                  name='mail'
                   onChange={props.handleChange}
-                  value={props.values.userId}
+                  value={props.values.mail}
                   inputProps={{ className: 'auth-input' }}
-                  error={props.touched.userId && Boolean(props.errors.userId)}
+                  error={props.touched.mail && Boolean(props.errors.mail)}
                   helperText={
-                    (props.touched.userId && props.errors.userId) || ' '
+                    (props.touched.mail && props.errors.mail) || ' '
                   }
                   FormHelperTextProps={{ style: { textAlign: 'right' } }}
                 />
@@ -121,28 +100,6 @@ export function LoginSignup(props) {
 
               {!isLogin && (
                 <>
-                  <div className='flex column'>
-                    <label htmlFor='parentId' className='auth-label'>
-                      תעודת זהות הורה
-                    </label>
-                    <TextField
-                      variant='outlined'
-                      placeholder='הכנס תעודת זהות של הורה'
-                      id='parentId'
-                      name='parentId'
-                      onChange={props.handleChange}
-                      value={props.values.parentId}
-                      inputProps={{ className: 'auth-input' }}
-                      error={
-                        props.touched.parentId && Boolean(props.errors.parentId)
-                      }
-                      helperText={
-                        (props.touched.parentId && props.errors.parentId) || ' '
-                      }
-                      FormHelperTextProps={{ style: { textAlign: 'right' } }}
-                    />
-                  </div>
-
                   <div className='flex column'>
                     <label htmlFor='fullName' className='auth-label'>
                       שם מלא
@@ -163,34 +120,6 @@ export function LoginSignup(props) {
                       }
                       FormHelperTextProps={{ style: { textAlign: 'right' } }}
                     />
-                  </div>
-
-                  <div className='flex column'>
-                    <label htmlFor='userType' className='auth-label'>
-                      בחירת סוג משתמש
-                    </label>
-                    <TextField
-                      variant='outlined'
-                      select
-                      id='userType'
-                      name='userType'
-                      onChange={props.handleChange}
-                      value={props.values.userType}
-                      inputProps={{ className: 'auth-input' }}
-                      error={
-                        props.touched.userType && Boolean(props.errors.userType)
-                      }
-                      helperText={
-                        (props.touched.userType && props.errors.userType) || ' '
-                      }
-                      FormHelperTextProps={{ style: { textAlign: 'right' } }}
-                    >
-                      {userTypes.map((userType) => (
-                        <MenuItem key={userType} value={userType}>
-                          {userType}
-                        </MenuItem>
-                      ))}
-                    </TextField>
                   </div>
                 </>
               )}
@@ -218,22 +147,15 @@ export function LoginSignup(props) {
                 />
               </div>
               <button type='submit' className='login-submit'>
-                {isLogin ? 'התחבר' : 'הרשם'}
+                {isLogin ? 'התחברות' : 'הרשמה'}
               </button>
+              {isLogin && <button type='button' className='login-submit' onClick={() => { setIsLogin(!isLogin); props.resetForm() }}>
+                הרשמה
+              </button>}
             </form>
           )}
         </Formik>
-
-        <p onClick={() => setIsLogin(!isLogin)}>
-          {isLogin ? 'הרשמה...' : 'התחברות'}
-        </p>
       </div>
     </div>
   );
 }
-// const mapDispatchToProps = {
-//   onLogin,
-//   onSignup,
-// };
-// export const LoginSignup = connect(null, null)(_LoginSignup);
-// export const LoginSignup = connect(null, mapDispatchToProps)(_LoginSignup);

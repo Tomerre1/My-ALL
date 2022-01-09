@@ -14,7 +14,7 @@ const routes = [
         isExact: true
     },
     {
-        path: '/doctor',
+        path: '/admin',
         component: MedicineTable,
         isExact: true
     },

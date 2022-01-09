@@ -1,5 +1,5 @@
 
-const TOKEN = '5cbce175d45037d379e125dd7a65104063e8b7a5'
+const TOKEN = 'c112c22ebd6500f20bf91f0c992f56667071a540'
 
 const BASE_URL = process.env.NODE_ENV === 'production'
     ? '/api/'
@@ -24,6 +24,8 @@ async function ajax(endpoint, method = 'GET', data = null) {
     try {
         const res = await fetch(`${BASE_URL}${endpoint}`, {
             method,
+            mode: 'cors',
+
             headers: {
                 'Authorization': `Token ${TOKEN}`,
                 'Content-Type': 'application/json',
@@ -38,7 +40,7 @@ async function ajax(endpoint, method = 'GET', data = null) {
         console.dir(err)
         if (err.response && (err.response.status === 400 || err.response.status === 401)) {
             sessionStorage.clear();
-            window.location.assign('/')
+            window.location.assign('/auth')
         }
         throw err
     }
