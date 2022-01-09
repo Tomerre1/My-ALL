@@ -17,25 +17,21 @@ async function query() {
 
 async function login(userCred) {
     const user = await httpService.post('login/', userCred)
-    if (user) return _saveLocalUser(user)
-
+    _saveLocalUser(user ? user : {})
 }
 
 async function signup(userCred) {
-    console.log('%c  userCred:', 'color: white;background: red;', userCred);
     const user = await httpService.post('signup/', userCred)
-    console.log('%c  user:', 'color: white;background: red;', user);
     return user
-    // const user = await httpService.get('getalluser/')
-    // console.log('%c  user:', 'color: white;background: red;', user);
-    // return user
 }
 
 async function logout() {
+    _saveLocalUser({})
     return await httpService.post('logout/')
 }
 
 function _saveLocalUser(user) {
+    delete user.password
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
