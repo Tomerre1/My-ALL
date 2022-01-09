@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router'
 import routes from './routes'
-import { AppHeader } from './cmps/AppHeader'
+import { AppHeader } from './cmps/Header/AppHeader'
 
 export class RootCmp extends React.Component {
     render() {
