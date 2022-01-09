@@ -12,7 +12,6 @@
     }
 }
 
-
 @mixin for-normal-layout {
     @media (min-width: $narrow-breakpoint + 40) {
         @content;

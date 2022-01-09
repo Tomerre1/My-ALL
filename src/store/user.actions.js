@@ -1,18 +1,39 @@
 import { userService } from "../services/user.service.js";
-import { showErrorMsg } from '../services/event-bus.service.js'
+import Swal from 'sweetalert2'
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+})
 
 export function onLogin(credentials) {
     return (dispatch) => {
         return userService.login(credentials)
             .then(user => {
+                Toast.fire({
+                    animation: true,
+                    title: 'Signed in Successfully'
+                });
                 dispatch({
                     type: 'SET_USER',
                     user
                 })
+
                 return user;
             })
             .catch(err => {
-                showErrorMsg('Cannot login')
+                Toast.fire({
+                    animation: true,
+                    title: 'Signed in Successfully',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
                 console.log('Cannot login', err)
             })
     }
@@ -29,7 +50,6 @@ export function onSignup(credentials) {
                 return user;
             })
             .catch(err => {
-                showErrorMsg('Cannot signup')
                 console.log('Cannot signup', err)
             })
 
@@ -44,7 +64,6 @@ export function onLogout() {
                 user: null
             }))
             .catch(err => {
-                showErrorMsg('Cannot logout')
                 console.log('Cannot logout', err)
             })
     }
@@ -58,7 +77,6 @@ export function onEditUser(user) {
                 user
             }))
             .catch(err => {
-                showErrorMsg('Cannot update')
                 console.log('Cannot update user', err)
             })
     }

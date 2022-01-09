@@ -27,6 +27,7 @@ async function signup(userCred) {
 }
 
 async function logout() {
+    console.log('%c  logout:', 'color: white;background: red;');
     _saveLocalUser({})
     return await httpService.post('logout/')
 }

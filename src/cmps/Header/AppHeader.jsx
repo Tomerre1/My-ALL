@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Burger } from './Burger.jsx'
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import { login, onLogout } from '../../store/user.actions'
 
 // import { onLogin, onLogout, onSignup } from '../store/user.actions.js'
 // import PropTypes from 'prop-types'
+
 import smiling from '../../assets/img/smiling.png'
 
 export function AppHeader(props) {
@@ -14,6 +16,7 @@ export function AppHeader(props) {
         open: false
     })
     const user = useSelector(state => state.userReducer.user)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (window.innerWidth < 780) {
@@ -25,15 +28,10 @@ export function AppHeader(props) {
         }
     }, [])
 
-    // onLogin = (credentials) => {
-    //     this.props.onLogin(credentials)
-    // }
-    // onSignup = (credentials) => {
-    //     this.props.onSignup(credentials)
-    // }
-    // onLogout = () => {
-    //     this.props.onLogout()
-    // }
+    const logout = () => {
+        dispatch(onLogout())
+        toggleOpen()
+    }
 
     const toggleOpen = () => {
         const { open, isMobile } = state
@@ -51,8 +49,7 @@ export function AppHeader(props) {
                 <div className="logo">
                     <Link to="/"><img src={smiling} alt='smiley logo' /></Link>
                 </div>
-                {/* <Burger user={user} onLogout={this.onLogout} open={state.open} toggleOpen={toggleOpen} /> */}
-                <Burger user={user} open={state.open} toggleOpen={toggleOpen} />
+                <Burger user={user} open={state.open} onLogout={logout} toggleOpen={toggleOpen} />
             </div>
         </>
     )

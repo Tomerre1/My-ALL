@@ -3,9 +3,12 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import TextField from '@material-ui/core/TextField';
 import { userService } from '../services/user.service';
+import { onLogin, onSignup } from './../store/user.actions'
+import { useSelector, useDispatch } from 'react-redux'
 
 export function LoginSignup(props) {
   const [isLogin, setIsLogin] = useState(true);
+  const dispatch = useDispatch();
   const validationSchemaRegister = Yup.object().shape({
     fullName: Yup.string()
       .max(50, 'ארוך מדי')
@@ -45,7 +48,8 @@ export function LoginSignup(props) {
         resetForm();
         setIsLogin(true);
       } else {
-        const user = await userService.login({ mail, password });
+        const user = await dispatch(onLogin({ mail, password }));
+        // const user =  userService.login({ mail, password });
         console.log('%c  user:', 'color: white;background: red;', user);
         //user successfully logged in
         if (user) {
