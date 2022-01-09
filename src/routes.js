@@ -3,13 +3,13 @@ import { LoginSignup } from './pages/LoginSignup'
 import { MedicineTable } from './cmps/Doctor/Medicine/MedicineTable'
 import { Timeline } from './pages/Timeline.jsx'
 const routes = [
+    // {
+    //     path: '/',
+    //     component: AppPage,
+    //     isExact: true
+    // },
     {
         path: '/',
-        component: AppPage,
-        isExact: true
-    },
-    {
-        path: '/auth',
         component: LoginSignup,
         isExact: true
     },
@@ -19,7 +19,7 @@ const routes = [
         isExact: true
     },
     {
-        path: '/progress',
+        path: '/timeline',
         component: Timeline,
         isExact: true
     },

@@ -46,10 +46,12 @@ export function LoginSignup(props) {
         setIsLogin(true);
       } else {
         const user = await userService.login({ mail, password });
+        console.log('%c  user:', 'color: white;background: red;', user);
         //user successfully logged in
         if (user) {
+          console.log('%c  user2:', 'color: white;background: red;', user);
           if (user.userType === 'רופא') props.history.push('/admin');
-          if (user.userType === 'מטופל') props.history.push('/userpage');
+          if (user.userType === 'מטופל') props.history.push('/timeline');
         } else { //wrong password or mail
           props.history.push('/auth');
         }

@@ -18,6 +18,7 @@ async function query() {
 async function login(userCred) {
     const user = await httpService.post('login/', userCred)
     _saveLocalUser(user ? user : {})
+    return user
 }
 
 async function signup(userCred) {
