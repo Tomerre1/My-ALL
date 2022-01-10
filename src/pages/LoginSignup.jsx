@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import TextField from '@material-ui/core/TextField';
-import { userService } from '../services/user.service';
 import { onLogin, onSignup } from './../store/user.actions'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 export function LoginSignup(props) {
   const [isLogin, setIsLogin] = useState(true);
@@ -16,10 +15,6 @@ export function LoginSignup(props) {
     password: Yup.string()
       .min(8, 'קצר מדי')
       .required('נדרש למלא סיסמא בשדה זה')
-    // .matches(
-    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-    //   'סיסמא צריכה להכיל אותיות גדלות,אותיות קטנות,מספרים ותו מיוחד'
-    // )
     ,
     mail: Yup.string()
       .email('נדרש להזין אימייל תקין')
