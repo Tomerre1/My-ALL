@@ -46,9 +46,9 @@ export function LoginSignup(props) {
         const user = await dispatch(onLogin({ mail, password }));
         //user successfully logged in
         if (user) {
-          console.log('%c  user2:', 'color: white;background: red;', user);
-          if (user.userType === 'רופא') props.history.push('/admin');
-          if (user.userType === 'מטופל') props.history.push('/timeline');
+          console.log('%c  user:', 'color: white;background: red;', user);
+          if (user.userType === 'אדמין') props.history.push('/');
+          if (user.userType === 'מטופל') props.history.push('/');
         } else { //wrong password or mail
           props.history.push('/auth');
         }
