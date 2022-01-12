@@ -12,7 +12,7 @@ import MedicationIcon from '@mui/icons-material/Medication';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import { timelineService } from '../services/timeline.service';
 import Swal from 'sweetalert2'
-
+import { Footer } from '../cmps/Footer/Footer'
 import "react-vertical-timeline-component/style.min.css";
 import { useSelector } from "react-redux";
 
@@ -45,6 +45,10 @@ export function Timeline(props) {
         queryUserTimeline();
         return () => { }
     }, [])
+
+    const backHome = () => {
+        props.history.push('/');
+    }
 
     const onNextStep = async () => {
         const result = await Swal.fire({
@@ -137,46 +141,45 @@ export function Timeline(props) {
 
 
     return (
-        <div className="time-line-container">
-            <h1>מסלול ההתקדמות {currUser.fullname}</h1>
-            <div>
-                <button onClick={onNextStep}>תחנה קדימה</button>
-                <button onClick={onPrevStep}>תחנה אחורה</button>
-            </div>
-            <VerticalTimeline>
-                {path.map((steps, stepIdx) => (
-                    steps.map((step, idx) => {
-                        if (idx === 0) {
-                            //show level
+        <>
+            <div className="time-line-container">
+                <h1>מסלול ההתקדמות {currUser.fullname}</h1>
+                <VerticalTimeline>
+                    {path.map((steps, stepIdx) => (
+                        steps.map((step, idx) => {
+                            if (idx === 0) {
+                                //show level
+                                return <VerticalTimelineElement
+                                    key={step.description + idx}
+                                    className={`${(step.isDone) ? 'done' : 'undone'} vertical-timeline vertical-timeline-custom-line `}
+                                    contentStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
+                                    contentArrowStyle={{ borderRight: "7px solid  rgb(33, 150, 243)" }}
+                                    iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
+                                    icon={<LocalHospitalIcon />}
+                                >
+                                    <h3 className="vertical-timeline-element-title">שלב {step.levelNumber}</h3>
+                                    <p style={{ color: 'white' }}>{step.description}</p>
+                                </VerticalTimelineElement>
+                            }
+                            //show step iscurrentstep
                             return <VerticalTimelineElement
                                 key={step.description + idx}
-                                className={`${(step.isDone) ? 'done' : 'undone'} vertical-timeline vertical-timeline-custom-line `}
-                                contentStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-                                contentArrowStyle={{ borderRight: "7px solid  rgb(33, 150, 243)" }}
-                                iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-                                icon={<LocalHospitalIcon />}
+                                className={`${step.isDone || isLastStep ? 'done' : 'undone'} ${((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? '' : `vertical-timeline vertical-timeline-custom-line  `} ${isLastStep && ((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? 'laststep vertical-timeline' : ''}`}
+                                date={new Date(step.date).toLocaleDateString('he-IL')}
+                                iconStyle={{ background: "rgb(233, 30, 99)", color: "#fff" }}
+                                contentStyle={{ background: "rgb(233, 30, 99)", color: "#fff" }}
+                                contentArrowStyle={{ borderRight: "7px solid  rgb(233, 30, 99)" }}
+                                icon={step.isCurrStep ? <InsertEmoticonIcon /> : (stepIdx === path.length - 1) && (steps.length - 1 === idx) ? <StarIcon /> : <MedicationIcon />}
                             >
-                                <h3 className="vertical-timeline-element-title">שלב {step.levelNumber}</h3>
-                                <p style={{ color: 'white' }}>{step.description}</p>
+                                <h4 className="vertical-timeline-element-subtitle">מספר תחנה {step.stepNumber}</h4>
+                                <p>{step.description}</p>
                             </VerticalTimelineElement>
                         }
-                        //show step iscurrentstep
-                        return <VerticalTimelineElement
-                            key={step.description + idx}
-                            className={`${step.isDone || isLastStep ? 'done' : 'undone'} ${((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? '' : `vertical-timeline vertical-timeline-custom-line  `} ${isLastStep && ((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? 'laststep vertical-timeline' : ''}`}
-                            date={new Date(step.date).toLocaleDateString('he-IL')}
-                            iconStyle={{ background: "rgb(233, 30, 99)", color: "#fff" }}
-                            contentStyle={{ background: "rgb(233, 30, 99)", color: "#fff" }}
-                            contentArrowStyle={{ borderRight: "7px solid  rgb(233, 30, 99)" }}
-                            icon={step.isCurrStep ? <InsertEmoticonIcon /> : (stepIdx === path.length - 1) && (steps.length - 1 === idx) ? <StarIcon /> : <MedicationIcon />}
-                        >
-                            <h4 className="vertical-timeline-element-subtitle">מספר תחנה {step.stepNumber}</h4>
-                            <p>{step.description}</p>
-                        </VerticalTimelineElement>
-                    }
-                    )
-                ))}
-            </VerticalTimeline>
-        </div >
+                        )
+                    ))}
+                </VerticalTimeline>
+            </div >
+            <Footer onNextStep={onNextStep} onPrevStep={onPrevStep} backHome={backHome} />
+        </>
     );
 }

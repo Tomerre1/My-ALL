@@ -1,11 +1,11 @@
 .footer-layout.full.desktop-footer {
   display: none;
-  border-top: 1px solid $color-form-border;
-  border-bottom: 1px solid $color-form-border;
+  border-top: 1px solid #727989;
+  border-bottom: 1px solid #727989;
 
-  @include larger-than-tablet {
-    display: grid;
-  }
+  // @include for-normal-layout {
+  //   display: grid;
+  // }
 }
 
 .footer-layout.full.mobile-footer {
@@ -15,16 +15,16 @@
   width: 100%;
   background-color: #fff;
   display: flex;
-  border-top: 1px solid $color-form-border;
-  border-bottom: 1px solid $color-form-border;
+  border-top: 1px solid #727989;
+  border-bottom: 1px solid #727989;
 
   button {
     flex-grow: 1;
   }
 
-  @include larger-than-tablet {
-    display: none;
-  }
+  // @include for-normal-layout {
+  //   display: none;
+  // }
 }
 
 .main-footer {
@@ -60,11 +60,11 @@
     .content {
       p.p1 {
         font-weight: 500;
-        color: $color-text;
+        color: #727989;
         opacity: unset;
       }
       p.p4 {
-        color: $color-text-system-msg;
+        color: #727989;
       }
       display: flex;
       flex-direction: column;
@@ -72,18 +72,18 @@
     }
   }
 
-  @include larger-than-large {
-    flex-direction: row;
-    justify-content: space-between;
+  // @include for-normal-layout {
+  //   flex-direction: row;
+  //   justify-content: space-between;
 
-    .chat-card {
-      min-width: 40%;
-    }
+  //   .chat-card {
+  //     min-width: 40%;
+  //   }
 
-    .common-footer {
-      width: 60%;
-    }
-  }
+  //   .common-footer {
+  //     width: 60%;
+  //   }
+  // }
 }
 
 .footer-end {
@@ -113,7 +113,7 @@
   p {
     font-family: "Almoni";
   }
-  box-shadow: 0px 5px 40px -6px $color-text;
+  box-shadow: 0px 5px 40px -6px #727989;
   .btn-icon-footer {
     background-color: #fff;
     border: none;
@@ -134,7 +134,7 @@
       width: 14px;
       aspect-ratio: 1;
       border-radius: 50%;
-      background-color: $color-blue;
+      background-color: #727989;
       color: white;
     }
   }
