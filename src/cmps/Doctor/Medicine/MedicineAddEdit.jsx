@@ -1,42 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import Controls from './controls/Controls';
 
-export function MedicineAddEdit({ addOrEdit, recordForEdit, setRecordForEdit, }) {
+export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
+  const initialFValues = {
+    medicineName: '',
+    description: '',
+    foodOrNot: 'ללא צום',
+    count: '',
+    level: [],
+    badInfluence: [],
+  };
+  const [values, setValues] = useState(initialFValues);
+  const [errors, setErrors] = useState({});
 
-
+  const level = [{ id: 1, title: 'שלב א' }, { id: 2, title: 'שלב ב' }, { id: 3, title: 'שלב ג' }, { id: 4, title: 'שלב ד' }, { id: 5, title: 'שלב ה' }];
+  const badInfluenceOptions = [{ id: 'הקאות', title: 'הקאות' }, { id: 'כאב בטן', title: 'כאב בטן' }, { id: 'כאב ראש', title: 'כאב ראש' }, { id: 'חום', title: 'חום' }]
+  const genderItems = [
+    { id: 'ללא צום', title: 'ללא צום' },
+    { id: 'צום', title: 'צום' },
+  ];
 
   const handleChangeMultiSelect = (event) => {
     const { name, value } = event.target;
-    console.log('%c  name:', 'color: white;background: red;', name);
-    console.log('%c  value:', 'color: white;background: red;', value);
     setValues({
       ...values,
       [name]: typeof value === 'string' ? value.split(',') : value
     });
   };
 
-  const initialFValues = {
-    medicineName: '',
-    description: '',
-    badInfluence: '',
-    foodOrNot: 'ללא צום',
-    level: '',
-    count: '',
-    selectedDays: [],
-    selectedBadInfluences: [],
-  };
-  const genderItems = [
-    { id: 'ללא צום', title: 'ללא צום' },
-    { id: 'צום', title: 'צום' },
-  ];
-  const daysOptions = [1, 2, 3, 4, 5, 6, 7]
-
-  const [values, setValues] = useState(initialFValues);
-  const [errors, setErrors] = useState({});
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-
     setValues({
       ...values,
       [name]: value,
@@ -50,25 +44,31 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit, setRecordForEdit, })
   };
 
   const validate = (fieldValues = values) => {
+    console.log('%c  fieldValues:', 'color: white;background: red;', fieldValues);
     let temp = { ...errors };
+    console.log('%c  errors:', 'color: white;background: red;', errors);
     if ('medicineName' in fieldValues)
-      temp.medicineName = fieldValues.medicineName ? '' : 'נדרש למלא שם תרופה';
+      temp.medicineName = fieldValues.medicineName.length > 0
+        ? ''
+        : 'נדרש למלא שם תרופה';
     if ('description' in fieldValues)
-      temp.description = fieldValues.description ? '' : 'נדרש למלא תיאור תרופה';
+      temp.description = fieldValues.description.length > 0
+        ? ''
+        : 'נדרש למלא תיאור תרופה';
     if ('badInfluence' in fieldValues)
-      temp.description = fieldValues.badInfluence
+      temp.badInfluence = fieldValues.badInfluence.length > 0
         ? ''
         : 'נדרש למלא תופעות לוואי';
-    // if ('email' in fieldValues)
-    //     temp.email = (/$^|.+@.+..+/).test(fieldValues.email) ? "" : "Email is not valid."
-    // if ('mobile' in fieldValues)
-    //     temp.mobile = fieldValues.mobile.length > 9 ? "" : "Minimum 10 numbers required."
     if ('level' in fieldValues)
       temp.level =
-        fieldValues.level.length != 0 ? '' : 'This field is required.';
+        fieldValues.level.length > 0
+          ? ''
+          : 'נדרש למלא שלב תרופה.'
     if ('count' in fieldValues)
-      temp.level =
-        fieldValues.count.length != 0 ? '' : 'This field is required.';
+      temp.count =
+        fieldValues.count.length > 0
+          ? ''
+          : 'נדרש למלא מינון תרופה.'
     setErrors({
       ...temp,
     });
@@ -111,40 +111,28 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit, setRecordForEdit, })
         error={errors.description}
       />
       <Controls.Select
-        name='selectedDays'
+        name='level'
         label='שלב תרופה'
-        value={values.selectedDays}
+        value={values.level}
         onChange={handleChangeMultiSelect}
-        options={[
-          { id: 1, title: 'שלב 1' },
-          { id: 2, title: 'שלב 2' },
-          { id: 3, title: 'שלב 3' },
-          { id: 4, title: 'שלב 4' },
-        ]}
+        options={level}
         error={errors.level}
       />
-      {/* <Controls.Select
-        name='count'
-        label='מינון תרופה'
-        value={values.count}
-        onChange={handleInputChange}
-        options={[
-          { id: 100, title: 100 },
-          { id: 200, title: 200 },
-          { id: 300, title: 300 },
-          { id: 400, title: 400 },
-        ]}
-        error={errors.count}
-      /> */}
-      <Controls.Input
+      <Controls.Select
         name='badInfluence'
         label='תופעות לוואי'
-        rows={5}
         value={values.badInfluence}
-        onChange={handleInputChange}
+        onChange={handleChangeMultiSelect}
+        options={badInfluenceOptions}
         error={errors.badInfluence}
       />
-
+      <Controls.Input
+        name='count'
+        label='מינון'
+        value={values.count}
+        onChange={handleInputChange}
+        error={errors.count}
+      />
       <Controls.RadioGroup
         name='foodOrNot'
         value={values.foodOrNot}

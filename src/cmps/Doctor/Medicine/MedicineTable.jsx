@@ -31,6 +31,7 @@ export function MedicineTable() {
   }, []);
 
   const addOrEdit = async (record) => {
+    console.log('%c  record:', 'color: white;background: red;', record);
     if (recordForEdit) {
       const updatedMedicine = await medicineService.updateMedicine(record);
       const newMedicines = medicines.map((medicine) =>
