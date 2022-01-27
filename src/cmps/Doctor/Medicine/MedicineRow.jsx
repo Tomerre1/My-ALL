@@ -28,7 +28,7 @@ export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
         <TableCell component='th' scope='row'>
           {row.medicineName}
         </TableCell>
-        <TableCell align='right'>{row.level}</TableCell>
+        <TableCell align='right'>{row.level.join(', ')}</TableCell>
         <TableCell align='right'>{row.count}</TableCell>
         <TableCell align='right'>{row.foodOrNot}</TableCell>
         <TableCell align='right'>
@@ -52,7 +52,9 @@ export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
               <Typography variant='h6' gutterBottom component='div'>
                 תופעות לוואי לתרופה
               </Typography>
-              <p>{row.badInfluence}</p>
+              {row.badInfluence.map((item) => (
+                <p key={item.id}>{item}</p>
+              ))}
             </Box>
           </Collapse>
         </TableCell>
