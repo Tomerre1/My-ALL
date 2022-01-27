@@ -4,20 +4,19 @@ import {
     VerticalTimeline,
     VerticalTimelineElement
 } from "react-vertical-timeline-component";
-// import SchoolIcon from "@material-ui/icons/School";
 import StarIcon from "@material-ui/icons/Star";
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
-// import InfoIcon from '@mui/icons-material/Info';
 import MedicationIcon from '@mui/icons-material/Medication';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import { timelineService } from '../services/timeline.service';
 import Swal from 'sweetalert2'
-import { Footer } from '../cmps/Footer/Footer'
+import { TimelineFooter } from '../cmps/Footer/TimelineFooter'
 import "react-vertical-timeline-component/style.min.css";
 import { useSelector } from "react-redux";
 
 export function Timeline(props) {
     const [path, setPath] = useState([])
+    const [levelsOnlyPath, setLevelsOnlyPath] = useState([])
     const currUser = useSelector(state => state.userReducer.user)
     const [isLastStep, setIsLastStep] = useState(false)
 
@@ -45,10 +44,6 @@ export function Timeline(props) {
         queryUserTimeline();
         return () => { }
     }, [])
-
-    const backHome = () => {
-        props.history.push('/');
-    }
 
     const onNextStep = async () => {
         const result = await Swal.fire({
@@ -139,19 +134,31 @@ export function Timeline(props) {
         })
     }
 
+    const onZoomOut = () => {
+        const pathLevelsOnly = path.map(arr => arr.filter(level => !level.stepNumber))
+        setLevelsOnlyPath(pathLevelsOnly)
+    }
+
+    const onZoomIn = () => {
+        setLevelsOnlyPath([])
+    }
+
+
+    const userPath = !levelsOnlyPath.length ? path : levelsOnlyPath
 
     return (
         <>
             <div className="time-line-container">
                 <h1>מסלול ההתקדמות {currUser.fullname}</h1>
                 <VerticalTimeline>
-                    {path.map((steps, stepIdx) => (
+                    {userPath.map((steps, stepIdx) => (
                         steps.map((step, idx) => {
                             if (idx === 0) {
                                 //show level
                                 return <VerticalTimelineElement
                                     key={step.description + idx}
-                                    className={`${(step.isDone) ? 'done' : 'undone'} vertical-timeline vertical-timeline-custom-line `}
+                                    className={`${(step.isDone) ? 'done' : 'undone'} vertical-timeline ${stepIdx === userPath.length - 1 && idx === 0 && levelsOnlyPath.length > 0 ? '' : 'vertical-timeline-custom-line '}`
+                                    }
                                     contentStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
                                     contentArrowStyle={{ borderRight: "7px solid  rgb(33, 150, 243)" }}
                                     iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
@@ -164,7 +171,11 @@ export function Timeline(props) {
                             //show step iscurrentstep
                             return <VerticalTimelineElement
                                 key={step.description + idx}
-                                className={`${step.isDone || isLastStep ? 'done' : 'undone'} ${((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? '' : `vertical-timeline vertical-timeline-custom-line  `} ${isLastStep && ((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? 'laststep vertical-timeline' : ''}`}
+                                className={`
+                                ${step.isDone || isLastStep ? 'done' : 'undone'} 
+                                ${((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? '' : `vertical-timeline vertical-timeline-custom-line  `} 
+                                ${isLastStep && ((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? 'laststep' : ''}`
+                                }
                                 date={new Date(step.date).toLocaleDateString('he-IL')}
                                 iconStyle={{ background: "rgb(233, 30, 99)", color: "#fff" }}
                                 contentStyle={{ background: "rgb(233, 30, 99)", color: "#fff" }}
@@ -179,7 +190,13 @@ export function Timeline(props) {
                     ))}
                 </VerticalTimeline>
             </div >
-            <Footer onNextStep={onNextStep} onPrevStep={onPrevStep} backHome={backHome} />
+            <TimelineFooter
+                onNextStep={onNextStep}
+                onPrevStep={onPrevStep}
+                isZoomIn={levelsOnlyPath.length === 0}
+                onZoomOut={onZoomOut}
+                onZoomIn={onZoomIn}
+            />
         </>
     );
 }
