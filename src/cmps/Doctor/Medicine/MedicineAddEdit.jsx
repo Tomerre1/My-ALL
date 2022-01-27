@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Controls from './controls/Controls';
 
-export function MedicineAddEdit({
-  addOrEdit,
-  recordForEdit,
-  setRecordForEdit,
-}) {
+export function MedicineAddEdit({ addOrEdit, recordForEdit, setRecordForEdit, }) {
+
+
+
+  const handleChangeMultiSelect = (event) => {
+    const { name, value } = event.target;
+    console.log('%c  name:', 'color: white;background: red;', name);
+    console.log('%c  value:', 'color: white;background: red;', value);
+    setValues({
+      ...values,
+      [name]: typeof value === 'string' ? value.split(',') : value
+    });
+  };
+
   const initialFValues = {
     medicineName: '',
     description: '',
@@ -13,17 +22,21 @@ export function MedicineAddEdit({
     foodOrNot: 'ללא צום',
     level: '',
     count: '',
+    selectedDays: [],
+    selectedBadInfluences: [],
   };
   const genderItems = [
     { id: 'ללא צום', title: 'ללא צום' },
     { id: 'צום', title: 'צום' },
   ];
+  const daysOptions = [1, 2, 3, 4, 5, 6, 7]
 
   const [values, setValues] = useState(initialFValues);
   const [errors, setErrors] = useState({});
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
     setValues({
       ...values,
       [name]: value,
@@ -98,19 +111,19 @@ export function MedicineAddEdit({
         error={errors.description}
       />
       <Controls.Select
-        name='level'
+        name='selectedDays'
         label='שלב תרופה'
-        value={values.level}
-        onChange={handleInputChange}
+        value={values.selectedDays}
+        onChange={handleChangeMultiSelect}
         options={[
-          { id: 'א', title: 'א' },
-          { id: 'ב', title: 'ב' },
-          { id: 'ג', title: 'ג' },
-          { id: 'ד', title: 'ד' },
+          { id: 1, title: 'שלב 1' },
+          { id: 2, title: 'שלב 2' },
+          { id: 3, title: 'שלב 3' },
+          { id: 4, title: 'שלב 4' },
         ]}
         error={errors.level}
       />
-      <Controls.Select
+      {/* <Controls.Select
         name='count'
         label='מינון תרופה'
         value={values.count}
@@ -122,7 +135,7 @@ export function MedicineAddEdit({
           { id: 400, title: 400 },
         ]}
         error={errors.count}
-      />
+      /> */}
       <Controls.Input
         name='badInfluence'
         label='תופעות לוואי'

@@ -1,20 +1,38 @@
 import React from 'react'
 import { FormControl, InputLabel, Select as MuiSelect, MenuItem, FormHelperText } from '@material-ui/core';
+import Chip from '@mui/material/Chip';
 
 export default function Select(props) {
-
-    const { name, label, value,error=null, onChange, options } = props;
-
+    const { name, label, value, error = null, onChange, options } = props;
+    const MenuProps = {
+        anchorOrigin: {
+            vertical: "bottom",
+            horizontal: "left"
+        },
+        transformOrigin: {
+            vertical: "top",
+            horizontal: "left"
+        },
+        getContentAnchorEl: null
+    }
     return (
         <FormControl variant="outlined"
-        {...(error && {error:true})}>
+            {...(error && { error: true })}>
             <InputLabel>{label}</InputLabel>
             <MuiSelect
+                renderValue={(selected) => (
+                    <div>
+                        {selected.map((value) => (
+                            <Chip key={value} label={value} />
+                        ))}
+                    </div>
+                )}
+                multiple
                 label={label}
                 name={name}
                 value={value}
+                MenuProps={MenuProps}
                 onChange={onChange}>
-                <MenuItem value="">None</MenuItem>
                 {
                     options.map(
                         item => (<MenuItem key={item.id} value={item.id}>{item.title}</MenuItem>)
@@ -23,5 +41,6 @@ export default function Select(props) {
             </MuiSelect>
             {error && <FormHelperText>{error}</FormHelperText>}
         </FormControl>
+
     )
 }
