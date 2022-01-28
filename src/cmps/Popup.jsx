@@ -21,7 +21,9 @@ export function Popup({ title, children, openPopup, setOpenPopup }) {
               setOpenPopup(false);
             }}
           >
-            <CloseIcon />
+            <CloseIcon onClick={() => {
+              setOpenPopup(false);
+            }} />
           </Button>
         </div>
       </DialogTitle>

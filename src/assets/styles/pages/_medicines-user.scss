@@ -1,59 +1,61 @@
-* {
-    box-sizing: border-box;
-}
-:root {
-    --switches-bg-color: goldenrod;
-    --switches-label-color: white;
-    --switch-bg-color: white;
-    --switch-text-color: goldenrod;
-}
-
-/* a container - decorative, not required */
 .container {
     padding: 1rem;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
+    gap: 20px;
+    h1 {
+        text-align: center;
+        margin: 0;
+        margin-bottom: 40px;
+        font: bold 60px "Open Sans", sans-serif;
+        color: $clr1;
+        text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa,
+            0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3),
+            0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
+            0 20px 20px rgba(0, 0, 0, 0.15);
+    }
     p {
         margin-top: 2rem;
         font-size: 0.75rem;
         text-align: center;
     }
+    --width: 3rem;
+    @include for-narrow-layout {
+        --width: 6rem;
+    }
+
     .switches-container {
-        width: 21rem;
+        width: calc(var(--width) * 7);
         position: relative;
         display: flex;
         padding: 0;
         position: relative;
-        background: var(--switches-bg-color);
-        line-height: 3rem;
-        border-radius: 3rem;
-        margin-left: auto;
-        margin-right: auto;
+        background: $clr1;
+        line-height: var(--width);
+        border-radius: var(--width);
+
         & input {
             visibility: hidden;
             position: absolute;
             top: 0;
             &:nth-of-type(1):checked ~ .switch-wrapper {
-                transform: translateX(0rem);
+                transform: translateX(calc(var(--width) * 0));
             }
             &:nth-of-type(2):checked ~ .switch-wrapper {
-                transform: translateX(3rem);
+                transform: translateX(calc(var(--width) * 1));
             }
             &:nth-of-type(3):checked ~ .switch-wrapper {
-                transform: translateX(6rem);
+                transform: translateX(calc(var(--width) * 2));
             }
             &:nth-of-type(4):checked ~ .switch-wrapper {
-                transform: translateX(9rem);
+                transform: translateX(calc(var(--width) * 3));
             }
             &:nth-of-type(5):checked ~ .switch-wrapper {
-                transform: translateX(12rem);
+                transform: translateX(calc(var(--width) * 4));
             }
             &:nth-of-type(6):checked ~ .switch-wrapper {
-                transform: translateX(15rem);
+                transform: translateX(calc(var(--width) * 5));
             }
             &:nth-of-type(7):checked ~ .switch-wrapper {
-                transform: translateX(18rem);
+                transform: translateX(calc(var(--width) * 6));
             }
             &:nth-of-type(1):checked ~ .switch-wrapper .switch div:nth-of-type(1),
             &:nth-of-type(2):checked ~ .switch-wrapper .switch div:nth-of-type(2),
@@ -66,12 +68,12 @@
             }
         }
         & label {
-            width: 3rem;
+            width: var(--width);
             padding: 0;
             margin: 0;
             text-align: center;
             cursor: pointer;
-            color: var(--switches-label-color);
+            color: $clr2;
         }
         .switch-wrapper {
             display: flex;
@@ -79,13 +81,13 @@
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 3rem;
+            width: var(--width);
             padding: 0.15rem;
             z-index: 3;
             transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
             .switch {
-                border-radius: 3rem;
-                background: var(--switch-bg-color);
+                border-radius: var(--width);
+                background: $clr2;
                 height: 100%;
                 width: 100%;
                 & div {
@@ -93,7 +95,7 @@
                     text-align: center;
                     opacity: 0;
                     display: block;
-                    color: var(--switch-text-color);
+                    color: $clr1;
                     transition: opacity 0.2s cubic-bezier(0.77, 0, 0.175, 1) 0.125s;
                     will-change: opacity;
                     position: absolute;
@@ -103,28 +105,114 @@
             }
         }
     }
-}
+    .todolist {
+        .todolist__main {
+            background-color: $clr2;
+            box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.75);
+            padding: 25px 0px;
+            border-radius: 20px;
+            width: calc(var(--width) * 7);
+            gap: 15px;
+            .todolist__header {
+                padding: 0px 20px;
+                .todolist__header--date {
+                    & svg {
+                        color: #858585;
+                        font-size: 60px;
+                        &:hover {
+                            color: $clr1;
+                        }
+                    }
 
-/* toggle the switch box labels - first checkbox:checked - show first switch div */
-.switches-container input
+                    & span:nth-child(1) {
+                        font-size: 48px;
+                        color: #858585;
+                        font-weight: 400;
+                    }
+                    .add__circle {
+                        margin-left: auto;
+                        cursor: pointer;
+                    }
 
-/* toggle the switch box labels - second checkbox:checked - show second switch div */
-.switches-container input:nth-of-type(2):checked ~ .switch-wrapper .switch div:nth-of-type(2) {
-    opacity: 1;
-}
+                    .warpper {
+                        margin-left: 10px;
+                        & span:nth-child(1) {
+                            font-size: 16px;
+                            color: #858585;
+                            font-weight: 500;
+                        }
+                        & span:nth-child(2) {
+                            font-size: 16px;
+                            color: #858585;
+                            font-weight: 300;
+                        }
+                    }
+                }
+            }
+            .todolist__result {
+                overflow-y: scroll;
+                height: 50vh;
+                ul > h1 {
+                    padding-block-start: 50px;
+                }
 
-.switches-container input:nth-of-type(3):checked ~ .switch-wrapper .switch div:nth-of-type(3) {
-    opacity: 1;
-}
-.switches-container input:nth-of-type(4):checked ~ .switch-wrapper .switch div:nth-of-type(4) {
-    opacity: 1;
-}
-.switches-container input:nth-of-type(5):checked ~ .switch-wrapper .switch div:nth-of-type(5) {
-    opacity: 1;
-}
-.switches-container input:nth-of-type(6):checked ~ .switch-wrapper .switch div:nth-of-type(6) {
-    opacity: 1;
-}
-.switches-container input:nth-of-type(7):checked ~ .switch-wrapper .switch div:nth-of-type(7) {
-    opacity: 1;
+                svg {
+                    &:hover {
+                        color: $clr1;
+                        opacity: 0.7;
+                        transition-duration: 0.4s;
+                    }
+                }
+
+                .list__task--text {
+                    margin: 10px;
+                    transition-duration: 0.4s;
+                }
+
+                .list__task--del {
+                    color: #aaaaaa;
+                    margin-left: auto;
+                    margin-right: 10px;
+                }
+
+                .list__task {
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    transition-duration: 0.2s;
+                    .list__task--check {
+                        color: #aaaaaa;
+                        transition-duration: 0.4s;
+                        &.active {
+                            color: $clr1;
+                        }
+                    }
+                    .list__task--text {
+                        margin: 10px;
+                        transition-duration: 0.4s;
+                        &.active {
+                            color: $clr1;
+                            margin-left: 10px;
+                            margin: 10px;
+                            text-decoration: line-through;
+                            transition-duration: 0.4s;
+                            width: 100%;
+                        }
+                    }
+                    &:hover {
+                        border-left: solid 5px $clr1;
+                        background-color: #eeeeee;
+                        transition-duration: 0.2s;
+                        transition-timing-function: ease-in;
+                    }
+                    & i {
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+
+        .todolist__result::-webkit-scrollbar {
+            width: 0 !important;
+        }
+    }
 }
