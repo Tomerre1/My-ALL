@@ -33,8 +33,8 @@ export function LoginSignup(props) {
 
     if (mail.trim() && password.trim()) {
       if (!isLogin) {
-        dispatch(onSignup({ mail, fullname: fullName, password, userType: 'אדמין' }));
-        // dispatch(onSignup({ mail, fullname: fullName, password, userType: 'מטופל' }));
+        // dispatch(onSignup({ mail, fullname: fullName, password, userType: 'אדמין' }));
+        dispatch(onSignup({ mail, fullname: fullName, password, userType: 'מטופל' }));
         props.history.push('/auth');
         resetForm();
         setIsLogin(true);

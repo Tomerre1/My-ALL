@@ -7,13 +7,13 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
     description: '',
     foodOrNot: 'ללא צום',
     count: '',
-    level: [],
+    levels: [],
     badInfluence: [],
   };
   const [values, setValues] = useState(initialFValues);
   const [errors, setErrors] = useState({});
 
-  const level = [{ id: 1, title: 'שלב א' }, { id: 2, title: 'שלב ב' }, { id: 3, title: 'שלב ג' }, { id: 4, title: 'שלב ד' }, { id: 5, title: 'שלב ה' }];
+  const levels = [{ id: 1, title: 'שלב א' }, { id: 2, title: 'שלב ב' }, { id: 3, title: 'שלב ג' }, { id: 4, title: 'שלב ד' }, { id: 5, title: 'שלב ה' }];
   const badInfluenceOptions = [{ id: 'הקאות', title: 'הקאות' }, { id: 'כאב בטן', title: 'כאב בטן' }, { id: 'כאב ראש', title: 'כאב ראש' }, { id: 'חום', title: 'חום' }]
   const genderItems = [
     { id: 'ללא צום', title: 'ללא צום' },
@@ -59,9 +59,9 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
       temp.badInfluence = fieldValues.badInfluence.length > 0
         ? ''
         : 'נדרש למלא תופעות לוואי';
-    if ('level' in fieldValues)
-      temp.level =
-        fieldValues.level.length > 0
+    if ('levels' in fieldValues)
+      temp.levels =
+        fieldValues.levels.length > 0
           ? ''
           : 'נדרש למלא שלב תרופה.'
     if ('count' in fieldValues)
@@ -111,12 +111,12 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
         error={errors.description}
       />
       <Controls.Select
-        name='level'
+        name='levels'
         label='שלב תרופה'
-        value={values.level}
+        value={values.levels}
         onChange={handleChangeMultiSelect}
-        options={level}
-        error={errors.level}
+        options={levels}
+        error={errors.levels}
       />
       <Controls.Select
         name='badInfluence'

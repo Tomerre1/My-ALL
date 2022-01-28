@@ -28,7 +28,7 @@ export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
         <TableCell component='th' scope='row'>
           {row.medicineName}
         </TableCell>
-        <TableCell align='right'>{row.level.join(', ')}</TableCell>
+        <TableCell align='right'>{row.levels.join(', ')}</TableCell>
         <TableCell align='right'>{row.count}</TableCell>
         <TableCell align='right'>{row.foodOrNot}</TableCell>
         <TableCell align='right'>

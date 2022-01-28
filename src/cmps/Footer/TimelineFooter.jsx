@@ -10,7 +10,7 @@ export function TimelineFooter({ onNextStep, onPrevStep, onZoomIn, onZoomOut, is
         <div className="footer-layout">
             <div className="full footer-layout mobile-footer">
 
-                <button className="btn-icon-footer" onClick={onNextStep}>
+                <button className="btn-icon-footer" onClick={onPrevStep}>
                     <ArrowCircleUpSharpIcon />
                     <p>לתחנה הקודמת</p>
                 </button>
@@ -24,7 +24,7 @@ export function TimelineFooter({ onNextStep, onPrevStep, onZoomIn, onZoomOut, is
                         <p>צפייה בשלבים ותחנות</p>
                     </button>)
                 }
-                <button className="btn-icon-footer soon" onClick={onPrevStep}>
+                <button className="btn-icon-footer soon" onClick={onNextStep}>
                     <ArrowCircleDownSharpIcon />
                     <p>לתחנה הבאה</p>
                 </button>
