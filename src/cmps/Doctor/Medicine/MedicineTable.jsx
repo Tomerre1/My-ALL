@@ -40,7 +40,6 @@ export function MedicineTable() {
           : medicine
       );
       setMedicines(newMedicines);
-      setRecordForEdit(null);
     } else {
       const newMedicine = await medicineService.addMedicine(record);
       setMedicines([...medicines, newMedicine]);
@@ -94,7 +93,9 @@ export function MedicineTable() {
         />
       </Popup>
       <div style={{ direction: 'rtl' }}>
-        <Button onClick={() => setOpenPopup(true)} text='הוספת תרופה' />
+        <Button onClick={() => {
+          setOpenPopup(true); setRecordForEdit(null);
+        }} text='הוספת תרופה' />
       </div>
     </>
   );

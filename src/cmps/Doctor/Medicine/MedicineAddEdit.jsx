@@ -79,6 +79,7 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
     e.preventDefault();
     if (validate()) {
       addOrEdit(values);
+      
     }
   };
 
