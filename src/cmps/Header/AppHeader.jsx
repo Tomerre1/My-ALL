@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Burger } from './Burger.jsx'
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
-import { login, onLogout } from '../../store/user.actions'
+import { onLogout } from '../../store/user.actions'
 
 // import { onLogin, onLogout, onSignup } from '../store/user.actions.js'
 // import PropTypes from 'prop-types'

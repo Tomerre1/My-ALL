@@ -143,38 +143,38 @@ export function MedicinesChecklist({ }) {
 
 
     return <>
-        <div class="container flex column align-center justify-center">
+        <div className="container flex column align-center justify-center">
             <h1>התרופות שלי</h1>
-            <div class="switches-container">
+            <div className="switches-container">
                 {days.map((day) => <input type="radio" onChange={onChangeDay} id={day} name="switchPlan" value={day} checked={selected === day} />)}
                 {days.map((day) => <label for={day}>{day}</label>)}
-                <div class="switch-wrapper">
-                    <div class="switch">
+                <div className="switch-wrapper">
+                    <div className="switch">
                         {days.map((day) => <div>{day}</div>)}
                     </div>
                 </div>
             </div>
-            <div class="todolist flex align-center justify-center">
-                <div class="todolist__main flex column">
-                    <div class="todolist__header">
-                        <div class="todolist__header--date flex align-center">
-                            <span class="date--day">12</span>
-                            <div class="warpper flex column">
-                                <span class="date--month">November</span>
-                                <span class="date--year">2019</span>
+            <div className="todolist flex align-center justify-center">
+                <div className="todolist__main flex column">
+                    <div className="todolist__header">
+                        <div className="todolist__header--date flex align-center">
+                            <span className="date--day">12</span>
+                            <div className="warpper flex column">
+                                <span className="date--month">November</span>
+                                <span className="date--year">2019</span>
                             </div>
-                            <button onClick={() => setOpenPopup(true)} class="add__circle clean-btn"><AddCircleOutlineIcon /></button>
+                            <button onClick={() => setOpenPopup(true)} className="add__circle clean-btn"><AddCircleOutlineIcon /></button>
                         </div>
                     </div>
-                    <div class="todolist__result">
-                        <ul class="clean-list">
-                            {selectedDayMedicines.length > 0 ? selectedDayMedicines.map(med => <li onClick={() => onClickMedicine(med.medicineName)} class="list__task flex align-center space-between">
+                    <div className="todolist__result">
+                        <ul className="clean-list">
+                            {selectedDayMedicines.length > 0 ? selectedDayMedicines.map(med => <li onClick={() => onClickMedicine(med.medicineName)} className="list__task flex align-center space-between">
                                 <div className="flex">
-                                    <button class={`list__task--check clean-btn ${med.isActive ? 'active' : ''}`}> {!med.isActive ? <RadioButtonUncheckedRoundedIcon /> : <CheckCircleOutlineRoundedIcon />}</button>
+                                    <button className={`list__task--check clean-btn ${med.isActive ? 'active' : ''}`}> {!med.isActive ? <RadioButtonUncheckedRoundedIcon /> : <CheckCircleOutlineRoundedIcon />}</button>
                                     <div className={`list__task--text ${med.isActive ? 'active' : ''}`}>{med.medicineName}</div>
                                 </div>
                                 <div class="wrapper--left">
-                                    <button onClick={(e) => { e.stopPropagation(); onDeleteMedicine(med.medicineName); }} class={`list__task--del clean-btn ${med.isActive ? 'active' : ''}`}><DeleteForeverRoundedIcon /></button>
+                                    <button onClick={(e) => { e.stopPropagation(); onDeleteMedicine(med.medicineName); }} className={`list__task--del clean-btn ${med.isActive ? 'active' : ''}`}><DeleteForeverRoundedIcon /></button>
                                 </div>
                             </li>) :
                                 <h1>אין תרופות להיום</h1>}
