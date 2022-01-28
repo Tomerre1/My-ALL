@@ -45,7 +45,7 @@ export function MedicineTable() {
       setMedicines([...medicines, newMedicine]);
     }
     setOpenPopup(false);
-  };
+ };
 
   const deleteMedicine = async (deleteMedicine) => {
     await medicineService.removeMedicine(deleteMedicine);

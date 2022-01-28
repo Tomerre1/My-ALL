@@ -1,0 +1,130 @@
+* {
+    box-sizing: border-box;
+}
+:root {
+    --switches-bg-color: goldenrod;
+    --switches-label-color: white;
+    --switch-bg-color: white;
+    --switch-text-color: goldenrod;
+}
+
+/* a container - decorative, not required */
+.container {
+    padding: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    p {
+        margin-top: 2rem;
+        font-size: 0.75rem;
+        text-align: center;
+    }
+    .switches-container {
+        width: 21rem;
+        position: relative;
+        display: flex;
+        padding: 0;
+        position: relative;
+        background: var(--switches-bg-color);
+        line-height: 3rem;
+        border-radius: 3rem;
+        margin-left: auto;
+        margin-right: auto;
+        & input {
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            &:nth-of-type(1):checked ~ .switch-wrapper {
+                transform: translateX(0rem);
+            }
+            &:nth-of-type(2):checked ~ .switch-wrapper {
+                transform: translateX(3rem);
+            }
+            &:nth-of-type(3):checked ~ .switch-wrapper {
+                transform: translateX(6rem);
+            }
+            &:nth-of-type(4):checked ~ .switch-wrapper {
+                transform: translateX(9rem);
+            }
+            &:nth-of-type(5):checked ~ .switch-wrapper {
+                transform: translateX(12rem);
+            }
+            &:nth-of-type(6):checked ~ .switch-wrapper {
+                transform: translateX(15rem);
+            }
+            &:nth-of-type(7):checked ~ .switch-wrapper {
+                transform: translateX(18rem);
+            }
+            &:nth-of-type(1):checked ~ .switch-wrapper .switch div:nth-of-type(1),
+            &:nth-of-type(2):checked ~ .switch-wrapper .switch div:nth-of-type(2),
+            &:nth-of-type(3):checked ~ .switch-wrapper .switch div:nth-of-type(3),
+            &:nth-of-type(4):checked ~ .switch-wrapper .switch div:nth-of-type(4),
+            &:nth-of-type(5):checked ~ .switch-wrapper .switch div:nth-of-type(5),
+            &:nth-of-type(6):checked ~ .switch-wrapper .switch div:nth-of-type(6),
+            &:nth-of-type(7):checked ~ .switch-wrapper .switch div:nth-of-type(7) {
+                opacity: 1;
+            }
+        }
+        & label {
+            width: 3rem;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            cursor: pointer;
+            color: var(--switches-label-color);
+        }
+        .switch-wrapper {
+            display: flex;
+            gap: 10px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3rem;
+            padding: 0.15rem;
+            z-index: 3;
+            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            .switch {
+                border-radius: 3rem;
+                background: var(--switch-bg-color);
+                height: 100%;
+                width: 100%;
+                & div {
+                    width: 100%;
+                    text-align: center;
+                    opacity: 0;
+                    display: block;
+                    color: var(--switch-text-color);
+                    transition: opacity 0.2s cubic-bezier(0.77, 0, 0.175, 1) 0.125s;
+                    will-change: opacity;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+            }
+        }
+    }
+}
+
+/* toggle the switch box labels - first checkbox:checked - show first switch div */
+.switches-container input
+
+/* toggle the switch box labels - second checkbox:checked - show second switch div */
+.switches-container input:nth-of-type(2):checked ~ .switch-wrapper .switch div:nth-of-type(2) {
+    opacity: 1;
+}
+
+.switches-container input:nth-of-type(3):checked ~ .switch-wrapper .switch div:nth-of-type(3) {
+    opacity: 1;
+}
+.switches-container input:nth-of-type(4):checked ~ .switch-wrapper .switch div:nth-of-type(4) {
+    opacity: 1;
+}
+.switches-container input:nth-of-type(5):checked ~ .switch-wrapper .switch div:nth-of-type(5) {
+    opacity: 1;
+}
+.switches-container input:nth-of-type(6):checked ~ .switch-wrapper .switch div:nth-of-type(6) {
+    opacity: 1;
+}
+.switches-container input:nth-of-type(7):checked ~ .switch-wrapper .switch div:nth-of-type(7) {
+    opacity: 1;
+}
