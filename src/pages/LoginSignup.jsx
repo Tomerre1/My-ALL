@@ -4,6 +4,9 @@ import * as Yup from 'yup';
 import TextField from '@material-ui/core/TextField';
 import { onLogin, onSignup } from './../store/user.actions'
 import { useDispatch } from 'react-redux'
+import loginImage from '../assets/img/login.jpeg'
+import { GoogleLogin } from "react-google-login";
+
 
 export function LoginSignup(props) {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,11 +29,11 @@ export function LoginSignup(props) {
     mail: Yup.string()
       .required('נדרש למלא אימייל')
   });
+  const CLIENT_ID = "1066940480428-m4n85h2lafgf2m7v5j7prda0tmigel93.apps.googleusercontent.com";
+
 
   const onSubmit = async (values, { resetForm }) => {
     const { fullName, password, mail } = values;
-    console.log('%c  fullName, password, mail:', 'color: white;background: red;', fullName, password, mail);
-
     if (mail.trim() && password.trim()) {
       if (!isLogin) {
         // dispatch(onSignup({ mail, fullname: fullName, password, userType: 'אדמין' }));
@@ -42,7 +45,6 @@ export function LoginSignup(props) {
         const user = await dispatch(onLogin({ mail, password }));
         //user successfully logged in
         if (user) {
-          console.log('%c  user:', 'color: white;background: red;', user);
           if (user.userType === 'אדמין') props.history.push('/');
           if (user.userType === 'מטופל') props.history.push('/');
         } else { //wrong password or mail
@@ -52,6 +54,21 @@ export function LoginSignup(props) {
     }
   };
 
+  const onSuccess = async (res) => {
+    const fullname = `${res.profileObj.name}`;
+    const password = res.profileObj.googleId;
+    const mail = res.profileObj.email;
+    isLogin
+      ? await dispatch(onLogin({ mail, password }))
+      : await dispatch(onSignup({ mail, fullname, password, userType: 'מטופל' }));
+    props.history.push("/");
+  };
+
+  const onFail = (response) => {
+    console.dir(response);
+  };
+
+
   return (
     <div
       className='login-signup  flex column align-center'
@@ -59,6 +76,14 @@ export function LoginSignup(props) {
     >
       <div className='login-container flex column'>
         {isLogin ? <p>התחברות </p> : <p>הרשמה</p>}
+        <div className="login-logo flex justify-center">
+          <img
+            src={loginImage}
+            id="icon"
+            alt="User Icon"
+            style={{ borderRadius: '50%' }}
+          />
+        </div>
         <Formik
           onSubmit={onSubmit}
           initialValues={{
@@ -147,6 +172,13 @@ export function LoginSignup(props) {
               {isLogin && <button type='button' className='login-submit' onClick={() => { setIsLogin(!isLogin); props.resetForm() }}>
                 הרשמה
               </button>}
+              <GoogleLogin
+                clientId={CLIENT_ID}
+                buttonText={isLogin ? "התחברות באמצעות גוגל" : "הרשמה באמצעות גוגל"}
+                onSuccess={onSuccess}
+                onFailure={onFail}
+                cookiePolicy={"single_host_origin"}
+              />
             </form>
           )}
         </Formik>

@@ -173,7 +173,7 @@ export function MedicinesChecklist({ }) {
                                     <button className={`list__task--check clean-btn ${med.isActive ? 'active' : ''}`}> {!med.isActive ? <RadioButtonUncheckedRoundedIcon /> : <CheckCircleOutlineRoundedIcon />}</button>
                                     <div className={`list__task--text ${med.isActive ? 'active' : ''}`}>{med.medicineName}</div>
                                 </div>
-                                <div class="wrapper--left">
+                                <div className="wrapper--left">
                                     <button onClick={(e) => { e.stopPropagation(); onDeleteMedicine(med.medicineName); }} className={`list__task--del clean-btn ${med.isActive ? 'active' : ''}`}><DeleteForeverRoundedIcon /></button>
                                 </div>
                             </li>) :

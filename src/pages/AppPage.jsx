@@ -12,242 +12,242 @@ import blog3 from '../assets/img/blog-3.jpg'
 export function AppPage() {
     return (
         <div className="app-page">
-            <section class="home" id="home">
-                <div class="image">
+            <section className="home" id="home">
+                <div className="image">
                     <img src={homeSvg} alt="home img" />
                 </div>
 
-                <div class="content">
+                <div className="content">
                     <h3>stay safe, stay healthy</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem sed autem vero? Magnam, est laboriosam!</p>
-                    <a class="btn"> contact us <span class="fas fa-chevron-right"></span> </a>
+                    <a className="btn"> contact us <span className="fas fa-chevron-right"></span> </a>
                 </div>
             </section>
 
-            <section class="icons-container">
-                <div class="icons">
-                    <i class="fas fa-user-md"></i>
+            <section className="icons-container">
+                <div className="icons">
+                    <i className="fas fa-user-md"></i>
                     <h3>140+</h3>
                     <p>doctors at work</p>
                 </div>
 
-                <div class="icons">
-                    <i class="fas fa-users"></i>
+                <div className="icons">
+                    <i className="fas fa-users"></i>
                     <h3>1040+</h3>
                     <p>satisfied patients</p>
                 </div>
 
-                <div class="icons">
-                    <i class="fas fa-procedures"></i>
+                <div className="icons">
+                    <i className="fas fa-procedures"></i>
                     <h3>500+</h3>
                     <p>bed facility</p>
                 </div>
 
-                <div class="icons">
-                    <i class="fas fa-hospital"></i>
+                <div className="icons">
+                    <i className="fas fa-hospital"></i>
                     <h3>80+</h3>
                     <p>available hospitals</p>
                 </div>
             </section>
 
 
-            <section class="services" id="services">
-                <h1 class="heading"> our <span>services</span> </h1>
+            <section className="services" id="services">
+                <h1 className="heading"> our <span>services</span> </h1>
 
-                <div class="box-container">
+                <div className="box-container">
 
-                    <div class="box">
-                        <i class="fas fa-notes-medical"></i>
+                    <div className="box">
+                        <i className="fas fa-notes-medical"></i>
                         <h3>free checkups</h3>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
 
-                    <div class="box">
-                        <i class="fas fa-ambulance"></i>
+                    <div className="box">
+                        <i className="fas fa-ambulance"></i>
                         <h3>24/7 ambulance</h3>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
 
-                    <div class="box">
-                        <i class="fas fa-user-md"></i>
+                    <div className="box">
+                        <i className="fas fa-user-md"></i>
                         <h3>expert doctors</h3>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
 
-                    <div class="box">
-                        <i class="fas fa-pills"></i>
+                    <div className="box">
+                        <i className="fas fa-pills"></i>
                         <h3>medicines</h3>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
 
-                    <div class="box">
-                        <i class="fas fa-procedures"></i>
+                    <div className="box">
+                        <i className="fas fa-procedures"></i>
                         <h3>bed facility</h3>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
 
-                    <div class="box">
-                        <i class="fas fa-heartbeat"></i>
+                    <div className="box">
+                        <i className="fas fa-heartbeat"></i>
                         <h3>total care</h3>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
                 </div>
             </section>
 
 
 
-            <section class="about" id="about">
+            <section className="about" id="about">
 
-                <h1 class="heading"> <span>about</span> us </h1>
+                <h1 className="heading"> <span>about</span> us </h1>
 
-                <div class="row">
+                <div className="row">
 
-                    <div class="image">
+                    <div className="image">
                         <img src={aboutSvg} alt="" />
                     </div>
 
-                    <div class="content">
+                    <div className="content">
                         <h3>we take care of your healthy life</h3>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure ducimus, quod ex cupiditate ullam in
                             assumenda maiores et culpa odit tempora ipsam qui, quisquam quis facere iste fuga, minus nesciunt.
                         </p>
                         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus vero ipsam laborum porro voluptates
                             voluptatibus a nihil temporibus deserunt vel?</p>
-                        <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
 
                 </div>
             </section>
 
 
-            {/* <section class="doctors" id="doctors">
-                <h1 class="heading"> our <span>doctors</span> </h1>
-                <div class="box-container">
-                    <div class="box">
+            {/* <section className="doctors" id="doctors">
+                <h1 className="heading"> our <span>doctors</span> </h1>
+                <div className="box-container">
+                    <div className="box">
                         <img src={doc1} alt="" />
                         <h3>john deo</h3>
                         <span>expert doctor</span>
-                        <div class="share">
-                            <a href="#" class="fab fa-facebook-f"></a>
-                            <a href="#" class="fab fa-twitter"></a>
-                            <a href="#" class="fab fa-instagram"></a>
-                            <a href="#" class="fab fa-linkedin"></a>
+                        <div className="share">
+                            <a href="#" className="fab fa-facebook-f"></a>
+                            <a href="#" className="fab fa-twitter"></a>
+                            <a href="#" className="fab fa-instagram"></a>
+                            <a href="#" className="fab fa-linkedin"></a>
                         </div>
                     </div>
 
-                    <div class="box">
+                    <div className="box">
                         <img src={doc2} alt="" />
                         <h3>john deo</h3>
                         <span>expert doctor</span>
-                        <div class="share">
-                            <a href="#" class="fab fa-facebook-f"></a>
-                            <a href="#" class="fab fa-twitter"></a>
-                            <a href="#" class="fab fa-instagram"></a>
-                            <a href="#" class="fab fa-linkedin"></a>
+                        <div className="share">
+                            <a href="#" className="fab fa-facebook-f"></a>
+                            <a href="#" className="fab fa-twitter"></a>
+                            <a href="#" className="fab fa-instagram"></a>
+                            <a href="#" className="fab fa-linkedin"></a>
                         </div>
                     </div>
 
-                    <div class="box">
+                    <div className="box">
                         <img src={doc3} alt="" />
                         <h3>john deo</h3>
                         <span>expert doctor</span>
-                        <div class="share">
-                            <a href="#" class="fab fa-facebook-f"></a>
-                            <a href="#" class="fab fa-twitter"></a>
-                            <a href="#" class="fab fa-instagram"></a>
-                            <a href="#" class="fab fa-linkedin"></a>
+                        <div className="share">
+                            <a href="#" className="fab fa-facebook-f"></a>
+                            <a href="#" className="fab fa-twitter"></a>
+                            <a href="#" className="fab fa-instagram"></a>
+                            <a href="#" className="fab fa-linkedin"></a>
                         </div>
                     </div>
 
-                    <div class="box">
+                    <div className="box">
                         <img src={doc4} alt="" />
                         <h3>john deo</h3>
                         <span>expert doctor</span>
-                        <div class="share">
-                            <a href="#" class="fab fa-facebook-f"></a>
-                            <a href="#" class="fab fa-twitter"></a>
-                            <a href="#" class="fab fa-instagram"></a>
-                            <a href="#" class="fab fa-linkedin"></a>
+                        <div className="share">
+                            <a href="#" className="fab fa-facebook-f"></a>
+                            <a href="#" className="fab fa-twitter"></a>
+                            <a href="#" className="fab fa-instagram"></a>
+                            <a href="#" className="fab fa-linkedin"></a>
                         </div>
                     </div>
 
-                    <div class="box">
+                    <div className="box">
                         <img src={doc5} alt="" />
                         <h3>john deo</h3>
                         <span>expert doctor</span>
-                        <div class="share">
-                            <a href="#" class="fab fa-facebook-f"></a>
-                            <a href="#" class="fab fa-twitter"></a>
-                            <a href="#" class="fab fa-instagram"></a>
-                            <a href="#" class="fab fa-linkedin"></a>
+                        <div className="share">
+                            <a href="#" className="fab fa-facebook-f"></a>
+                            <a href="#" className="fab fa-twitter"></a>
+                            <a href="#" className="fab fa-instagram"></a>
+                            <a href="#" className="fab fa-linkedin"></a>
                         </div>
                     </div>
 
-                    <div class="box">
+                    <div className="box">
                         <img src={doc6} alt="" />
                         <h3>john deo</h3>
                         <span>expert doctor</span>
-                        <div class="share">
-                            <a href="#" class="fab fa-facebook-f"></a>
-                            <a href="#" class="fab fa-twitter"></a>
-                            <a href="#" class="fab fa-instagram"></a>
-                            <a href="#" class="fab fa-linkedin"></a>
+                        <div className="share">
+                            <a href="#" className="fab fa-facebook-f"></a>
+                            <a href="#" className="fab fa-twitter"></a>
+                            <a href="#" className="fab fa-instagram"></a>
+                            <a href="#" className="fab fa-linkedin"></a>
                         </div>
                     </div>
                 </div>
             </section> */}
 
-            <section class="blogs" id="blogs">
-                <h1 class="heading"> our <span>blogs</span> </h1>
-                <div class="box-container">
-                    <div class="box">
-                        <div class="image">
+            <section className="blogs" id="blogs">
+                <h1 className="heading"> our <span>blogs</span> </h1>
+                <div className="box-container">
+                    <div className="box">
+                        <div className="image">
                             <img src={blog1} alt="" />
                         </div>
-                        <div class="content">
-                            <div class="icon">
-                                <a href="#"> <i class="fas fa-calendar"></i> 1st may, 2021 </a>
-                                <a href="#"> <i class="fas fa-user"></i> by admin </a>
+                        <div className="content">
+                            <div className="icon">
+                                <a href="#"> <i className="fas fa-calendar"></i> 1st may, 2021 </a>
+                                <a href="#"> <i className="fas fa-user"></i> by admin </a>
                             </div>
                             <h3>blog title goes here</h3>
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident, eius.</p>
-                            <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                            <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                         </div>
                     </div>
 
-                    <div class="box">
-                        <div class="image">
+                    <div className="box">
+                        <div className="image">
                             <img src={blog2} alt="" />
                         </div>
-                        <div class="content">
-                            <div class="icon">
-                                <a href="#"> <i class="fas fa-calendar"></i> 1st may, 2021 </a>
-                                <a href="#"> <i class="fas fa-user"></i> by admin </a>
+                        <div className="content">
+                            <div className="icon">
+                                <a href="#"> <i className="fas fa-calendar"></i> 1st may, 2021 </a>
+                                <a href="#"> <i className="fas fa-user"></i> by admin </a>
                             </div>
                             <h3>blog title goes here</h3>
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident, eius.</p>
-                            <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                            <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                         </div>
                     </div>
 
-                    <div class="box">
-                        <div class="image">
+                    <div className="box">
+                        <div className="image">
                             <img src={blog3} alt="" />
                         </div>
-                        <div class="content">
-                            <div class="icon">
-                                <a href="#"> <i class="fas fa-calendar"></i> 1st may, 2021 </a>
-                                <a href="#"> <i class="fas fa-user"></i> by admin </a>
+                        <div className="content">
+                            <div className="icon">
+                                <a href="#"> <i className="fas fa-calendar"></i> 1st may, 2021 </a>
+                                <a href="#"> <i className="fas fa-user"></i> by admin </a>
                             </div>
                             <h3>blog title goes here</h3>
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident, eius.</p>
-                            <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                            <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                         </div>
                     </div>
                 </div>
