@@ -44,9 +44,7 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
   };
 
   const validate = (fieldValues = values) => {
-    console.log('%c  fieldValues:', 'color: white;background: red;', fieldValues);
     let temp = { ...errors };
-    console.log('%c  errors:', 'color: white;background: red;', errors);
     if ('medicineName' in fieldValues)
       temp.medicineName = fieldValues.medicineName.length > 0
         ? ''
@@ -79,7 +77,7 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
     e.preventDefault();
     if (validate()) {
       addOrEdit(values);
-      
+
     }
   };
 

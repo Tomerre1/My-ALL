@@ -6,6 +6,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Popup } from '../cmps/Popup/Popup';
 import { MedicineAddEdit } from '../cmps/Doctor/Medicine/MedicineAddEdit'
 import { medicineService } from '../services/medicine.service';
+import { AddMedicine } from '../cmps/User/AddMedicine'
 
 const medicinesList =
     [
@@ -210,7 +211,7 @@ export function MedicinesChecklist() {
             openPopup={openPopup}
             setOpenPopup={setOpenPopup}
         >
-            <MedicineAddEdit />
+            <AddMedicine day={selected} medicines={medicines} isRow={false} />
         </Popup>
     </>
 }
