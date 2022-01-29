@@ -4,7 +4,6 @@ import RadioButtonUncheckedRoundedIcon from '@mui/icons-material/RadioButtonUnch
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Popup } from '../cmps/Popup/Popup';
-import { MedicineAddEdit } from '../cmps/Doctor/Medicine/MedicineAddEdit'
 import { medicineService } from '../services/medicine.service';
 import { AddMedicine } from '../cmps/User/AddMedicine'
 
@@ -127,6 +126,7 @@ export function MedicinesChecklist() {
     useEffect(() => {
         async function getMedicines() {
             const medicines = await medicineService.query()
+            console.log('%c  medicines:', 'color: white;background: red;', medicines);
             setMedicines(medicines)
         }
         getMedicines()
@@ -135,6 +135,11 @@ export function MedicinesChecklist() {
     const onChangeDay = (event) => {
         const { value } = event.target
         setSeleceted(value)
+    }
+
+    const onAddMedicine = (values) => {
+        const medicine = medicines.find(med => med.medicineName === values.medicineName)
+        const newMedicine = { ...medicine, ...values }
     }
 
     const getMedicinesByDay = () => {
@@ -191,7 +196,7 @@ export function MedicinesChecklist() {
                     </div>
                     <div className="todolist__result">
                         <ul className="clean-list">
-                            {selectedDayMedicines.length > 0 ? selectedDayMedicines.map(med => <li onClick={() => onClickMedicine(med.medicineName)} className="list__task flex align-center space-between">
+                            {selectedDayMedicines?.length > 0 ? selectedDayMedicines.map(med => <li onClick={() => onClickMedicine(med.medicineName)} className="list__task flex align-center space-between">
                                 <div className="flex">
                                     <button className={`list__task--check clean-btn ${med.isActive ? 'active' : ''}`}> {!med.isActive ? <RadioButtonUncheckedRoundedIcon /> : <CheckCircleOutlineRoundedIcon />}</button>
                                     <div className={`list__task--text ${med.isActive ? 'active' : ''}`}>{`${med.medicineName} ${med.count}`}</div>
@@ -211,7 +216,7 @@ export function MedicinesChecklist() {
             openPopup={openPopup}
             setOpenPopup={setOpenPopup}
         >
-            <AddMedicine day={selected} medicines={medicines} isRow={false} />
+            <AddMedicine day={selected} medicines={medicines} isRow={false} addMedicine={onAddMedicine} />
         </Popup>
     </>
 }
