@@ -44,6 +44,7 @@ export function AppHeader(props) {
 
     return (
         <>
+            <div className={state.open ? 'screen' : ''} onClick={toggleOpen} />
             <div className="navbar">
                 <div className="logo">
                     <Link to="/"><img src={smiling} alt='smiley logo' /></Link>
