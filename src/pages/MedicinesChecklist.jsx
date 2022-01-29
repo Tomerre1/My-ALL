@@ -5,6 +5,8 @@ import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Popup } from '../cmps/Popup/Popup';
 import { MedicineAddEdit } from '../cmps/Doctor/Medicine/MedicineAddEdit'
+import { medicineService } from '../services/medicine.service';
+
 const medicinesList =
     [
         [//יום ראשון 
@@ -109,16 +111,25 @@ const medicinesList =
         []//יום שבת 
     ]
 
-export function MedicinesChecklist({ }) {
+export function MedicinesChecklist() {
     const [selected, setSeleceted] = useState(new Date().toLocaleDateString('he-IL', { weekday: 'long' }).split(' ')[1])
     const [selectedDayMedicines, setSelectedDayMedicines] = useState([])
     const [openPopup, setOpenPopup] = useState(false);
+    const [medicines, setMedicines] = useState([])
     const days = ['שבת', 'ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי']
     const weekDaysOrganized = ['שבת', 'שישי', 'חמישי', 'רביעי', 'שלישי', 'שני', 'ראשון']
 
     useEffect(() => {
         getMedicinesByDay()
     }, [selected])
+
+    useEffect(() => {
+        async function getMedicines() {
+            const medicines = await medicineService.query()
+            setMedicines(medicines)
+        }
+        getMedicines()
+    }, [])
 
     const onChangeDay = (event) => {
         const { value } = event.target
@@ -182,7 +193,7 @@ export function MedicinesChecklist({ }) {
                             {selectedDayMedicines.length > 0 ? selectedDayMedicines.map(med => <li onClick={() => onClickMedicine(med.medicineName)} className="list__task flex align-center space-between">
                                 <div className="flex">
                                     <button className={`list__task--check clean-btn ${med.isActive ? 'active' : ''}`}> {!med.isActive ? <RadioButtonUncheckedRoundedIcon /> : <CheckCircleOutlineRoundedIcon />}</button>
-                                    <div className={`list__task--text ${med.isActive ? 'active' : ''}`}>{med.medicineName}</div>
+                                    <div className={`list__task--text ${med.isActive ? 'active' : ''}`}>{`${med.medicineName} ${med.count}`}</div>
                                 </div>
                                 <div className="wrapper--left">
                                     <button onClick={(e) => { e.stopPropagation(); onDeleteMedicine(med.medicineName); }} className={`list__task--del clean-btn ${med.isActive ? 'active' : ''}`}><DeleteForeverRoundedIcon /></button>

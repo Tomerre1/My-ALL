@@ -34,7 +34,9 @@ export function Timeline(props) {
             setPath(timeline);
             if (userCurrStepIndex === 1 && currLevelIndex === 0) {
                 await Swal.fire({
-                    title: `ברוך הבא למסלול של ${currUser.fullname}`,
+                    title: `ברוך הבא למסלול של  
+
+                    ${currUser.fullname}`,
                     text: 'בהצלחה!',
                     icon: 'info',
                     timer: 2500
@@ -79,7 +81,9 @@ export function Timeline(props) {
                     if (currLevelIndex >= path.length - 1 && userCurrStepIndex === currLevel.length - 1) {
                         setIsLastStep(true)
                         await Swal.fire({
-                            title: `מזל טוב ${currUser.fullname}`,
+                            title: `מזל טוב 
+                            
+                            ${currUser.fullname}`,
                             text: 'ברכותיי הגעת לסוף המסלול!',
                             icon: 'success',
                             timer: 2500
@@ -149,7 +153,8 @@ export function Timeline(props) {
     return (
         <>
             <div className="time-line-container">
-                <h1>מסלול ההתקדמות {currUser.fullname}</h1>
+                <h1>מסלול ההתקדמות </h1>
+                <h1>{currUser.fullname}</h1>
                 <VerticalTimeline>
                     {userPath.map((steps, stepIdx) => (
                         steps.map((step, idx) => {
@@ -159,9 +164,9 @@ export function Timeline(props) {
                                     key={step.description + idx}
                                     className={`${(step.isDone) ? 'done' : 'undone'} vertical-timeline ${stepIdx === userPath.length - 1 && idx === 0 && levelsOnlyPath.length > 0 ? '' : 'vertical-timeline-custom-line '}`
                                     }
-                                    contentStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-                                    contentArrowStyle={{ borderRight: "7px solid  rgb(33, 150, 243)" }}
-                                    iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
+                                    iconStyle={{ background: "rgb(114, 121, 137)", color: "#fff" }}
+                                    contentStyle={{ background: "rgb(114, 121, 137)", color: "#fff" }}
+                                    contentArrowStyle={{ borderRight: "7px solid  rgb(114, 121, 137)" }}
                                     icon={<LocalHospitalIcon />}
                                 >
                                     <h3 className="vertical-timeline-element-title">שלב {step.levelNumber}</h3>
@@ -177,9 +182,11 @@ export function Timeline(props) {
                                 ${isLastStep && ((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? 'laststep' : ''}`
                                 }
                                 date={new Date(step.date).toLocaleDateString('he-IL')}
-                                iconStyle={{ background: "rgb(233, 30, 99)", color: "#fff" }}
-                                contentStyle={{ background: "rgb(233, 30, 99)", color: "#fff" }}
-                                contentArrowStyle={{ borderRight: "7px solid  rgb(233, 30, 99)" }}
+                                contentStyle={{ background: "rgb(255, 117, 24)", color: "#fff" }}
+                                iconStyle={{ background: "rgb(255, 117, 24)", color: "#fff" }}
+                                contentArrowStyle={{ borderRight: "7px solid  rgb(255, 117, 24)" }}
+
+
                                 icon={step.isCurrStep ? <InsertEmoticonIcon /> : (stepIdx === path.length - 1) && (steps.length - 1 === idx) ? <StarIcon /> : <MedicationIcon />}
                             >
                                 <h4 className="vertical-timeline-element-subtitle">מספר תחנה {step.stepNumber}</h4>

@@ -127,7 +127,7 @@ main {
         &.active {
             color: #ff7518;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            padding-block-end: 15px;
+            // padding-block-end: 15px;
         }
     }
     @media (max-width: 780px) {

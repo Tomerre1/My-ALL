@@ -1,6 +1,9 @@
 .time-line-container {
     text-align: center;
     padding: 20px;
+    &::-webkit-scrollbar {
+        width: 0 !important;
+    }
     p {
         color: white;
     }
