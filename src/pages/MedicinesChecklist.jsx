@@ -110,10 +110,11 @@ const medicinesList =
     ]
 
 export function MedicinesChecklist({ }) {
-    const [selected, setSeleceted] = useState('ראשון')
+    const [selected, setSeleceted] = useState(new Date().toLocaleDateString('he-IL', { weekday: 'long' }).split(' ')[1])
     const [selectedDayMedicines, setSelectedDayMedicines] = useState([])
     const [openPopup, setOpenPopup] = useState(false);
-    const days = ['שבת', 'שישי', 'חמישי', 'רביעי', 'שלישי', 'שני', 'ראשון']
+    const days = ['שבת', 'ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי']
+    const weekDaysOrganized = ['שבת', 'שישי', 'חמישי', 'רביעי', 'שלישי', 'שני', 'ראשון']
 
     useEffect(() => {
         getMedicinesByDay()
@@ -141,16 +142,26 @@ export function MedicinesChecklist({ }) {
         setSelectedDayMedicines(todayMeds)
     }
 
+    const getDateByDaySelected = () => {
+        const dayIndex = days.indexOf(selected)
+        const date = new Date(new Date().setDate(new Date().getDate() + dayIndex))
+        const day = date.toLocaleDateString('he-IL').split('.')[0]
+        const month = date.toLocaleDateString('he-IL', { month: 'long' });
+        const year = date.getFullYear()
+        return { day, month, year }
+    }
+
+    const dateBySelectedDay = getDateByDaySelected()
 
     return <>
         <div className="container flex column align-center justify-center">
             <h1>התרופות שלי</h1>
             <div className="switches-container">
-                {days.map((day) => <input type="radio" onChange={onChangeDay} id={day} name="switchPlan" value={day} checked={selected === day} />)}
-                {days.map((day) => <label for={day}>{day}</label>)}
+                {weekDaysOrganized.map((day) => <input type="radio" onChange={onChangeDay} id={day} name="switchPlan" value={day} checked={selected === day} />)}
+                {weekDaysOrganized.map((day) => <label for={day}>{day}</label>)}
                 <div className="switch-wrapper">
                     <div className="switch">
-                        {days.map((day) => <div>{day}</div>)}
+                        {weekDaysOrganized.map((day) => <div>{day}</div>)}
                     </div>
                 </div>
             </div>
@@ -158,10 +169,10 @@ export function MedicinesChecklist({ }) {
                 <div className="todolist__main flex column">
                     <div className="todolist__header">
                         <div className="todolist__header--date flex align-center">
-                            <span className="date--day">12</span>
+                            <span className="date--day">{dateBySelectedDay.day}</span>
                             <div className="warpper flex column">
-                                <span className="date--month">November</span>
-                                <span className="date--year">2019</span>
+                                <span className="date--month">{dateBySelectedDay.month}</span>
+                                <span className="date--year">{dateBySelectedDay.year}</span>
                             </div>
                             <button onClick={() => setOpenPopup(true)} className="add__circle clean-btn"><AddCircleOutlineIcon /></button>
                         </div>
