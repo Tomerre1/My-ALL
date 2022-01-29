@@ -126,7 +126,7 @@ export function AppPage() {
             </section>
 
 
-            <section class="doctors" id="doctors">
+            {/* <section class="doctors" id="doctors">
                 <h1 class="heading"> our <span>doctors</span> </h1>
                 <div class="box-container">
                     <div class="box">
@@ -201,7 +201,7 @@ export function AppPage() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             <section class="blogs" id="blogs">
                 <h1 class="heading"> our <span>blogs</span> </h1>
