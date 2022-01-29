@@ -6,9 +6,6 @@ import doc3 from '../assets/img/doc-3.jpg'
 import doc4 from '../assets/img/doc-4.jpg'
 import doc5 from '../assets/img/doc-5.jpg'
 import doc6 from '../assets/img/doc-6.jpg'
-import pic1 from '../assets/img/pic-1.png'
-import pic2 from '../assets/img/pic-2.png'
-import pic3 from '../assets/img/pic-3.png'
 import blog1 from '../assets/img/blog-1.jpg'
 import blog2 from '../assets/img/blog-2.jpg'
 import blog3 from '../assets/img/blog-3.jpg'
@@ -203,57 +200,6 @@ export function AppPage() {
                             <a href="#" class="fab fa-linkedin"></a>
                         </div>
                     </div>
-                </div>
-            </section>
-
-            <section class="review" id="review">
-                <h1 class="heading"> client's <span>review</span> </h1>
-                <div class="box-container">
-                    <div class="box">
-                        <img src={pic1} alt="" />
-                        <h3>john deo</h3>
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam sapiente nihil
-                            aperiam? Repellat sequi nisi aliquid perspiciatis libero nobis rem numquam nesciunt alias sapiente
-                            minus voluptatem, reiciendis consequuntur optio dolorem!</p>
-                    </div>
-
-                    <div class="box">
-                        <img src={pic2} alt="" />
-                        <h3>john deo</h3>
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam sapiente nihil
-                            aperiam? Repellat sequi nisi aliquid perspiciatis libero nobis rem numquam nesciunt alias sapiente
-                            minus voluptatem, reiciendis consequuntur optio dolorem!</p>
-                    </div>
-
-                    <div class="box">
-                        <img src={pic3} alt="" />
-                        <h3>john deo</h3>
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam sapiente nihil
-                            aperiam? Repellat sequi nisi aliquid perspiciatis libero nobis rem numquam nesciunt alias sapiente
-                            minus voluptatem, reiciendis consequuntur optio dolorem!</p>
-                    </div>
-
                 </div>
             </section>
 
