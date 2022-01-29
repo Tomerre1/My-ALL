@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Controls from './controls/Controls';
+import Controls from '../../controls/Controls';
 
 export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
   const initialFValues = {

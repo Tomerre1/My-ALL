@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Popup } from '../../Popup/Popup';
 import { MedicineAddEdit } from './MedicineAddEdit';
-import Button from './controls/Button';
+import Button from '../../controls/Button';
 import { MedicineRow } from './MedicineRow';
 import { medicineService } from './../../../services/medicine.service';
 
