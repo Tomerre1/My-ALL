@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Popup } from '../../Popup';
+import { Popup } from '../../Popup/Popup';
 import { MedicineAddEdit } from './MedicineAddEdit';
 import Button from './controls/Button';
 import { MedicineRow } from './MedicineRow';
@@ -45,7 +45,7 @@ export function MedicineTable() {
       setMedicines([...medicines, newMedicine]);
     }
     setOpenPopup(false);
- };
+  };
 
   const deleteMedicine = async (deleteMedicine) => {
     await medicineService.removeMedicine(deleteMedicine);

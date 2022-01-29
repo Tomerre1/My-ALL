@@ -3,7 +3,7 @@ import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlin
 import RadioButtonUncheckedRoundedIcon from '@mui/icons-material/RadioButtonUncheckedRounded';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { Popup } from '../cmps/Popup'
+import { Popup } from '../cmps/Popup/Popup';
 import { MedicineAddEdit } from '../cmps/Doctor/Medicine/MedicineAddEdit'
 const medicinesList =
     [
