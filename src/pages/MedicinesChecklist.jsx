@@ -177,8 +177,12 @@ export function MedicinesChecklist() {
     }
 
     const onDeleteMedicine = (medName) => {
+        const dayIdx = days.reverse().indexOf(selected)
         const todayMeds = selectedDayMedicines.filter(med => med.medicineName !== medName)
+        userMedicines[dayIdx] = todayMeds
+        setUserMedicines(userMedicines)
         setSelectedDayMedicines(todayMeds)
+        userService.removeUserMedicine(medName, user.mail, selected)
     }
 
     const getDateByDaySelected = () => {

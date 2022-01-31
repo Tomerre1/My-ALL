@@ -9,7 +9,8 @@ export const userService = {
     getLoggedinUser,
     query,
     queryMedicines,
-    addMedicineToChecklist
+    addMedicineToChecklist,
+    removeUserMedicine
 }
 
 async function query() {
@@ -19,7 +20,10 @@ async function query() {
 
 async function queryMedicines(mail) {
     const medicines = await httpService.post('medicine/getListMedicines/', { mail })
-    console.log('%c  medicines from api request:', 'color: white;background: red;', medicines);
+    return medicines
+}
+async function removeUserMedicine(medicineName, mail, day) {
+    const medicines = await httpService.post('medicine/removeMedicineFromDay/', { medicineName, mail, day })
     return medicines
 }
 
