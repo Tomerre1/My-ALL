@@ -25,7 +25,7 @@ export function MedicinesChecklist() {
 
     useEffect(() => {
         async function getMedicines() {
-            if (selected === 'שני') {
+            if (selected === 'ראשון') {
                 await medicineService.resetUserMedicineForNewWeek(user.mail)
             }
             const userMedicines = await medicineService.queryMedicines(user.mail)

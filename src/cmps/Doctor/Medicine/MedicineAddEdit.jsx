@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Controls from '../../controls/Controls';
 
-export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
+export function MedicineAddEdit({ addOrEdit, recordForEdit, isRow }) {
   const initialFValues = {
     medicineName: '',
     description: '',
@@ -9,6 +9,7 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
     count: '',
     levels: [],
     badInfluence: [],
+    days: []
   };
   const [values, setValues] = useState(initialFValues);
   const [errors, setErrors] = useState({});
@@ -19,6 +20,7 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
     { id: 'ללא צום', title: 'ללא צום' },
     { id: 'צום', title: 'צום' },
   ];
+  const dayOptions = [{ id: 'ראשון', title: 'ראשון' }, { id: 'שני', title: 'שני' }, { id: 'שלישי', title: 'שלישי' }, { id: 'רביעי', title: 'רביעי' }, { id: 'חמישי', title: 'חמישי' }, { id: 'שישי', title: 'שישי' }, { id: 'שבת', title: 'שבת' }];
 
   const handleChangeMultiSelect = (event) => {
     const { name, value } = event.target;
@@ -53,15 +55,15 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
       temp.description = fieldValues.description.length > 0
         ? ''
         : 'נדרש למלא תיאור תרופה';
-    if ('badInfluence' in fieldValues)
-      temp.badInfluence = fieldValues.badInfluence.length > 0
-        ? ''
-        : 'נדרש למלא תופעות לוואי';
-    if ('levels' in fieldValues)
-      temp.levels =
-        fieldValues.levels.length > 0
-          ? ''
-          : 'נדרש למלא שלב תרופה.'
+    // if ('badInfluence' in fieldValues)
+    //   temp.badInfluence = fieldValues.badInfluence.length > 0
+    //     ? ''
+    //     : 'נדרש למלא תופעות לוואי';
+    // if ('levels' in fieldValues)
+    //   temp.levels =
+    //     fieldValues.levels.length > 0
+    //       ? ''
+    //       : 'נדרש למלא שלב תרופה.'
     if ('count' in fieldValues)
       temp.count =
         fieldValues.count.length > 0
@@ -132,11 +134,20 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit }) {
         onChange={handleInputChange}
         error={errors.count}
       />
+      <Controls.Select
+        name='days'
+        label='ימי נטילת תרופה'
+        value={values.days}
+        onChange={handleChangeMultiSelect}
+        options={dayOptions}
+        error={errors.days}
+      />
       <Controls.RadioGroup
         name='foodOrNot'
         value={values.foodOrNot}
         onChange={handleInputChange}
         items={genderItems}
+        isRow={isRow}
       />
 
       <div className='flex justify-center'>

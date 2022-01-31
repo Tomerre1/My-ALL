@@ -90,6 +90,7 @@ export function MedicineTable() {
           recordForEdit={recordForEdit}
           addOrEdit={addOrEdit}
           setRecordForEdit={setRecordForEdit}
+          isRow={true}
         />
       </Popup>
       <div style={{ direction: 'rtl' }}>
