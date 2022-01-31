@@ -4,8 +4,10 @@ import RadioButtonUncheckedRoundedIcon from '@mui/icons-material/RadioButtonUnch
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Popup } from '../cmps/Popup/Popup';
+import { userService } from '../services/user.service';
 import { medicineService } from '../services/medicine.service';
 import { AddMedicine } from '../cmps/User/AddMedicine'
+import { useSelector } from 'react-redux';
 
 const medicinesList =
     [
@@ -115,22 +117,26 @@ export function MedicinesChecklist() {
     const [selected, setSeleceted] = useState(new Date().toLocaleDateString('he-IL', { weekday: 'long' }).split(' ')[1])
     const [selectedDayMedicines, setSelectedDayMedicines] = useState([])
     const [openPopup, setOpenPopup] = useState(false);
-    const [medicines, setMedicines] = useState([])
+    const [userMedicines, setUserMedicines] = useState([])
+    const [allmedicines, setAllMedicines] = useState([])
+    const user = useSelector(state => state.userReducer.user)
+
     const days = ['שבת', 'ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי']
     const weekDaysOrganized = ['שבת', 'שישי', 'חמישי', 'רביעי', 'שלישי', 'שני', 'ראשון']
 
     useEffect(() => {
         getMedicinesByDay()
-    }, [selected])
+    }, [selected, userMedicines])
 
     useEffect(() => {
         async function getMedicines() {
-            const medicines = await medicineService.query()
-            console.log('%c  medicines:', 'color: white;background: red;', medicines);
-            setMedicines(medicines)
+            const userMedicines = await userService.queryMedicines(user.mail)
+            setUserMedicines(userMedicines)
+            const allMedicines = await medicineService.query()
+            setAllMedicines(allMedicines)
         }
         getMedicines()
-    }, [])
+    }, [user])
 
     const onChangeDay = (event) => {
         const { value } = event.target
@@ -138,13 +144,29 @@ export function MedicinesChecklist() {
     }
 
     const onAddMedicine = (values) => {
-        const medicine = medicines.find(med => med.medicineName === values.medicineName)
-        const newMedicine = { ...medicine, ...values }
+        const dayIdx = days.reverse().indexOf(selected)
+        const medicine = userMedicines[dayIdx].find(med => med.medicineName === values.medicineName)
+        const newMedicine = { ...medicine, ...values, isActive: false }
+        if (!medicine) {
+            const dayMedicines = userMedicines[dayIdx]
+            const newDayMedicines = [...dayMedicines, newMedicine]
+            userMedicines[dayIdx] = newDayMedicines
+            setSelectedDayMedicines(userMedicines[dayIdx])
+
+        } else {
+            const updatedUserMedicines = userMedicines[dayIdx].map(med => med.medicineName === values.medicineName ? newMedicine : med)
+            setSelectedDayMedicines(updatedUserMedicines)
+        }
+        userService.addMedicineToChecklist(newMedicine, user.mail, selected)
+        setUserMedicines(userMedicines)
+        setOpenPopup(false)
     }
 
     const getMedicinesByDay = () => {
         const day = days.reverse().indexOf(selected)
-        setSelectedDayMedicines(medicinesList[day])
+        console.log('%c  selected:', 'color: white;background: red;', selected);
+        console.log('%c  day:', 'color: white;background: red;', day);
+        setSelectedDayMedicines(userMedicines[day])
     }
 
     const onClickMedicine = (medName) => {
@@ -216,7 +238,7 @@ export function MedicinesChecklist() {
             openPopup={openPopup}
             setOpenPopup={setOpenPopup}
         >
-            <AddMedicine day={selected} medicines={medicines} isRow={false} addMedicine={onAddMedicine} />
+            <AddMedicine day={selected} medicines={allmedicines} isRow={false} addMedicine={onAddMedicine} />
         </Popup>
     </>
 }
