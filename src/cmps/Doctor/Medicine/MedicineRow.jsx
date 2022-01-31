@@ -15,7 +15,7 @@ export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
   return (
     <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
+        <TableCell >
           <IconButton
             aria-label='expand row'
             size='small'
@@ -25,19 +25,20 @@ export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
           </IconButton>
         </TableCell>
 
-        <TableCell component='th' scope='row'>
+        <TableCell align='right' component='th' scope='row' colSpan={4}>
           {row.medicineName}
         </TableCell>
-        <TableCell align='right'>{row.levels.join(', ')}</TableCell>
-        <TableCell align='right'>{row.count}</TableCell>
-        <TableCell align='right'>{row.foodOrNot}</TableCell>
-        <TableCell align='right'>
+        <TableCell align='right' colSpan={4}>{row.levels.join(', ')}</TableCell>
+        <TableCell align='right' colSpan={4}>{row.count}</TableCell>
+        <TableCell align='right' colSpan={4}>{row.foodOrNot}</TableCell>
+        <TableCell align='right' colSpan={4}>{row.days.join(', ')}</TableCell>
+        <TableCell align='right' colSpan={4}>
           <EditIcon onClick={() => openInPopup(row)} />
           <DeleteIcon onClick={() => deleteMedicine(row)} />
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
           <Collapse in={open} timeout='auto' unmountOnExit>
             <Box
               sx={{

@@ -58,15 +58,16 @@ export function MedicineTable() {
   return (
     <>
       <TableContainer component={Paper}>
-        <Table aria-label='collapsible table'>
+        <Table aria-label='collapsible table' >
           <TableHead>
             <TableRow>
-              <TableCell />
-              <TableCell>שם תרופה</TableCell>
-              <TableCell align='right'>שלב תרופה</TableCell>
-              <TableCell align='right'>מינון תרופה</TableCell>
-              <TableCell align='right'>צורך בצום</TableCell>
-              <TableCell align='right'>פעולות</TableCell>
+              <TableCell colSpan={4} />
+              <TableCell colSpan={4} align='right'>שם תרופה</TableCell>
+              <TableCell colSpan={4} align='right'>שלב תרופה</TableCell>
+              <TableCell colSpan={4} align='right'>מינון תרופה</TableCell>
+              <TableCell colSpan={4} align='right'>צורך בצום</TableCell>
+              <TableCell colSpan={4} align='right'>ימים</TableCell>
+              <TableCell colSpan={4} align='right'>פעולות</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
