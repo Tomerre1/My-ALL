@@ -4,114 +4,9 @@ import RadioButtonUncheckedRoundedIcon from '@mui/icons-material/RadioButtonUnch
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Popup } from '../cmps/Popup/Popup';
-import { userService } from '../services/user.service';
 import { medicineService } from '../services/medicine.service';
 import { AddMedicine } from '../cmps/User/AddMedicine'
 import { useSelector } from 'react-redux';
-
-const medicinesList =
-    [
-        [//יום ראשון 
-            {
-                "day": 1,
-                "medicineName": "1",
-                "count": "1",
-                "isActive": true
-            },
-            {
-                "day": 1,
-                "medicineName": "2",
-                "count": "2",
-                "isActive": true
-            },
-            {
-                "day": 1,
-                "medicineName": "3",
-                "count": "3",
-                "isActive": false
-            },
-            {
-                "day": 1,
-                "medicineName": "1",
-                "count": "1",
-                "isActive": false
-            },
-            {
-                "day": 1,
-                "medicineName": "2",
-                "count": "2",
-                "isActive": false
-            },
-            {
-                "day": 1,
-                "medicineName": "3",
-                "count": "3",
-                "isActive": false
-            },
-            {
-                "day": 1,
-                "medicineName": "1",
-                "count": "1",
-                "isActive": false
-            },
-            {
-                "day": 1,
-                "medicineName": "2",
-                "count": "2",
-                "isActive": false
-            },
-            {
-                "day": 1,
-                "medicineName": "3",
-                "count": "3",
-                "isActive": false
-            }
-        ],
-        [],//יום שני אין תרופות
-        [//יום שלישי 
-            {
-                "day": 3,
-                "medicineName": "1",
-                "count": "1",
-                "isActive": false
-            },
-            {
-                "day": 3,
-                "medicineName": "2",
-                "count": "2",
-                "isActive": false
-            },
-            {
-                "day": 3,
-                "medicineName": "3",
-                "count": "3",
-                "isActive": false
-            }
-        ],
-        [],//יום רביעי 
-        [],//יום חמישי 
-        [//יום שישי 
-            {
-                "day": 6,
-                "medicineName": "1",
-                "count": "1",
-                "isActive": true
-            },
-            {
-                "day": 6,
-                "medicineName": "2",
-                "count": "2",
-                "isActive": true
-            },
-            {
-                "day": 6,
-                "medicineName": "3",
-                "count": "3",
-                "isActive": true
-            }
-        ],
-        []//יום שבת 
-    ]
 
 export function MedicinesChecklist() {
     const [selected, setSeleceted] = useState(new Date().toLocaleDateString('he-IL', { weekday: 'long' }).split(' ')[1])
@@ -130,7 +25,10 @@ export function MedicinesChecklist() {
 
     useEffect(() => {
         async function getMedicines() {
-            const userMedicines = await userService.queryMedicines(user.mail)
+            if (selected === 'שני') {
+                await medicineService.resetUserMedicineForNewWeek(user.mail)
+            }
+            const userMedicines = await medicineService.queryMedicines(user.mail)
             setUserMedicines(userMedicines)
             const allMedicines = await medicineService.query()
             setAllMedicines(allMedicines)
@@ -157,15 +55,13 @@ export function MedicinesChecklist() {
             const updatedUserMedicines = userMedicines[dayIdx].map(med => med.medicineName === values.medicineName ? newMedicine : med)
             setSelectedDayMedicines(updatedUserMedicines)
         }
-        userService.addMedicineToChecklist(newMedicine, user.mail, selected)
+        medicineService.addUserMedicineChecklist(newMedicine, user.mail, selected)
         setUserMedicines(userMedicines)
         setOpenPopup(false)
     }
 
     const getMedicinesByDay = () => {
         const day = days.reverse().indexOf(selected)
-        console.log('%c  selected:', 'color: white;background: red;', selected);
-        console.log('%c  day:', 'color: white;background: red;', day);
         setSelectedDayMedicines(userMedicines[day])
     }
 
@@ -174,6 +70,7 @@ export function MedicinesChecklist() {
         const index = todayMeds.findIndex(med => med.medicineName === medName)
         todayMeds[index].isActive = !todayMeds[index].isActive
         setSelectedDayMedicines(todayMeds)
+        medicineService.updateUserMedicineActive(medName, user.mail, selected)
     }
 
     const onDeleteMedicine = (medName) => {
@@ -182,7 +79,7 @@ export function MedicinesChecklist() {
         userMedicines[dayIdx] = todayMeds
         setUserMedicines(userMedicines)
         setSelectedDayMedicines(todayMeds)
-        userService.removeUserMedicine(medName, user.mail, selected)
+        medicineService.removeUserMedicine(medName, user.mail, selected)
     }
 
     const getDateByDaySelected = () => {

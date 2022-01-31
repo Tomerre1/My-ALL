@@ -8,33 +8,13 @@ export const userService = {
     signup,
     getLoggedinUser,
     query,
-    queryMedicines,
-    addMedicineToChecklist,
-    removeUserMedicine
+
 }
 
 async function query() {
     const users = httpService.get('user/')
     return users
 }
-
-async function queryMedicines(mail) {
-    const medicines = await httpService.post('medicine/getListMedicines/', { mail })
-    return medicines
-}
-async function removeUserMedicine(medicineName, mail, day) {
-    const medicines = await httpService.post('medicine/removeMedicineFromDay/', { medicineName, mail, day })
-    return medicines
-}
-
-async function addMedicineToChecklist({ medicineName, count }, mail, day) {
-
-    console.log('%c  { medicineName, count, mail, day }:', 'color: white;background: red;', { medicineName, count, mail, day });
-    const medicines = await httpService.post('medicine/addMedicineForDay/', { medicineName, count, mail, day })
-    return medicines
-}
-
-
 
 async function login(userCred) {
     const user = await httpService.post('login/', userCred)
