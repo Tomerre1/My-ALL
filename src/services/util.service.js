@@ -1,6 +1,7 @@
 export const utilService = {
     makeId,
     makeDate,
+    makeDateWithHour
 }
 
 function makeId(length = 6) {
@@ -22,5 +23,11 @@ function makeDate(date) {
         day: "2-digit"
     }
     return currentDate.toLocaleString("en-GB", newDateOptions);
+}
+
+function makeDateWithHour(d) {
+    d = new Date(d);
+    return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' +
+        d.getFullYear() + ', ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
 }
 

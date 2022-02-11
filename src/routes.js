@@ -3,6 +3,7 @@ import { LoginSignup } from './pages/LoginSignup'
 import { MedicineTable } from './cmps/Doctor/Medicine/MedicineTable'
 import { Timeline } from './pages/Timeline.jsx'
 import { MedicinesChecklist } from './pages/MedicinesChecklist.jsx'
+import { SuccessStories } from './pages/SuccessStories'
 const routes = [
     {
         path: '/',
@@ -27,6 +28,11 @@ const routes = [
     {
         path: '/medicines',
         component: MedicinesChecklist,
+        isExact: true
+    },
+    {
+        path: '/success-stories',
+        component: SuccessStories,
         isExact: true
     },
 ]
