@@ -7,17 +7,25 @@
         justify-content: center;
         .name {
             margin-left: 1.25rem;
-            > p {
-                font-weight: bold;
-                font-size: 1.1rem;
+            > h1 {
+                text-align: center;
                 margin: 0;
+                font: bold 30px "Open Sans", sans-serif;
+                color: $clr1;
+                text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa,
+                    0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3),
+                    0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
+                    0 20px 20px rgba(0, 0, 0, 0.15);
+                @include for-narrow-layout {
+                    font: bold 60px "Open Sans", sans-serif;
+                }
             }
         }
     }
     .border {
         border-radius: 5px;
         height: 2px;
-        background-color: #eee;
+        background-color: $clr4;
         border: none;
         margin: 1.25rem 0;
     }
@@ -48,7 +56,7 @@
             .success-story {
                 width: 100%;
                 margin: 10px;
-                color: #212529;
+                color: $clr5;
                 box-shadow: 0 8px 24px rgba(149, 157, 165, 20%);
                 padding: 0.625em;
                 margin-bottom: 1rem;
@@ -65,8 +73,8 @@
                 .success-story-header {
                     display: flex;
                     align-items: center;
-                    justify-content: space-between;
                     width: 100%;
+
                     .actions {
                         > button {
                             background: transparent;
@@ -76,14 +84,9 @@
                         }
                     }
                 }
-                > :not(:last-child) {
-                    margin-inline-end: 1em;
-                }
+
                 > :nth-child(2) {
                     font-weight: bold;
-                }
-                > p {
-                    margin: 0;
                 }
             }
             .success-story-comment {
@@ -91,9 +94,18 @@
                 text-align: center;
                 word-wrap: break-word;
                 .title {
-                    font-size: 1.5rem;
+                    font-size: 1.75rem;
                     font-weight: bold;
+                    margin-block-end: 20px;
+                    text-decoration: underline;
                 }
+                .content {
+                    text-align: right;
+                }
+            }
+            .date {
+                width: 100%;
+                text-align: right;
             }
         }
     }
