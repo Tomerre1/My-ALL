@@ -1,0 +1,100 @@
+.success-stories-layout {
+    padding: 3rem;
+    .header {
+        display: flex;
+        margin-top: -15px;
+        align-items: center;
+        justify-content: center;
+        .name {
+            margin-left: 1.25rem;
+            > p {
+                font-weight: bold;
+                font-size: 1.1rem;
+                margin: 0;
+            }
+        }
+    }
+    .border {
+        border-radius: 5px;
+        height: 2px;
+        background-color: #eee;
+        border: none;
+        margin: 1.25rem 0;
+    }
+
+    .card__heading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .heading {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+    }
+
+    .success-stories-container {
+        width: 100%;
+        margin: 2rem 0;
+        display: flex;
+        flex: 1;
+        flex-wrap: wrap;
+        justify-content: center;
+        .success-stories-list {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            overflow-y: auto;
+            flex-direction: row-reverse;
+            .success-story {
+                width: 100%;
+                margin: 10px;
+                color: #212529;
+                box-shadow: 0 8px 24px rgba(149, 157, 165, 20%);
+                padding: 0.625em;
+                margin-bottom: 1rem;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                overflow: hidden;
+                word-wrap: break-word;
+                display: flex;
+                align-items: center;
+                margin-block-start: 10px;
+                .success-story-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    .actions {
+                        > button {
+                            background: transparent;
+                            font-size: 24px;
+                            cursor: pointer;
+                            border: none;
+                        }
+                    }
+                }
+                > :not(:last-child) {
+                    margin-inline-end: 1em;
+                }
+                > :nth-child(2) {
+                    font-weight: bold;
+                }
+                > p {
+                    margin: 0;
+                }
+            }
+            .success-story-comment {
+                width: 100%;
+                text-align: center;
+                word-wrap: break-word;
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
