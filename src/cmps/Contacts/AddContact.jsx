@@ -2,15 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Controls from '../controls/Controls'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-
+import { cloudinaryService } from '../../services/cloudinary-service'
 
 export function AddContact({ user }) {
-    const [values, setValues] = useState({
-        contactName: '',
-        contactMail: '',
-        contactPhone: '',
-        contactJob: ''
-    });
+    const [profileImage, setProfileImage] = useState('');
 
     const validationSchemaAddContact = Yup.object().shape({
         contactName: Yup.string()
@@ -27,27 +22,17 @@ export function AddContact({ user }) {
             ),
     });
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setValues({
-            ...values,
-            [name]: value,
-        });
-    };
-
-    const resetForm = () => {
-        setValues({
-            contactName: '',
-            contactMail: '',
-            contactPhone: '',
-            contactJob: ''
-        });
-    };
-
     const handleSubmit = (values) => {
         console.log('%c  values:', 'color: white;background: red;', values);
     };
 
+    const uploadFile = async (ev) => {
+        ev.preventDefault()
+        const res = await cloudinaryService.uploadFile(ev)
+        console.log('%c  res:', 'color: white;background: red;', res);
+        setProfileImage(res.secure_url)
+        console.log('%c  res.secure_url:', 'color: white;background: red;', res.secure_url);
+    }
     return <Formik
         onSubmit={handleSubmit}
         initialValues={{
@@ -98,6 +83,11 @@ export function AddContact({ user }) {
                         error={props.touched.contactJob && props.errors.contactJob ? props.errors.contactJob : ''}
                     />
 
+                    <div class="fileUpload blue-btn btn width100">
+                        <span>העלאת תמונת איש קשר</span>
+                        <input type="file" class="uploadlogo" onChange={uploadFile} />
+                    </div>
+
                     <div className='flex justify-center'>
                         <Controls.Button
                             type='submit'
@@ -112,7 +102,7 @@ export function AddContact({ user }) {
                 </form>
             )
         }}
-    </Formik>
+    </Formik >
 
 
 }

@@ -12,7 +12,7 @@ export function Contacts() {
             name: 'תומר רווח',
             phone: '0503031330',
             mail: 'tomer@gmail.com',
-            img: "https://blackhistorywall.files.wordpress.com/2010/02/picture-device-independent-bitmap-119.jpg"
+            img: "https://res.cloudinary.com/dusakec3z/image/upload/v1644704225/e4v13fzjwjexvdkvyp8c.png"
         },
         {
             name: 'תומר רווח',
