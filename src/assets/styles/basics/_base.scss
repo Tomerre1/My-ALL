@@ -17,42 +17,9 @@ body {
     font-weight: 400;
     line-height: 20px;
     margin: 0;
+    padding-right: unset !important;
+    overflow: unset !important;
 }
-
-// main {
-//     display: grid;
-//     column-gap: 1.6rem;
-//     grid-template-columns: 0px 1fr 0px;
-
-//     > * {
-//         grid-column: 2;
-//     }
-
-//     .full {
-//         grid-column: 1 / -1;
-//     }
-
-//     @include for-narrow-layout {
-//         grid-template-columns:
-//             1fr
-//             minmax(auto, $mobile-breakpoint)
-//             1fr;
-//     }
-
-//     @include for-normal-layout {
-//         grid-template-columns:
-//             1fr
-//             minmax(auto, $narrow-breakpoint)
-//             1fr;
-//     }
-
-//     @include for-wide-layout {
-//         grid-template-columns:
-//             1fr
-//             minmax(auto, $normal-breakpoint)
-//             1fr;
-//     }
-// }
 
 p {
     margin: 0;

@@ -8,7 +8,8 @@ export const Nav = ({ open, toggleOpen, user, onLogout }) => {
       {user && user.userType === 'מטופל' && <NavLink onClick={toggleOpen} to="/timeline">מסלול</NavLink>}
       {user && user.userType && <NavLink onClick={toggleOpen} to="/medicines">תרופות</NavLink>}
       {user && user.userType === 'אדמין' && <NavLink onClick={toggleOpen} to="/admin">טבלת תרופות</NavLink>}
-      {user && user.userType === 'מטופל' && <NavLink onClick={toggleOpen} to="/success-stories"> הצלחות</NavLink>}
+      {user && <NavLink onClick={toggleOpen} to="/success-stories"> הצלחות</NavLink>}
+      {user && <NavLink onClick={toggleOpen} to="tips"> טיפים</NavLink>}
       {!mail && <NavLink onClick={toggleOpen} to="/auth">התחברות</NavLink>}
       {mail && <NavLink onClick={onLogout} to="/auth">התנתקות</NavLink>}
     </ul>

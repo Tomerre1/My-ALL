@@ -35,6 +35,11 @@ const routes = [
         component: SuccessStories,
         isExact: true
     },
+    {
+        path: '/tips',
+        component: SuccessStories,
+        isExact: true
+    },
 ]
 
 export default routes;
