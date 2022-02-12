@@ -10,6 +10,7 @@ export const Nav = ({ open, toggleOpen, user, onLogout }) => {
       {user && user.userType === 'אדמין' && <NavLink onClick={toggleOpen} to="/admin">טבלת תרופות</NavLink>}
       {user && <NavLink onClick={toggleOpen} to="/success-stories"> הצלחות</NavLink>}
       {user && <NavLink onClick={toggleOpen} to="tips"> טיפים</NavLink>}
+      {user && user.userType === 'מטופל' && <NavLink onClick={toggleOpen} to="/contacts">אנשי קשר</NavLink>}
       {!mail && <NavLink onClick={toggleOpen} to="/auth">התחברות</NavLink>}
       {mail && <NavLink onClick={onLogout} to="/auth">התנתקות</NavLink>}
     </ul>
