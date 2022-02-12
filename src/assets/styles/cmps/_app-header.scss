@@ -100,9 +100,12 @@
         text-align: center;
         color: #333;
         padding: 20px;
+        @include for-narrow-layout {
+            padding: unset;
+            width: 70px;
+        }
         &.active {
             color: #ff7518;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             // padding-block-end: 15px;
         }
     }
