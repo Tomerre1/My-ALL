@@ -4,6 +4,7 @@ import { MedicineTable } from './cmps/Doctor/Medicine/MedicineTable'
 import { Timeline } from './pages/Timeline.jsx'
 import { MedicinesChecklist } from './pages/MedicinesChecklist.jsx'
 import { SuccessStories } from './pages/SuccessStories'
+import { Contacts } from './pages/Contacts'
 const routes = [
     {
         path: '/',
@@ -38,6 +39,11 @@ const routes = [
     {
         path: '/tips',
         component: SuccessStories,
+        isExact: true
+    },
+    {
+        path: '/contacts',
+        component: Contacts,
         isExact: true
     },
 ]

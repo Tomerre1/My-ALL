@@ -20,7 +20,6 @@ export function SuccessStories({ match }) {
     { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() }]
     return (
         <>
-
             <div className="success-stories-layout">
                 <div className="header">
                     <div className="name">
