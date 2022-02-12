@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { ContactsList } from '../cmps/Contacts/ContactsList'
+import { AddContact } from '../cmps/Contacts/AddContact'
 // import { loadReviews } from '../store/review.actions'
 import { Popup } from '../cmps/Popup/Popup'
 export function Contacts() {
@@ -62,7 +63,7 @@ export function Contacts() {
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
             >
-                {/* <AddMedicine day={selected} medicines={allmedicines} isRow={false} addMedicine={onAddMedicine} /> */}
+                <AddContact user={user} />
             </Popup>
         </>
     )
