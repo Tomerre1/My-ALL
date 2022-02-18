@@ -43,3 +43,9 @@ textarea {
     text-align: right;
     direction: rtl;
 }
+
+iframe,
+object,
+embed {
+    max-width: 100%;
+}
