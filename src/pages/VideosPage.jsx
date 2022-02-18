@@ -6,24 +6,34 @@ export function VideosPage() {
     const [openPopup, setOpenPopup] = useState(false)
     const [video, setVideo] = useState('')
 
+
     useEffect(() => {
         async function fetchVideosData() {
-            const res = await fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC-9-kyTW8ZkZNDHQJ6FgpwQ&maxResults=10&order=date&key=AIzaSyBxe9n_zywx_EH1njOLVtNXGIlojjcAhbs')
-            const videos = await res.json()
-            setVideos(videos.items)
-            console.log('%c  videos.items:', 'color: white;background: red;', videos.items);
+            // const res = await fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC-9-kyTW8ZkZNDHQJ6FgpwQ&maxResults=10&order=date&key=AIzaSyBxe9n_zywx_EH1njOLVtNXGIlojjcAhbs')
+            // const videos = await res.json()
+            // setVideos(videos.items)
+            // console.log('%c  videos.items:', 'color: white;background: red;', videos.items);
+            const futureFetch = ['https://www.youtube.com/watch?v=lzQyH-nX0u0', 'https://www.youtube.com/watch?v=lzQyH-nX0u0', 'https://www.youtube.com/watch?v=lzQyH-nX0u0']
+            const videosWithDuration = futureFetch.map(async (url) => {
+                var urlRequest = "https://www.googleapis.com/youtube/v3/videos?id=" + utilService.getYouTubeId(url) + "&key=AIzaSyBxe9n_zywx_EH1njOLVtNXGIlojjcAhbs&part=snippet,contentDetails"
+                const res = await fetch(urlRequest)
+                const video = await res.json()
+                const duration = utilService.formatYoutubeDuration(video.items[0].contentDetails.duration)
+                return { url, duration, img: video.items[0].snippet.thumbnails.default.url }
+            })
+            Promise.all(videosWithDuration).then(videos => {
+                setVideos(videos)
+            })
         }
         fetchVideosData()
+
+
     }, [])
 
-    const onVideoClick = async () => {
-        // setVideo(video)
+    const onVideoClick = async (vid) => {
+        setVideo(vid)
         setOpenPopup(true)
-        var url1 = "https://www.googleapis.com/youtube/v3/videos?id=" + utilService.getYouTubeId('https://www.youtube.com/watch?v=lzQyH-nX0u0') + "&key=AIzaSyBxe9n_zywx_EH1njOLVtNXGIlojjcAhbs&part=snippet,contentDetails";
-        const res = await fetch(url1)
-        const video = await res.json()
-        console.log('%c  video:', 'color: white;background: red;', utilService.formatYoutubeDuration(video.items[0].contentDetails.duration));
-        console.log('%c  video:', 'color: white;background: red;', video.items[0].snippet.thumbnails.default.url);
+        // console.log('%c  video:', 'color: white;background: red;', video.items[0].snippet.thumbnails.default.url);
     }
     return (
         <>
@@ -34,10 +44,10 @@ export function VideosPage() {
                     </div>
                 </div>
                 <hr className="border" />
-                {videos.map((video) => <div class="video-preview" onClick={() => onVideoClick(video)}>
+                {videos.map((vid) => <div class="video-preview" onClick={() => onVideoClick(vid.url)}>
                     <p class="video-title">מדריך לבליעת כדורים</p>
                     <p>זהו מדריך קצרצר ללמידת בליעת כדורים</p>
-                    <div class="video-time">7 דקות</div>
+                    <div class="video-time">{vid.duration} דקות</div>
                 </div>
                 )}
 

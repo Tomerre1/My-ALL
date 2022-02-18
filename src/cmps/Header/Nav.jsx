@@ -6,6 +6,7 @@ export const Nav = ({ open, toggleOpen, user, onLogout }) => {
     <ul className={`right-nav ${open ? 'open' : ''}`}>
       <NavLink onClick={toggleOpen} exact to="/">בית</NavLink>
       {user && user.userType === 'מטופל' && <NavLink onClick={toggleOpen} to="/timeline">מסלול</NavLink>}
+      {user && <NavLink onClick={toggleOpen} to="/videos">סרטונים</NavLink>}
       {user && user.userType && <NavLink onClick={toggleOpen} to="/medicines">תרופות</NavLink>}
       {user && user.userType === 'אדמין' && <NavLink onClick={toggleOpen} to="/admin">טבלת תרופות</NavLink>}
       {user && <NavLink onClick={toggleOpen} to="/success-stories"> הצלחות</NavLink>}
