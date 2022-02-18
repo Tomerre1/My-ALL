@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Popup } from '../cmps/Popup/Popup.jsx'
 import { utilService } from '../services/util.service'
+import { VideosList } from '../cmps/UserVideos/VideosList'
+import { useSelector } from 'react-redux'
+
 export function VideosPage() {
     const [videos, setVideos] = useState([])
     const [openPopup, setOpenPopup] = useState(false)
     const [video, setVideo] = useState('')
+    const [isAdminAddVideo, setIsAdminAddVideo] = useState(false)
+    const user = useSelector(state => state.userReducer.user)
 
 
     useEffect(() => {
@@ -19,7 +24,7 @@ export function VideosPage() {
                 const res = await fetch(urlRequest)
                 const video = await res.json()
                 const duration = utilService.formatYoutubeDuration(video.items[0].contentDetails.duration)
-                return { url, duration, img: video.items[0].snippet.thumbnails.default.url }
+                return { url, duration, img: video.items[0].snippet.thumbnails?.high.url || video.items[0].snippet.thumbnails.default.url }
             })
             Promise.all(videosWithDuration).then(videos => {
                 setVideos(videos)
@@ -31,9 +36,15 @@ export function VideosPage() {
     }, [])
 
     const onVideoClick = async (vid) => {
+        setIsAdminAddVideo(false)
         setVideo(vid)
         setOpenPopup(true)
         // console.log('%c  video:', 'color: white;background: red;', video.items[0].snippet.thumbnails.default.url);
+    }
+
+    const onAddVideo = () => {
+        setIsAdminAddVideo(true)
+        setOpenPopup(true)
     }
     return (
         <>
@@ -44,21 +55,28 @@ export function VideosPage() {
                     </div>
                 </div>
                 <hr className="border" />
-                {videos.map((vid) => <div class="video-preview" onClick={() => onVideoClick(vid.url)}>
-                    <p class="video-title">מדריך לבליעת כדורים</p>
-                    <p>זהו מדריך קצרצר ללמידת בליעת כדורים</p>
-                    <div class="video-time">{vid.duration} דקות</div>
-                </div>
-                )}
-
+                <VideosList videos={videos} onVideoClick={onVideoClick} user={user} />
             </div>
+
+            {user && user.userType === 'אדמין' &&
+                <button class="float flex align-center justify-center" onClick={onAddVideo}>
+                    <i class="fa fa-plus my-float"></i>
+                </button>
+            }
+
             <Popup
-                title="פרטי הסרטון"
+                title={!isAdminAddVideo ? "פרטי הסרטון" : 'הוספת סרטון'}
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
             >
-                <iframe title='video-iframe' width="560" height="315" src={`https://www.youtube.com/embed/${utilService.getYouTubeId('https://www.youtube.com/watch?v=lzQyH-nX0u0')}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <p>הסבר</p>
+                {!isAdminAddVideo ?
+                    <div className='video-details'>
+                        <iframe title='video-iframe' width="560" height="315" src={`https://www.youtube.com/embed/${utilService.getYouTubeId('https://www.youtube.com/watch?v=lzQyH-nX0u0')}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <p>תיאור</p>
+                        <p>בלה בלה בלה בלה בלה בלה בלה בלה בלה בלה בלה</p>
+                    </div>
+                    :
+                    <></>}
             </Popup>
         </>
     )

@@ -1,6 +1,4 @@
 import React from 'react'
-import { utilService } from '../../services/util.service'
-import { Avatar } from '@material-ui/core';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
