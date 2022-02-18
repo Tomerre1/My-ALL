@@ -5,6 +5,7 @@ import { Timeline } from './pages/Timeline.jsx'
 import { MedicinesChecklist } from './pages/MedicinesChecklist.jsx'
 import { SuccessStories } from './pages/SuccessStories'
 import { Contacts } from './pages/Contacts'
+import { VideosPage } from './pages/VideosPage.jsx'
 const routes = [
     {
         path: '/',
@@ -44,6 +45,11 @@ const routes = [
     {
         path: '/contacts',
         component: Contacts,
+        isExact: true
+    },
+    {
+        path: '/videos',
+        component: VideosPage,
         isExact: true
     },
 ]

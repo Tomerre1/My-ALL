@@ -237,67 +237,6 @@
             }
         }
     }
-    // .doctors {
-    //     .box-container {
-    //         display: grid;
-    //         grid-template-columns: unset;
-    //         gap: 2rem;
-    //         @include for-narrow-layout {
-    //             grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-    //         }
-    //         .box {
-    //             text-align: center;
-    //             background: #fff;
-    //             border-radius: 0.5rem;
-    //             border: var(--border);
-    //             box-shadow: var(--box-shadow);
-    //             padding: 2rem;
-    //             .share {
-    //                 padding-top: 2rem;
-    //                 & a {
-    //                     height: 5rem;
-    //                     width: 5rem;
-    //                     line-height: 4.5rem;
-    //                     font-size: 1rem;
-    //                     color: var(--green);
-    //                     border-radius: 0.5rem;
-    //                     border: var(--border);
-    //                     margin: 0.3rem;
-    //                     @include for-narrow-layout {
-    //                         font-size: 2rem;
-    //                     }
-    //                     &:hover {
-    //                         background: var(--green);
-    //                         color: #fff;
-    //                         box-shadow: var(--box-shadow);
-    //                     }
-    //                 }
-    //             }
-
-    //             & img {
-    //                 height: 20rem;
-    //                 border: var(--border);
-    //                 border-radius: 0.5rem;
-    //                 margin-top: 1rem;
-    //                 margin-bottom: 1rem;
-    //             }
-    //             & h3 {
-    //                 color: var(--black);
-    //                 font-size: 1.25rem;
-    //                 @include for-narrow-layout {
-    //                     font-size: 2.5rem;
-    //                 }
-    //             }
-    //             & span {
-    //                 color: var(--green);
-    //                 font-size: 0.85rem;
-    //                 @include for-narrow-layout {
-    //                     font-size: 1.5rem;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
     .blogs {
         .box-container {
             display: grid;

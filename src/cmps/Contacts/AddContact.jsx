@@ -29,7 +29,6 @@ export function AddContact({ user }) {
     const uploadFile = async (ev) => {
         ev.preventDefault()
         const res = await cloudinaryService.uploadFile(ev)
-        console.log('%c  res:', 'color: white;background: red;', res);
         setProfileImage(res.secure_url)
         console.log('%c  res.secure_url:', 'color: white;background: red;', res.secure_url);
     }

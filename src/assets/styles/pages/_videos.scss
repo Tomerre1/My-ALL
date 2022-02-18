@@ -1,0 +1,36 @@
+.main-blog {
+    background-image: url("https://assets.codepen.io/3364143/skate-removebg-preview.png");
+    background-size: 80%;
+    background-position-x: 150px;
+    background-color: #31abbd;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    height: 250px;
+    width: 250px;
+    border-radius: 20px;
+    align-self: stretch;
+    overflow: hidden;
+    position: relative;
+    transition: background 0.3s;
+    background-repeat: no-repeat;
+    direction: rtl;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+
+    &__title {
+        font-size: 24px;
+        line-height: 30px;
+    }
+    &__time {
+        background: rgba(21, 13, 13, 0.44);
+        color: #fff;
+        padding: 3px 8px;
+        font-size: 12px;
+        border-radius: 6px;
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+    }
+}
