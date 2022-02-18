@@ -1,7 +1,9 @@
 export const utilService = {
     makeId,
     makeDate,
-    makeDateWithHour
+    makeDateWithHour,
+    getYouTubeId,
+    formatYoutubeDuration
 }
 
 function makeId(length = 6) {
@@ -31,3 +33,19 @@ function makeDateWithHour(d) {
         d.getFullYear() + ', ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
 }
 
+function getYouTubeId(url) {
+    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[7].length === 11) ? match[7] : false;
+}
+
+// convert ISO 8601 duration
+function formatYoutubeDuration(youtube_time) {
+    const array = youtube_time.match(/(\d+)(?=[MHS])/ig) || [];
+    const formatted = array.map(function (item) {
+        if (item.length < 2) return '0' + item;
+        return item;
+    }).join(':');
+    console.log('%c  formatted:', 'color: white;background: red;', formatted);
+    return formatted;
+}
