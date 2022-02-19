@@ -30,11 +30,13 @@
         margin: 1.25rem 0;
     }
     .videos-list {
-        display: flex;
-        align-items: center;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+        display: grid;
         justify-content: center;
-        gap: 25px;
-        flex-wrap: wrap;
+        grid-gap: 20px;
+        grid-gap: 20px;
+        gap: 20px;
+        width: 100%;
         .video-preview {
             cursor: pointer;
             display: flex;
@@ -61,6 +63,10 @@
                 text-decoration: underline;
                 & + p {
                     color: $clr4;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 75ch;
                 }
             }
             .actions {
@@ -96,6 +102,7 @@
         font-weight: bold;
         text-decoration: underline;
         text-align: center;
+
         & + p {
             font-size: 1rem;
             font-weight: unset;

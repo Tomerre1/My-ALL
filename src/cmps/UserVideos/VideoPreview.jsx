@@ -3,10 +3,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export function VideoPreview({ user, video, onVideoClick }) {
+    console.log('%c  video:', 'color: white;background: red;', video);
     return (
         <div class="video-preview"
             style={{ backgroundImage: `url(${video.img})`, }}
-            onClick={() => onVideoClick(video.url)}
+            onClick={() => onVideoClick(video)}
         >
             {user && user.userType === 'אדמין' &&
                 <div className="actions">
@@ -14,9 +15,9 @@ export function VideoPreview({ user, video, onVideoClick }) {
                     <button className="clean-btn"><DeleteIcon /></button>
                 </div>
             }
-            <p class="video-title">מדריך לבליעת כדורים</p>
-            <p>זהו מדריך קצרצר ללמידת בליעת כדורים</p>
-            <div class="video-time">{video.duration} דקות</div>
+            <p className="video-title">{video.videoName}</p>
+            <p className="video-description">{video.videoDescription}</p>
+            <div className="video-time">{video.duration} דקות</div>
         </div >
     )
 }

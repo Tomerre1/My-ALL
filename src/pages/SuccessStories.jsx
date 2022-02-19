@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { SuccessStoriesList } from '../cmps/SuccessStories/SuccessStoriesList.jsx'
+import { SuccessStoriesList } from '../cmps/UserSuccessStoriesAndTips/SuccessStoriesList'
 // import { loadReviews } from '../store/review.actions'
 import { Popup } from '../cmps/Popup/Popup'
 export function SuccessStories({ match }) {
@@ -36,7 +36,7 @@ export function SuccessStories({ match }) {
                 <i class="fa fa-plus my-float"></i>
             </button>
             <Popup
-                title={'הוספת תרופה'}
+                title={match.path.includes('success-stories') ? 'הוספת סיפור הצלחה' : 'הוספת טיפ'}
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
             >

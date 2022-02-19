@@ -39,11 +39,12 @@ a {
     }
 }
 
-textarea {
+input,
+textarea,
+p {
     text-align: right;
     direction: rtl;
 }
-
 iframe,
 object,
 embed {

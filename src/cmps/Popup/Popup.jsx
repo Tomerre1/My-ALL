@@ -12,8 +12,8 @@ export function Popup({ title, children, openPopup, setOpenPopup }) {
   return (
     <Dialog open={openPopup} maxWidth='md'>
       <DialogTitle>
-        <div className='flex'>
-          <Typography variant='h6' component='div' style={{ flexGrow: 1 }}>
+        <div className='flex space-between'>
+          <Typography variant='h6' component='div' style={{ order: 1 }}>
             {title}
           </Typography>
           <Button

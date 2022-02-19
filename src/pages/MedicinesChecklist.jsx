@@ -5,7 +5,7 @@ import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Popup } from '../cmps/Popup/Popup';
 import { medicineService } from '../services/medicine.service';
-import { AddMedicine } from '../cmps/User/AddMedicine'
+import { AddMedicine } from '../cmps/UserMedicine/AddMedicine'
 import { useSelector } from 'react-redux';
 
 export function MedicinesChecklist() {
