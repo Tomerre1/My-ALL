@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import Controls from '../controls/Controls'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useSelector, useDispatch } from 'react-redux'
 import { cloudinaryService } from '../../services/cloudinary-service'
 import { utilService } from '../../services/util.service'
+import { RotatingLines } from 'react-loader-spinner';
+import { setLoadingOn, setLoadingOff } from '../../store/system.actions';
 //need to add circle loading for image upload and dont able to handlesubmit until its done upload
 export function AddContact({ editContact, onAddContact, saveEditContact }) {
-    const [profileImage, setProfileImage] = useState(editContact && editContact.img ? editContact.img : 'https://www.pngitem.com/pimgs/m/11-113101_people-clipart-svg-person-image-for-powerpoint-hd.png');
-
+    const [profileImage, setProfileImage] = useState(editContact && editContact.img ? editContact.img : null);
+    const dispatch = useDispatch()
+    const isLoading = useSelector(state => state.systemReducer.isLoading)
     const validationSchemaAddContact = Yup.object().shape({
         name: Yup.string()
             .required('נדרש למלא שם איש קשר'),
@@ -24,18 +28,25 @@ export function AddContact({ editContact, onAddContact, saveEditContact }) {
     });
 
     const handleSubmit = (values) => {
+        if (isLoading) return
         if (editContact) {
             saveEditContact({ ...editContact, ...values, img: profileImage })
         } else {
-            onAddContact({ ...values, img: profileImage, id: utilService.makeId() })
+            onAddContact({
+                ...values,
+                img: profileImage ? profileImage : 'https://www.pngitem.com/pimgs/m/11-113101_people-clipart-svg-person-image-for-powerpoint-hd.png',
+                id: utilService.makeId()
+            })
         }
     };
 
     const uploadFile = async (ev) => {
+        dispatch(setLoadingOn())
         ev.preventDefault()
         const res = await cloudinaryService.uploadFile(ev)
         setProfileImage(res.secure_url)
         console.log('%c  res.secure_url:', 'color: white;background: red;', res.secure_url);
+        dispatch(setLoadingOff())
     }
 
     return <Formik
@@ -87,10 +98,21 @@ export function AddContact({ editContact, onAddContact, saveEditContact }) {
                         error={props.touched.job && props.errors.job ? props.errors.job : ''}
                     />
 
-                    <div class="fileUpload blue-btn btn width100">
-                        <span>העלאת תמונת איש קשר</span>
-                        <input type="file" class="uploadlogo" onChange={uploadFile} />
-                    </div>
+                    {isLoading ? <div className="flex justify-center"><RotatingLines width="100" strokeColor="#FF5733" /></div> :
+                        !profileImage ?
+                            <div class="fileUpload blue-btn btn width100">
+                                <span> העלאת תמונת איש קשר</span>
+                                <input type="file" class="uploadlogo" onChange={uploadFile} />
+                            </div>
+                            :
+                            <div className='flex justify-center'>
+                                <div className='profile-picture-container flex justify-center'>
+                                    <img src={profileImage} alt="profile" className="profile-image" />
+                                    <input type="file" class="uploadlogo" onChange={uploadFile} />
+                                </div>
+                            </div>
+
+                    }
 
                     <div className='flex justify-center'>
                         <Controls.Button
