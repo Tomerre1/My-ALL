@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Controls from '../controls/Controls'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { cloudinaryService } from '../../services/cloudinary-service'
-
-export function AddContact({ user }) {
-    const [profileImage, setProfileImage] = useState('');
+import { utilService } from '../../services/util.service'
+//need to add circle loading for image upload and dont able to handlesubmit until its done upload
+export function AddContact({ editContact, onAddContact, saveEditContact }) {
+    const [profileImage, setProfileImage] = useState(editContact && editContact.img ? editContact.img : 'https://www.pngitem.com/pimgs/m/11-113101_people-clipart-svg-person-image-for-powerpoint-hd.png');
 
     const validationSchemaAddContact = Yup.object().shape({
-        contactName: Yup.string()
+        name: Yup.string()
             .required('נדרש למלא שם איש קשר'),
-        contactJob: Yup.string()
+        job: Yup.string()
             .required('נדרש למלא תפקיד איש קשר'),
-        contactMail: Yup.string()
+        mail: Yup.string()
             .email('נדרש להזין אימייל תקין')
             .required('נדרש למלא אימייל איש קשר'),
-        contactPhone: Yup.string().required(' נדרש להזין את פלאפון איש קשר ')
+        phone: Yup.string().required(' נדרש להזין את פלאפון איש קשר ')
             .matches(
                 /^\d{9,10}$/,
                 "נדרש למלא מספר פלאפון תקין"
@@ -23,7 +24,11 @@ export function AddContact({ user }) {
     });
 
     const handleSubmit = (values) => {
-        console.log('%c  values:', 'color: white;background: red;', values);
+        if (editContact) {
+            saveEditContact({ ...editContact, ...values, img: profileImage })
+        } else {
+            onAddContact({ ...values, img: profileImage, id: utilService.makeId() })
+        }
     };
 
     const uploadFile = async (ev) => {
@@ -32,13 +37,14 @@ export function AddContact({ user }) {
         setProfileImage(res.secure_url)
         console.log('%c  res.secure_url:', 'color: white;background: red;', res.secure_url);
     }
+
     return <Formik
         onSubmit={handleSubmit}
         initialValues={{
-            contactName: '',
-            contactMail: '',
-            contactPhone: '',
-            contactJob: ''
+            name: editContact?.name || '',
+            mail: editContact?.mail || '',
+            phone: editContact?.phone || '',
+            job: editContact?.job || ''
         }}
         validationSchema={validationSchemaAddContact}
         enableReinitialize={true}
@@ -47,39 +53,38 @@ export function AddContact({ user }) {
         validateOnMount={true}
     >
         {props => {
-            console.log(props.errors, props.touched);
             return (
                 <form className="flex column add-contact" onSubmit={props.handleSubmit}>
                     <Controls.Input
-                        name='contactName'
+                        name='name'
                         label='שם איש קשר'
-                        value={props.values.contactName}
+                        value={props.values.name}
                         onChange={props.handleChange}
-                        error={props.touched.contactName && props.errors.contactName ? props.errors.contactName : ''}
+                        error={props.touched.name && props.errors.name ? props.errors.name : ''}
                     />
 
                     <Controls.Input
-                        name='contactPhone'
+                        name='phone'
                         label='פלאפון איש קשר'
-                        value={props.values.contactPhone}
+                        value={props.values.phone}
                         onChange={props.handleChange}
-                        error={props.touched.contactPhone && props.errors.contactPhone ? props.errors.contactPhone : ''}
+                        error={props.touched.phone && props.errors.phone ? props.errors.phone : ''}
                     />
 
                     <Controls.Input
-                        name='contactMail'
+                        name='mail'
                         label='אימייל איש קשר'
-                        value={props.values.contactMail}
+                        value={props.values.mail}
                         onChange={props.handleChange}
-                        error={props.touched.contactMail && props.errors.contactMail ? props.errors.contactMail : ''}
+                        error={props.touched.mail && props.errors.mail ? props.errors.mail : ''}
                     />
 
                     <Controls.Input
-                        name='contactJob'
+                        name='job'
                         label='תפקיד איש קשר'
-                        value={props.values.contactJob}
+                        value={props.values.job}
                         onChange={props.handleChange}
-                        error={props.touched.contactJob && props.errors.contactJob ? props.errors.contactJob : ''}
+                        error={props.touched.job && props.errors.job ? props.errors.job : ''}
                     />
 
                     <div class="fileUpload blue-btn btn width100">
@@ -102,8 +107,6 @@ export function AddContact({ user }) {
             )
         }}
     </Formik >
-
-
 }
 
 export default AddContact;
