@@ -82,7 +82,7 @@ export function VideosPage() {
                 <VideosList videos={videos} onVideoClick={onVideoClick} user={user} />
             </div>
 
-            {user &&
+            {user?.mail &&
                 <button class="float flex align-center justify-center" onClick={onAddVideo}>
                     <i class="fa fa-plus my-float"></i>
                 </button>

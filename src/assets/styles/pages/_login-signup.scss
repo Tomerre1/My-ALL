@@ -30,6 +30,9 @@
     gap: 20px;
     height: 91vh;
     justify-content: inherit;
+    @include for-normal-layout {
+      height: unset;
+    }
     .login-logo {
       > img {
         width: 70%;
@@ -44,11 +47,6 @@
         line-height: 1.4375em;
         letter-spacing: 0.00938em;
         background: green;
-      }
-    }
-    @include for-normal-layout {
-      .login-container {
-        width: 400px;
       }
     }
     form {

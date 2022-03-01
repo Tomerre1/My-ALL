@@ -32,9 +32,9 @@ export function SuccessStories({ match }) {
                 </div>
                 }
             </div>
-            <button class="float flex align-center justify-center" onClick={() => setOpenPopup(true)}>
+            {user?.mail && <button class="float flex align-center justify-center" onClick={() => setOpenPopup(true)}>
                 <i class="fa fa-plus my-float"></i>
-            </button>
+            </button>}
             <Popup
                 title={match.path.includes('success-stories') ? 'הוספת סיפור הצלחה' : 'הוספת טיפ'}
                 openPopup={openPopup}
