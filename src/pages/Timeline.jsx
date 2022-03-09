@@ -21,6 +21,7 @@ export function Timeline(props) {
     const [levelsOnlyPath, setLevelsOnlyPath] = useState([])
     const currUser = useSelector(state => state.userReducer.user)
     const [isLastStep, setIsLastStep] = useState(false)
+
     const [openPopup, setOpenPopup] = useState(false);
 
     useEffect(() => {
@@ -175,7 +176,7 @@ export function Timeline(props) {
 
 
     const userPath = !levelsOnlyPath.length ? path : levelsOnlyPath
-
+    console.log('%c  isLastStep:', 'color: white;background: red;', isLastStep);
     return (
         <>
             <div className="time-line-container">
@@ -207,14 +208,12 @@ export function Timeline(props) {
                                 className={`
                                 ${step.isDone || isLastStep ? 'done' : 'undone'} 
                                 ${((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? '' : `vertical-timeline vertical-timeline-custom-line  `} 
-                                ${isLastStep && ((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? 'laststep done' : ''}`
+                                ${isLastStep && ((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? 'laststep' : ''}`
                                 }
                                 date={new Date(step.date).toLocaleDateString('he-IL')}
                                 contentStyle={{ background: "rgb(255, 117, 24)", color: "#fff" }}
                                 iconStyle={{ background: "rgb(255, 117, 24)", color: "#fff" }}
                                 contentArrowStyle={{ borderRight: "7px solid  rgb(255, 117, 24)" }}
-
-
                                 icon={step.isCurrStep ? <InsertEmoticonIcon /> : (stepIdx === path.length - 1) && (steps.length - 1 === idx) ? <StarIcon /> : <MedicationIcon />}
                             >
                                 <h4 className="vertical-timeline-element-subtitle">מספר תחנה {step.stepNumber}</h4>
