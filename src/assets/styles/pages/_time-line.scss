@@ -50,6 +50,11 @@
     .undone.vertical-timeline .vertical-timeline-element-icon {
         box-shadow: 0 0 0 4px lightgray, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
     }
+    @media only screen and (min-width: 1170px) {
+        .vertical-timeline--two-columns .vertical-timeline-element-content .vertical-timeline-element-date {
+            left: 86%;
+        }
+    }
 
     @media only screen and (min-width: 1170px) {
         .vertical-timeline.vertical-timeline--two-columns .vertical-timeline-element:not(:last-child)::before {

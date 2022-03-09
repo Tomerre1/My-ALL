@@ -24,8 +24,6 @@ export function Timeline(props) {
     const [openPopup, setOpenPopup] = useState(false);
 
     useEffect(() => {
-        if (!currUser) { props.history.push('/auth'); return; } // not working yet - fix later
-
         async function queryUserTimeline() {
             const timeline = await timelineService.query(currUser);
             const currLevel = timeline.find(steps => steps.find(step => step.isCurrStep))
@@ -190,7 +188,9 @@ export function Timeline(props) {
                                 //show level
                                 return <VerticalTimelineElement
                                     key={step.description + idx}
-                                    className={`${(step.isDone) ? 'done' : 'undone'} vertical-timeline ${stepIdx === userPath.length - 1 && idx === 0 && levelsOnlyPath.length > 0 ? '' : 'vertical-timeline-custom-line '}`
+                                    className={`
+                                    ${(step.isDone) ? 'done' : 'undone'} vertical-timeline 
+                                    ${stepIdx === userPath.length - 1 && idx === 0 && levelsOnlyPath.length > 0 ? '' : 'vertical-timeline-custom-line '}`
                                     }
                                     iconStyle={{ background: "rgb(114, 121, 137)", color: "#fff" }}
                                     contentStyle={{ background: "rgb(114, 121, 137)", color: "#fff" }}
@@ -207,7 +207,7 @@ export function Timeline(props) {
                                 className={`
                                 ${step.isDone || isLastStep ? 'done' : 'undone'} 
                                 ${((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? '' : `vertical-timeline vertical-timeline-custom-line  `} 
-                                ${isLastStep && ((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? 'laststep' : ''}`
+                                ${isLastStep && ((stepIdx === path.length - 1) && (steps.length - 1 === idx)) ? 'laststep done' : ''}`
                                 }
                                 date={new Date(step.date).toLocaleDateString('he-IL')}
                                 contentStyle={{ background: "rgb(255, 117, 24)", color: "#fff" }}
