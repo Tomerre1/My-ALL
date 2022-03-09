@@ -13,12 +13,15 @@ import Swal from 'sweetalert2'
 import { TimelineFooter } from '../cmps/Footer/TimelineFooter'
 import "react-vertical-timeline-component/style.min.css";
 import { useSelector } from "react-redux";
+import { Popup } from "../cmps/Popup/Popup";
+import { TimelineDatesChange } from "../cmps/Timeline/TimelineDatesChange";
 
 export function Timeline(props) {
     const [path, setPath] = useState([])
     const [levelsOnlyPath, setLevelsOnlyPath] = useState([])
     const currUser = useSelector(state => state.userReducer.user)
     const [isLastStep, setIsLastStep] = useState(false)
+    const [openPopup, setOpenPopup] = useState(false);
 
     useEffect(() => {
         if (!currUser) { props.history.push('/auth'); return; } // not working yet - fix later
@@ -138,6 +141,31 @@ export function Timeline(props) {
         })
     }
 
+    const onCancel = () => {
+        setOpenPopup(false)
+    }
+
+    const onSubmit = async (futureDate) => {
+        setOpenPopup(false)
+        const result = await Swal.fire({
+            title: 'העברת תאריך',
+            text: `לידיעתך תקופת זמן הינה תשפיע על שאר התחנות שלך`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        })
+        if (result.value) {
+            const formattedDate = {
+                year: futureDate.getFullYear(),
+                month: futureDate.getMonth() + 1,
+                day: futureDate.getDate()
+            }
+            const updatedTimeline = await timelineService.changeDates(currUser, formattedDate)
+            setPath(updatedTimeline)
+        }
+    }
+
     const onZoomOut = () => {
         const pathLevelsOnly = path.map(arr => arr.filter(level => !level.stepNumber))
         setLevelsOnlyPath(pathLevelsOnly)
@@ -203,7 +231,16 @@ export function Timeline(props) {
                 isZoomIn={levelsOnlyPath.length === 0}
                 onZoomOut={onZoomOut}
                 onZoomIn={onZoomIn}
+                setOpenPopup={setOpenPopup}
             />
+
+            <Popup
+                title='עיכוב בתחנה הנוכחית'
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+            >
+                <TimelineDatesChange user={currUser} setOpenPopup={setOpenPopup} onCancel={onCancel} onSubmit={onSubmit} />
+            </Popup>
         </>
     );
 }

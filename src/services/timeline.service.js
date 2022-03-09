@@ -3,7 +3,8 @@ import { httpService } from './http.service'
 export const timelineService = {
     query,
     moveNext,
-    moveBack
+    moveBack,
+    changeDates
 }
 
 async function query({ mail }) {
@@ -11,13 +12,18 @@ async function query({ mail }) {
     return timeline
 }
 async function moveNext({ mail }, { levelNumber, stepNumber }, isNextLevel, nextLevel) {
-    console.log('%c moveNext: mail, levelNumber, stepNumber, isNextLevel, nextLevel:', 'color: white;background: red;', mail, levelNumber, stepNumber, isNextLevel, nextLevel);
     const updatedTimeline = await httpService.post('step/next/', { mail, levelNumber, stepNumber, isNextLevel, nextLevel })
-    console.log('%c  updatedTimeline:', 'color: white;background: red;', updatedTimeline);
     return updatedTimeline
 }
 async function moveBack({ mail }, { levelNumber, stepNumber }, isBackLevel, backLevel) {
-    console.log('%c moveBack:  { mail }, { levelNumber, stepNumber }, isBackLevel, backLevel:', 'color: white;background: red;', mail, levelNumber, stepNumber, isBackLevel, backLevel);
     const updatedTimeline = await httpService.post('step/back/', { mail, levelNumber, stepNumber, isBackLevel, backLevel })
     return updatedTimeline
 }
+
+async function changeDates({ mail }, date) {
+    console.log('%c  { mail }, date:', 'color: white;background: red;', { mail }, date);
+    const updatedTimeline = await httpService.post('step/delaysteps/', { mail, date })
+    return updatedTimeline
+}
+
+

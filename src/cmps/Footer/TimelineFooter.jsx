@@ -4,7 +4,7 @@ import ArrowCircleUpSharpIcon from '@mui/icons-material/ArrowCircleUpSharp';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 
-export function TimelineFooter({ onNextStep, onPrevStep, onZoomIn, onZoomOut, isZoomIn }) {
+export function TimelineFooter({ onNextStep, onPrevStep, onZoomIn, onZoomOut, isZoomIn, setOpenPopup }) {
     return (
 
         <div className="footer-layout">
@@ -27,6 +27,10 @@ export function TimelineFooter({ onNextStep, onPrevStep, onZoomIn, onZoomOut, is
                 <button className="btn-icon-footer soon" onClick={onNextStep}>
                     <ArrowCircleDownSharpIcon />
                     <p>לתחנה הבאה</p>
+                </button>
+                <button className="btn-icon-footer soon" onClick={() => setOpenPopup(true)}>
+                    <ArrowCircleDownSharpIcon />
+                    <p>עיכוב בתחנה</p>
                 </button>
             </div>
         </div >
