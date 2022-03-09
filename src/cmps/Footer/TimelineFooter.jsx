@@ -10,24 +10,24 @@ export function TimelineFooter({ onNextStep, onPrevStep, onZoomIn, onZoomOut, is
         <div className="footer-layout">
             <div className="full footer-layout mobile-footer">
                 {isZoomIn ?
-                    (<button className="btn-icon-footer soon" onClick={onZoomOut}>
+                    (<button className="btn-icon-footer flex column align-center justify-center" onClick={onZoomOut}>
                         <ZoomOutIcon />
                         <p>צפייה בשלבים בלבד</p>
                     </button>) :
-                    (<button className="btn-icon-footer soon" onClick={onZoomIn}>
+                    (<button className="btn-icon-footer flex column align-center justify-center" onClick={onZoomIn}>
                         <ZoomInIcon />
                         <p>צפייה בשלבים ותחנות</p>
                     </button>)
                 }
-                <button className="btn-icon-footer" onClick={onPrevStep}>
+                <button className="btn-icon-footer flex column align-center justify-center" onClick={onPrevStep}>
                     <ArrowCircleUpSharpIcon />
                     <p>לתחנה הקודמת</p>
                 </button>
-                <button className="btn-icon-footer soon" onClick={onNextStep}>
+                <button className="btn-icon-footer flex column align-center justify-center" onClick={onNextStep}>
                     <ArrowCircleDownSharpIcon />
                     <p>לתחנה הבאה</p>
                 </button>
-                <button className="btn-icon-footer soon" onClick={() => setOpenPopup(true)}>
+                <button className="btn-icon-footer flex column align-center justify-center" onClick={() => setOpenPopup(true)}>
                     <MoreTimeSharpIcon />
                     <p>עיכוב בתחנה</p>
                 </button>

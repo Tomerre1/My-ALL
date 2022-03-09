@@ -9,6 +9,9 @@
   justify-content: space-between;
   button {
     padding: 0 10px;
+    > p {
+      text-align: center;
+    }
   }
 
   // @include for-normal-layout {
