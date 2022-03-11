@@ -21,7 +21,7 @@ export function Timeline(props) {
     const [levelsOnlyPath, setLevelsOnlyPath] = useState([])
     const currUser = useSelector(state => state.userReducer.user)
     const [isLastStep, setIsLastStep] = useState(false)
-
+    const [currStation, setCurrStation] = useState(null)
     const [openPopup, setOpenPopup] = useState(false);
 
     useEffect(() => {
@@ -30,6 +30,7 @@ export function Timeline(props) {
             const currLevel = timeline.find(steps => steps.find(step => step.isCurrStep))
             const currLevelIndex = timeline.findIndex(level => level === currLevel)
             const userCurrStepIndex = currLevel.findIndex(step => step.isCurrStep)
+            setCurrStation(currLevel[userCurrStepIndex])
             if (currLevelIndex >= path.length - 1 && userCurrStepIndex === currLevel.length - 1) {
                 setIsLastStep(true)
             }
@@ -69,6 +70,7 @@ export function Timeline(props) {
             //same level diffrent step
             if (userCurrStepIndex + 1 <= currLevel.length - 1) {
                 userNextStep = currLevel[userCurrStepIndex + 1]
+                setCurrStation(userNextStep)
             }
             // need to move next level and next step
             else {
@@ -77,9 +79,11 @@ export function Timeline(props) {
                     isNextLevel = true
                     nextLevel = nextLevelNumber[0].levelNumber
                     userNextStep = nextLevelNumber[1]
+                    setCurrStation(userNextStep)
                 }
                 else {
                     userNextStep = currLevel[userCurrStepIndex + 1]
+                    setCurrStation(userNextStep)
                     if (currLevelIndex >= path.length - 1 && userCurrStepIndex === currLevel.length - 1) {
                         setIsLastStep(true)
                         await Swal.fire({
@@ -120,6 +124,7 @@ export function Timeline(props) {
                 //same level diffrent step
                 if (userCurrStepIndex - 1 >= 1) {
                     userBackStep = currLevel[userCurrStepIndex - 1]
+                    setCurrStation(userBackStep)
                 }
                 // need to move back level and back step
                 else {
@@ -128,6 +133,7 @@ export function Timeline(props) {
                         isBackLevel = true
                         backLevel = backLevelNumber[0].levelNumber
                         userBackStep = backLevelNumber[backLevelNumber.length - 1]
+                        setCurrStation(userBackStep)
                     }
                     // its first level
                     else {
@@ -234,11 +240,11 @@ export function Timeline(props) {
             />
 
             <Popup
-                title='עיכוב בתחנה הנוכחית'
+                title={`עיכוב בתחנה מספר ${currStation.stepNumber}`}
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
             >
-                <TimelineDatesChange user={currUser} setOpenPopup={setOpenPopup} onCancel={onCancel} onSubmit={onSubmit} />
+                <TimelineDatesChange onCancel={onCancel} onSubmit={onSubmit} currStation={currStation} />
             </Popup>
         </>
     );
