@@ -4,10 +4,10 @@ import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import heLocale from "date-fns/locale/he";
 
-export function TimelineDatesChange({ onSubmit, onCancel, currStation }) {
-    const today = new Date(currStation.date);
-    let tomorrow = new Date(currStation.date);
-    const now = new Date(currStation.date);
+export function TimelineDatesChange({ onSubmit, onCancel }) {
+    const today = new Date();
+    let tomorrow = new Date();
+    const now = new Date();
     now.setDate(now.getDate() + 1);
     tomorrow.setDate(today.getDate() + 1);
 

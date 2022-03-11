@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 import { Popup } from "../cmps/Popup/Popup";
 import { TimelineDatesChange } from "../cmps/Timeline/TimelineDatesChange";
 
-export function Timeline(props) {
+export function Timeline() {
     const [path, setPath] = useState([])
     const [levelsOnlyPath, setLevelsOnlyPath] = useState([])
     const currUser = useSelector(state => state.userReducer.user)
@@ -240,11 +240,11 @@ export function Timeline(props) {
             />
 
             <Popup
-                title={`עיכוב בתחנה מספר ${currStation.stepNumber}`}
+                title={`בחירת ימי עיכוב`}
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
             >
-                <TimelineDatesChange onCancel={onCancel} onSubmit={onSubmit} currStation={currStation} />
+                <TimelineDatesChange onCancel={onCancel} onSubmit={onSubmit} />
             </Popup>
         </>
     );
