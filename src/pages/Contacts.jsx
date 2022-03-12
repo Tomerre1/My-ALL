@@ -11,6 +11,7 @@ export function Contacts() {
         {
             name: 'תומר רווח',
             phone: '0503031330',
+            job: 'רופא',
             mail: 'tomer@gmail.com',
             img: "https://blackhistorywall.files.wordpress.com/2010/02/picture-device-independent-bitmap-119.jpg",
             id: '3'
@@ -20,6 +21,7 @@ export function Contacts() {
             name: 'תומר רווח',
             phone: '0503031330',
             mail: 'tomer@gmail.com',
+            job: 'אח',
             img: "https://blackhistorywall.files.wordpress.com/2010/02/picture-device-independent-bitmap-119.jpg",
             id: '4'
 

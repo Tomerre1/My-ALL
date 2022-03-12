@@ -15,9 +15,10 @@ export function ContactPreview({ user, contact, onEditContact, onRemoveContact }
                     <h2 className="name">{contact.name}</h2>
                 </div>
             </div>
-            <div className="bottom">
-                <p className="info">{contact.phone} :פלאפון</p>
-                <p className="info">{contact.mail} :אימייל</p>
+            <div className="bottom flex column">
+                <p className="info"><b>פלאפון:</b> {contact.phone} </p>
+                <p className="info"><b>אימייל:</b> {contact.mail} </p>
+                <p className="info"><b>תפקיד:</b> {contact.job}</p>
             </div>
         </div>
 

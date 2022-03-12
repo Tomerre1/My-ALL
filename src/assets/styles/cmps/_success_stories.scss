@@ -1,5 +1,9 @@
 .success-stories-layout {
     padding: 3rem;
+    .filter {
+        direction: rtl;
+        gap: 10px;
+    }
     .header {
         display: flex;
         margin-top: -15px;
