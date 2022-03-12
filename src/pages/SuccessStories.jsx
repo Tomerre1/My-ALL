@@ -8,7 +8,7 @@ export function SuccessStories({ match }) {
     const user = useSelector(state => state.userReducer.user)
     const [openPopup, setOpenPopup] = useState(false)
     const [search, setSearch] = useState('')
-    const [selected, setSeleceted] = useState('all')
+    const [selected, setSeleceted] = useState('')
     const [stories, setStories] = useState([
         { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: '2', content: 'תגובה תגובה תגובה', date: new Date() },
         { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'tomerevach@gmail.com' }, title: '1', content: ' תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
