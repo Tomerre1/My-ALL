@@ -3,7 +3,9 @@ export const utilService = {
     makeDate,
     makeDateWithHour,
     getYouTubeId,
-    formatYoutubeDuration
+    formatYoutubeDuration,
+    sortByDate,
+    sortByName
 }
 
 function makeId(length = 6) {
@@ -48,4 +50,16 @@ function formatYoutubeDuration(youtube_time) {
     }).join(':');
     console.log('%c  formatted:', 'color: white;background: red;', formatted);
     return formatted;
+}
+
+function sortByDate(arr) {
+    return arr.sort(function (a, b) {
+        return new Date(a.date).getTime() - new Date(b.date).getTime()
+    });
+}
+
+function sortByName(arr) {
+    return arr.sort(function (a, b) {
+        return a.title.localeCompare(b.title, "he")
+    });
 }
