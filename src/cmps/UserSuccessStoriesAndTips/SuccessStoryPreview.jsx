@@ -23,6 +23,7 @@ export function SuccessStoryPreview({ story, onRemove, onEdit, user }) {
                 <p className="content"> {story.content}</p>
             </div>
 
+            {story?.label && <span className="date">{` מספרי התחנות אשר מקושרים לטיפ: ${story?.label}`}</span>}
             <span className="date">{utilService.makeDateWithHour(story.date)}</span>
         </section >
     )
