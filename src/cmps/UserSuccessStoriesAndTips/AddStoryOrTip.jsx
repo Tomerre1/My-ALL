@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Controls from '../controls/Controls'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux'
 import { utilService } from '../../services/util.service'
 
-export function AddStoryOrTip({ user, editItem, onAddItem, saveEditItem }) {
-    const isLoading = useSelector(state => state.systemReducer.isLoading)
-    const validationSchemaAddItem = Yup.object().shape({
+export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem }) {
+    const [options, setOptions] = useState([])
+    useEffect(() => {
+        if (!isStory) {
+            setOptions([{ id: 1, title: 'שלב א' }, { id: 2, title: 'שלב ב' }, { id: 3, title: 'שלב ג' }, { id: 4, title: 'שלב ד' }, { id: 5, title: 'שלב ה' }])
+        }
+    }, [isStory])
+
+    const validationSchemaAddStory = Yup.object().shape({
         title: Yup.string()
             .required('נדרש למלא כותרת'),
         content: Yup.string()
             .required('נדרש למלא תוכן'),
     });
+    const validationSchemaAddTip = Yup.object().shape({
+        title: Yup.string()
+            .required('נדרש למלא כותרת'),
+        content: Yup.string()
+            .required('נדרש למלא תוכן'),
+        label: Yup.array()
+            .min(1, 'נדרש לבחור תחנה')
+            .required('נדרש לבחור תחנה')
+    });
 
     const handleSubmit = (values) => {
-        if (isLoading) return
+        if (isStory) {
+            delete values.label
+        }
+
         if (editItem) {
             saveEditItem({ ...editItem, ...values })
         } else {
@@ -33,8 +50,9 @@ export function AddStoryOrTip({ user, editItem, onAddItem, saveEditItem }) {
         initialValues={{
             title: editItem?.title || '',
             content: editItem?.content || '',
+            label: isStory ? ' ' : (editItem?.label || [])
         }}
-        validationSchema={validationSchemaAddItem}
+        validationSchema={isStory ? validationSchemaAddStory : validationSchemaAddTip}
         enableReinitialize={true}
         validateOnChange={true}
         validateOnBlur={true}
@@ -59,6 +77,15 @@ export function AddStoryOrTip({ user, editItem, onAddItem, saveEditItem }) {
                         onChange={props.handleChange}
                         error={props.touched.content && props.errors.content ? props.errors.content : ''}
                     />
+
+                    {!isStory && <Controls.Select
+                        name='label'
+                        label='מספר תחנה'
+                        value={props.values.label}
+                        onChange={props.handleChange}
+                        options={options}
+                        error={props.touched.label && props.errors.label ? props.errors.label : ''}
+                    />}
 
                     <div className='flex justify-center'>
                         <Controls.Button

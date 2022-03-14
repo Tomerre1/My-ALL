@@ -55,15 +55,6 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit, isRow }) {
       temp.description = fieldValues.description.length > 0
         ? ''
         : 'נדרש למלא תיאור תרופה';
-    // if ('badInfluence' in fieldValues)
-    //   temp.badInfluence = fieldValues.badInfluence.length > 0
-    //     ? ''
-    //     : 'נדרש למלא תופעות לוואי';
-    // if ('levels' in fieldValues)
-    //   temp.levels =
-    //     fieldValues.levels.length > 0
-    //       ? ''
-    //       : 'נדרש למלא שלב תרופה.'
     if ('count' in fieldValues)
       temp.count =
         fieldValues.count.length > 0

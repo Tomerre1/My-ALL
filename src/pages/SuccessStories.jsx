@@ -47,7 +47,6 @@ export function SuccessStories({ match }) {
     const onEditItem = (item) => {
         setEditItem(item)
         setOpenPopup(true)
-
     }
 
     const onAddItem = (item) => {
@@ -100,6 +99,7 @@ export function SuccessStories({ match }) {
                     editItem={editItem}
                     saveEditItem={saveEditItem}
                     onAddItem={onAddItem}
+                    isStory={match.path.includes('success-stories') ? true : false}
                 />
             </Popup>
         </>
