@@ -4,23 +4,25 @@ import { SuccessStoriesList } from '../cmps/UserSuccessStoriesAndTips/SuccessSto
 import { FilterStoriesOrTips } from '../cmps/UserSuccessStoriesAndTips/FilterStoriesOrTips'
 import { Popup } from '../cmps/Popup/Popup'
 import { utilService } from '../services/util.service'
+import { AddStoryOrTip } from '../cmps/UserSuccessStoriesAndTips/AddStoryOrTip'
 export function SuccessStories({ match }) {
     const user = useSelector(state => state.userReducer.user)
     const [openPopup, setOpenPopup] = useState(false)
     const [search, setSearch] = useState('')
     const [selected, setSeleceted] = useState('')
+    const [editItem, setEditItem] = useState(null)
     const [stories, setStories] = useState([
-        { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: '2', content: 'תגובה תגובה תגובה', date: new Date() },
-        { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'tomerevach@gmail.com' }, title: '1', content: ' תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
-        { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: '3', content: 'תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
-        { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
-        { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
-        { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
-        { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
-        { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
-        { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
-        { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
-        { user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() }
+        { id: 1, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: '2', content: 'תגובה תגובה תגובה', date: new Date() },
+        { id: 2, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'tomerevach@gmail.com' }, title: '1', content: ' תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
+        { id: 3, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: '3', content: 'תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
+        { id: 4, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
+        { id: 5, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
+        { id: 6, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
+        { id: 7, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
+        { id: 8, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
+        { id: 9, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
+        { id: 10, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
+        { id: 11, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() }
     ])
 
     const sortStories = (sortedStories) => {
@@ -36,6 +38,28 @@ export function SuccessStories({ match }) {
         const afterSearchStories = stories.filter(story => (story.title.includes(search) || story.content.includes(search)))
         const sortedStories = sortStories(afterSearchStories)
         return sortedStories
+    }
+
+    const onRemove = (itemId) => {
+        setStories(stories.filter(story => story.id !== itemId))
+    }
+
+    const onEditItem = (item) => {
+        setEditItem(item)
+        setOpenPopup(true)
+
+    }
+
+    const onAddItem = (item) => {
+        setStories([...stories, item])
+        setOpenPopup(false)
+    }
+
+    const saveEditItem = (item) => {
+        const updatedItems = stories.map(currItem => currItem.id === item.id ? item : currItem)
+        setStories(updatedItems)
+        setEditItem(null)
+        setOpenPopup(false)
     }
 
     return (
@@ -57,6 +81,8 @@ export function SuccessStories({ match }) {
                     <SuccessStoriesList
                         stories={getStories()}
                         user={user}
+                        onRemove={onRemove}
+                        onEdit={onEditItem}
                     />
                 </div>
                 }
@@ -69,7 +95,12 @@ export function SuccessStories({ match }) {
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
             >
-                {/* <AddMedicine day={selected} medicines={allmedicines} isRow={false} addMedicine={onAddMedicine} /> */}
+                <AddStoryOrTip
+                    user={user}
+                    editItem={editItem}
+                    saveEditItem={saveEditItem}
+                    onAddItem={onAddItem}
+                />
             </Popup>
         </>
     )
