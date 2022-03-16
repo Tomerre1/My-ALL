@@ -29,8 +29,7 @@ export function LoginSignup(props) {
     mail: Yup.string()
       .required('נדרש למלא אימייל')
   });
-  const CLIENT_ID = "1066940480428-m4n85h2lafgf2m7v5j7prda0tmigel93.apps.googleusercontent.com";
-
+  const CLIENT_ID = "773857896333-p8eh47b8n54i8k4m9luphb83o1p1680d.apps.googleusercontent.com"
 
   const onSubmit = async (values, { resetForm }) => {
     const { fullName, password, mail } = values;
