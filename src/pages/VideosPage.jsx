@@ -73,16 +73,8 @@ export function VideosPage() {
 
     return (
         <>
-            <div className="videos-layout">
-                <div className="header">
-                    <div className="name">
-                        <h1>סרטוני הסבר</h1>
-                    </div>
-                </div>
-                <hr className="border" />
-                <VideosList videos={videos} onVideoClick={onVideoClick} user={user} />
-            </div>
-
+            <CmpHeader title="סרטוני הסבר" />
+            <VideosList videos={videos} onVideoClick={onVideoClick} user={user} />
             {user?.mail &&
                 <button class="float flex align-center justify-center" onClick={onAddVideo}>
                     <i class="fa fa-plus my-float"></i>

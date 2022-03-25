@@ -65,7 +65,7 @@ export function SuccessStories({ match }) {
 
     return (
         <>
-            <div className="success-stories-layout">
+            <div className="success-stories">
                 <CmpHeader title={match.path.includes('success-stories') ? 'סיפורי הצלחה' : 'טיפים'} />
                 <FilterStoriesOrTips
                     search={search}
