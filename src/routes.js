@@ -2,10 +2,11 @@ import { AppPage } from './pages/AppPage'
 import { LoginSignup } from './pages/LoginSignup'
 import { MedicineTable } from './cmps/Doctor/Medicine/MedicineTable'
 import { Timeline } from './pages/Timeline.jsx'
-import { MedicinesChecklist } from './pages/MedicinesChecklist.jsx'
+import { MedicinesChecklist } from './pages/MedicinesChecklist'
 import { SuccessStories } from './pages/SuccessStories'
 import { Contacts } from './pages/Contacts'
-import { VideosPage } from './pages/VideosPage.jsx'
+import { VideosPage } from './pages/VideosPage'
+import { Visits } from './pages/Visits'
 const routes = [
     {
         path: '/',
@@ -50,6 +51,11 @@ const routes = [
     {
         path: '/videos',
         component: VideosPage,
+        isExact: true
+    },
+    {
+        path: '/visits',
+        component: Visits,
         isExact: true
     },
 ]

@@ -1,111 +1,68 @@
-.success-stories-layout {
-    padding: 3rem;
-    .header {
-        display: flex;
-        margin-top: -15px;
-        align-items: center;
+.contacts-container {
+    .contacts-list {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
+        display: grid;
         justify-content: center;
-        .name {
-            margin-left: 1.25rem;
-            > h1 {
-                text-align: center;
-                margin: 0;
-                font: bold 30px "Open Sans", sans-serif;
-                color: $clr1;
-                text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa,
-                    0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3),
-                    0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
-                    0 20px 20px rgba(0, 0, 0, 0.15);
-                @include for-narrow-layout {
-                    font: bold 60px "Open Sans", sans-serif;
-                }
-            }
-        }
-    }
-    .border {
-        border-radius: 5px;
-        height: 2px;
-        background-color: $clr4;
-        border: none;
-        margin: 1.25rem 0;
-    }
-
-    .card__heading {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .heading {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-    }
-
-    .contacts-container {
-        .contacts-list {
-            grid-template-columns: repeat(auto-fit, minmax(350px, 450px));
-            display: grid;
-            justify-content: center;
-            grid-gap: 20px;
-            gap: 20px;
-            width: 100%;
-            .contact {
-                border-radius: 25px;
-                position: relative;
-                padding: 25px 15px;
-                background-color: $clr2;
-                height: 220px;
-                min-width: 350px;
-                box-shadow: 0 2px 5px #ccc;
-                text-align: right;
-                .top {
-                    border-radius: 25px 25px 0 0;
-                    height: 100px;
-                    width: 100%;
-                    background-color: $clr1;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    display: flex;
-                    justify-content: space-between;
-                    .actions {
-                        > button {
-                            background: transparent;
-                            font-size: 24px;
-                            cursor: pointer;
-                            border: none;
-                            padding: 5px;
-                            margin: 0;
-                            > svg {
-                                opacity: 0.8;
-                                transition: opacity 0.2s ease-in-out;
-                                &:hover {
-                                    opacity: 1;
-                                    color: $clr2;
-                                }
+        grid-gap: 20px;
+        gap: 20px;
+        width: 100%;
+        .contact {
+            border-radius: 25px;
+            position: relative;
+            padding: 25px 15px;
+            background-color: $clr2;
+            height: 220px;
+            min-width: 300px;
+            box-shadow: 0 2px 5px #ccc;
+            text-align: right;
+            .top {
+                border-radius: 25px 25px 0 0;
+                height: 100px;
+                width: 100%;
+                background-color: $clr1;
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: flex;
+                justify-content: space-between;
+                .actions {
+                    > button {
+                        background: transparent;
+                        font-size: 24px;
+                        cursor: pointer;
+                        border: none;
+                        padding: 5px;
+                        margin: 0;
+                        > svg {
+                            opacity: 0.8;
+                            transition: opacity 0.2s ease-in-out;
+                            &:hover {
+                                opacity: 1;
+                                color: $clr2;
                             }
                         }
                     }
-                    .name {
-                        font-size: 2em;
-                        color: $clr2;
-                        padding-inline-end: 15px;
-                        align-self: flex-end;
-                    }
-                    > img {
-                        margin: 30px 20px 0 0;
-                        border-radius: 50%;
-                        border: 7px solid $clr2;
-                        width: 120px;
-                        height: 120px;
-                        object-fit: cover;
-                    }
                 }
-                .bottom {
-                    margin-top: 120px;
-                    gap: 5px;
-                    .info {
-                        color: $clr3;
-                    }
+                .name {
+                    font-size: 2em;
+                    color: $clr2;
+                    padding-inline-end: 15px;
+                    align-self: flex-end;
+                }
+                > img {
+                    margin: 30px 20px 0 0;
+                    border-radius: 50%;
+                    border: 7px solid $clr2;
+                    width: 120px;
+                    height: 120px;
+                    object-fit: cover;
+                }
+            }
+            .bottom {
+                margin-top: 120px;
+                gap: 5px;
+                .info {
+                    color: $clr3;
                 }
             }
         }
