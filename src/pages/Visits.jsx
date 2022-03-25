@@ -3,6 +3,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { utilService } from '../services/util.service'
 import { CmpHeader } from '../cmps/Header/CmpHeader'
 import { VisitsList } from '../cmps/Visits/VisitsList'
+
 export function Visits() {
     const itemsFromBackend = [
         { id: utilService.makeId(), content: "First task", title: '', date: new Date() },

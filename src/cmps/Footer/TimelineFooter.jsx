@@ -7,7 +7,7 @@ import MoreTimeSharpIcon from '@mui/icons-material/MoreTimeSharp';
 export function TimelineFooter({ onNextStep, onPrevStep, onZoomIn, onZoomOut, isZoomIn, setOpenPopup }) {
     return (
 
-        <div className="footer-layout">
+        <div className="footer-layout flex justify-center align-center">
             <div className="full footer-layout mobile-footer">
                 {isZoomIn ?
                     (<button className="btn-icon-footer flex column align-center justify-center" onClick={onZoomOut}>

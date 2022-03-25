@@ -5,6 +5,8 @@ import { FilterStoriesOrTips } from '../cmps/UserSuccessStoriesAndTips/FilterSto
 import { Popup } from '../cmps/Popup/Popup'
 import { utilService } from '../services/util.service'
 import { AddStoryOrTip } from '../cmps/UserSuccessStoriesAndTips/AddStoryOrTip'
+import { CmpHeader } from '../cmps/Header/CmpHeader'
+
 export function SuccessStories({ match }) {
     const user = useSelector(state => state.userReducer.user)
     const [openPopup, setOpenPopup] = useState(false)
@@ -64,12 +66,7 @@ export function SuccessStories({ match }) {
     return (
         <>
             <div className="success-stories-layout">
-                <div className="header">
-                    <div className="name">
-                        <h1>{match.path.includes('success-stories') ? 'סיפורי הצלחה' : 'טיפים'}</h1>
-                    </div>
-                </div>
-                <hr className="border" />
+                <CmpHeader title={match.path.includes('success-stories') ? 'סיפורי הצלחה' : 'טיפים'} />
                 <FilterStoriesOrTips
                     search={search}
                     setSearch={setSearch}

@@ -7,6 +7,7 @@ import { Popup } from '../cmps/Popup/Popup';
 import { medicineService } from '../services/medicine.service';
 import { AddMedicine } from '../cmps/UserMedicine/AddMedicine'
 import { useSelector } from 'react-redux';
+import { CmpHeader } from '../cmps/Header/CmpHeader'
 
 export function MedicinesChecklist() {
     const [selected, setSeleceted] = useState(new Date().toLocaleDateString('he-IL', { weekday: 'long' }).split(' ')[1])
@@ -94,8 +95,8 @@ export function MedicinesChecklist() {
     const dateBySelectedDay = getDateByDaySelected()
 
     return <>
+        <CmpHeader title='התרופות שלי' />
         <div className="container flex column align-center justify-center">
-            <h1>התרופות שלי</h1>
             <div className="switches-container">
                 {weekDaysOrganized.map((day) => <input type="radio" onChange={onChangeDay} id={day} name="switchPlan" value={day} checked={selected === day} />)}
                 {weekDaysOrganized.map((day) => <label for={day}>{day}</label>)}

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { ContactsList } from '../cmps/Contacts/ContactsList'
 import { AddContact } from '../cmps/Contacts/AddContact'
 import { Popup } from '../cmps/Popup/Popup'
+import { CmpHeader } from '../cmps/Header/CmpHeader'
 export function Contacts() {
     const user = useSelector(state => state.userReducer.user)
     const [openPopup, setOpenPopup] = useState(false)
@@ -59,18 +60,11 @@ export function Contacts() {
 
     return (
         <>
-            <div className="success-stories-layout">
-                <div className="header">
-                    <div className="name">
-                        <h1>אנשי קשר</h1>
-                    </div>
-                </div>
-                <hr className="border" />
-                {myContacts.length > 0 && <div className="contacts-container">
-                    <ContactsList contacts={myContacts} user={user} onEditContact={onEditContact} onRemoveContact={onRemoveContact} />
-                </div>
-                }
+            <CmpHeader title='אנשי קשר' />
+            {myContacts.length > 0 && <div className="contacts-container">
+                <ContactsList contacts={myContacts} user={user} onEditContact={onEditContact} onRemoveContact={onRemoveContact} />
             </div>
+            }
             <button class="float flex align-center justify-center" onClick={() => setOpenPopup(true)}>
                 <i class="fa fa-plus my-float"></i>
             </button>

@@ -19,7 +19,7 @@
         font-size: 0.75rem;
         text-align: center;
     }
-    --width: 3rem;
+    --width: 2.7rem;
     @include for-narrow-layout {
         --width: 6rem;
     }

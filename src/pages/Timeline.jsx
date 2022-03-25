@@ -15,6 +15,7 @@ import "react-vertical-timeline-component/style.min.css";
 import { useSelector } from "react-redux";
 import { Popup } from "../cmps/Popup/Popup";
 import { TimelineDatesChange } from "../cmps/Timeline/TimelineDatesChange";
+import { CmpHeader } from '../cmps/Header/CmpHeader'
 
 export function Timeline() {
     const [path, setPath] = useState([])
@@ -180,14 +181,11 @@ export function Timeline() {
         setLevelsOnlyPath([])
     }
 
-
     const userPath = !levelsOnlyPath.length ? path : levelsOnlyPath
-    console.log('%c  isLastStep:', 'color: white;background: red;', isLastStep);
     return (
         <>
+            <CmpHeader title={'מסלול ההתקדמות'} />
             <div className="time-line-container">
-                <h1>מסלול ההתקדמות </h1>
-                <h1>{currUser.fullname}</h1>
                 <VerticalTimeline>
                     {userPath.map((steps, stepIdx) => (
                         steps.map((step, idx) => {

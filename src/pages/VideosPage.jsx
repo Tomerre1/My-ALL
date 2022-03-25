@@ -4,6 +4,7 @@ import { utilService } from '../services/util.service'
 import { VideosList } from '../cmps/UserVideos/VideosList'
 import { AddVideo } from '../cmps/UserVideos/AddVideo'
 import { useSelector } from 'react-redux'
+import { CmpHeader } from '../cmps/Header/CmpHeader'
 
 export function VideosPage() {
     const [videos, setVideos] = useState([])
