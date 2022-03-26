@@ -66,18 +66,16 @@ export function Visits() {
     };
 
     const [columns, setColumns] = useState(columnsFromBackend);
-    return (
-        <div className="success-stories-layout">
-
-            <CmpHeader title='הביקורים שלי' />
-            <div style={{ display: "flex", flexWrap: "nowrap", gap: "5px" }}>
-                <DragDropContext
-                    onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
-                >
-                    <VisitsList columns={columns} />
-                </DragDropContext>
-            </div>
+    return (<>
+        <CmpHeader title='הביקורים שלי' />
+        <div className='flex justify-center visits-container' >
+            <DragDropContext
+                onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+            >
+                <VisitsList columns={columns} />
+            </DragDropContext>
         </div>
+    </>
     );
 }
 
