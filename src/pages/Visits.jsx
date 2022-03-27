@@ -6,11 +6,11 @@ import { VisitsList } from '../cmps/Visits/VisitsList'
 
 export function Visits() {
     const itemsFromBackend = [
-        { id: utilService.makeId(), content: "First task", title: '', date: new Date() },
-        { id: utilService.makeId(), content: "Second task", title: '', date: new Date() },
-        { id: utilService.makeId(), content: "Third task", title: '', date: new Date() },
-        { id: utilService.makeId(), content: "Fourth task", title: '', date: new Date() },
-        { id: utilService.makeId(), content: "Fifth task", title: '', date: new Date() }
+        { id: utilService.makeId(), content: "First task", title: 'ביקור 1', date: new Date() },
+        { id: utilService.makeId(), content: "Second task", title: '1123123', date: new Date() },
+        { id: utilService.makeId(), content: "Third task", title: '1123', date: new Date() },
+        { id: utilService.makeId(), content: "Fourth task", title: '123', date: new Date() },
+        { id: utilService.makeId(), content: "Fifth task", title: '1123213213', date: new Date() }
     ];
 
     const columnsFromBackend = {

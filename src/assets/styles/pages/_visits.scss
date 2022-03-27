@@ -7,6 +7,16 @@
     }
     h2 {
         margin-block-end: 25px;
+        text-align: center;
+        font: bold 20px "Open Sans", sans-serif;
+        color: $clr5;
+        text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa,
+            0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3),
+            0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
+            0 20px 20px rgba(0, 0, 0, 0.15);
+        @include for-narrow-layout {
+            font: bold 28px "Open Sans", sans-serif;
+        }
     }
     .visits-column {
         padding: 5px;
@@ -14,10 +24,11 @@
         min-height: 350px;
         border-radius: 5px;
         .visit-preview {
+            position: relative;
             color: white;
             min-height: 150px;
             margin: 0 0 8px 0;
-            padding: 16px;
+            padding: 6px;
             user-select: none;
             display: flex;
             flex-direction: column;
@@ -26,7 +37,52 @@
             border-radius: 5px;
             font-size: 0.875rem;
             transition: background-color 0.1s;
-            cursor: pointer;
+            cursor: grabbing;
+            .date {
+                position: absolute;
+                bottom: 5px;
+                right: 5px;
+                color: white;
+                font: bold 12px "Open Sans", sans-serif;
+            }
+            p {
+                color: White;
+                font-weight: 600;
+            }
+            .actions {
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                > button {
+                    background: transparent;
+                    font-size: 24px;
+                    cursor: pointer;
+                    border: none;
+                    padding: 5px;
+                    margin: 0;
+                    > svg {
+                        color: $clr2;
+                        opacity: 0.8;
+                        transition: opacity 0.2s ease-in-out;
+                        &:hover {
+                            opacity: 1;
+                            color: $clr2;
+                        }
+                    }
+                }
+                & + h3 {
+                    margin: 0;
+                    margin-block-start: 28px;
+                    margin-block-end: 14px;
+                    text-align: center;
+                    font: bold 20px "Open Sans", sans-serif;
+                    color: $clr2;
+                    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa,
+                        0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3),
+                        0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
+                        0 20px 20px rgba(0, 0, 0, 0.15);
+                }
+            }
         }
     }
 }

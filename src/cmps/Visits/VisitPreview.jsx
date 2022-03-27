@@ -1,7 +1,10 @@
 import React from 'react'
 import { Draggable } from "react-beautiful-dnd";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { utilService } from '../../services/util.service'
 
-export function VisitPreview({ item, index }) {
+export function VisitPreview({ item, index, onEditVisit, onRemoveVisit }) {
     return (
         <Draggable
             key={item.id}
@@ -16,12 +19,18 @@ export function VisitPreview({ item, index }) {
                         {...provided.dragHandleProps}
                         style={{
                             backgroundColor: snapshot.isDragging
-                                ? "#263B4A"
-                                : "#456C86",
+                                ? "#456C86"
+                                : "#e2925c",
                             ...provided.draggableProps.style
                         }}
                     >
-                        {item.content}
+                        <div className="actions">
+                            <button onClick={() => onEditVisit(item)}><EditIcon /></button>
+                            <button onClick={() => onRemoveVisit(item.id)}><DeleteIcon /></button>
+                        </div>
+                        <h3>{item.title}</h3>
+                        <p>{item.content}</p>
+                        <p className='date'>{utilService.makeDateWithHour(item.date)}</p>
                     </div>
                 );
             }}
