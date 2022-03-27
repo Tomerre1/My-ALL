@@ -8,7 +8,6 @@ export function Visits() {
     const onDragEnd = (result, columns, setColumns) => {
         if (!result.destination) return;
         const { source, destination } = result;
-
         if (source.droppableId !== destination.droppableId) {
             console.log(source.droppableId);
             console.log(destination.droppableId);
@@ -68,13 +67,20 @@ export function Visits() {
         setColumns(columnsFromBackend);
     }, [])
 
+    const onRemove = (item) => {
+        const attribute = item.isDone ? 'Done' : 'future';
+        columns[attribute].items = columns[attribute].items.filter(currItem => currItem.id !== item.id)
+        console.log('%c  columns[attribute]:', 'color: white;background: red;', columns[attribute]);
+        setColumns({ ...columns })
+    }
+
     return (<>
         <CmpHeader title='הביקורים שלי' />
         <div className='flex justify-center visits-container' >
             <DragDropContext
                 onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
             >
-                {columns && <VisitsList columns={columns} />}
+                {columns && <VisitsList columns={columns} onRemove={onRemove} />}
             </DragDropContext>
         </div>
         <button class="float flex align-center justify-center" >

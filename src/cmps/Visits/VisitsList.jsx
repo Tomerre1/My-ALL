@@ -2,7 +2,7 @@ import React from 'react'
 import { Droppable } from "react-beautiful-dnd";
 import { VisitPreview } from './VisitPreview'
 
-export function VisitsList({ columns }) {
+export function VisitsList({ columns, onRemove }) {
     return <>
         {Object.entries(columns).map(([columnId, column], index) => {
             return (
@@ -24,7 +24,7 @@ export function VisitsList({ columns }) {
                                     >
                                         {column.items.map((item, index) => {
                                             return (
-                                                <VisitPreview item={item} index={index} />
+                                                <VisitPreview item={item} index={index} onRemove={onRemove} />
                                             );
                                         })}
                                         {provided.placeholder}
