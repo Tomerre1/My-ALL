@@ -48,7 +48,6 @@ function formatYoutubeDuration(youtube_time) {
         if (item.length < 2) return '0' + item;
         return item;
     }).join(':');
-    console.log('%c  formatted:', 'color: white;background: red;', formatted);
     return formatted;
 }
 

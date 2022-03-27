@@ -30,7 +30,7 @@ export function VisitPreview({ item, index, onEditVisit, onRemoveVisit }) {
                         </div>
                         <h3>{item.title}</h3>
                         <p>{item.content}</p>
-                        <p className='date'>{utilService.makeDateWithHour(item.date)}</p>
+                        <p className='date'>{utilService.makeDate(item.date)}</p>
                     </div>
                 );
             }}

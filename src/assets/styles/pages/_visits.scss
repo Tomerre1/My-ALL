@@ -40,10 +40,10 @@
             cursor: grabbing;
             .date {
                 position: absolute;
-                bottom: 5px;
+                top: 10px;
                 right: 5px;
                 color: white;
-                font: bold 12px "Open Sans", sans-serif;
+                font: bold 16px "Open Sans", sans-serif;
             }
             p {
                 color: White;
@@ -55,10 +55,9 @@
                 left: 5px;
                 > button {
                     background: transparent;
-                    font-size: 24px;
+                    font-size: 20px;
                     cursor: pointer;
                     border: none;
-                    padding: 5px;
                     margin: 0;
                     > svg {
                         color: $clr2;
@@ -72,7 +71,7 @@
                 }
                 & + h3 {
                     margin: 0;
-                    margin-block-start: 28px;
+                    margin-block-start: 34px;
                     margin-block-end: 14px;
                     text-align: center;
                     font: bold 20px "Open Sans", sans-serif;

@@ -1,31 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import { utilService } from '../services/util.service'
 import { CmpHeader } from '../cmps/Header/CmpHeader'
 import { VisitsList } from '../cmps/Visits/VisitsList'
 
 export function Visits() {
-    const itemsFromBackend = [
-        { id: utilService.makeId(), content: "First task", title: 'ביקור 1', date: new Date() },
-        { id: utilService.makeId(), content: "Second task", title: '1123123', date: new Date() },
-        { id: utilService.makeId(), content: "Third task", title: '1123', date: new Date() },
-        { id: utilService.makeId(), content: "Fourth task", title: '123', date: new Date() },
-        { id: utilService.makeId(), content: "Fifth task", title: '1123213213', date: new Date() }
-    ];
-
-    const columnsFromBackend = {
-        future: {
-            name: "ביקורים עתידיים",
-            items: itemsFromBackend
-        },
-        Done: {
-            name: "ביקורים שהסתיימו",
-            items: []
-        }
-    };
-
-    // item{id, content, title, date,isDone}
-
     const onDragEnd = (result, columns, setColumns) => {
         if (!result.destination) return;
         const { source, destination } = result;
@@ -65,16 +44,42 @@ export function Visits() {
         }
     };
 
-    const [columns, setColumns] = useState(columnsFromBackend);
+    const [columns, setColumns] = useState(null);
+    useEffect(() => {
+        const itemsFromBackend = [
+            { id: utilService.makeId(), content: "First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task", title: 'ביקור 1', date: new Date(), isDone: false },
+            { id: utilService.makeId(), content: "Second task", title: '1123123', date: new Date(), isDone: true },
+            { id: utilService.makeId(), content: "Third task", title: '1123', date: new Date(), isDone: true },
+            { id: utilService.makeId(), content: "Fourth task", title: '123', date: new Date(), isDone: true },
+            { id: utilService.makeId(), content: "Fifth task", title: '1123213213', date: new Date(), isDone: true }
+        ];
+        const doneItems = itemsFromBackend.filter(item => item.isDone)
+        const undoneItems = itemsFromBackend.filter(item => !item.isDone)
+        const columnsFromBackend = {
+            future: {
+                name: "ביקורים עתידיים",
+                items: undoneItems
+            },
+            Done: {
+                name: "ביקורים שהסתיימו",
+                items: doneItems
+            }
+        };
+        setColumns(columnsFromBackend);
+    }, [])
+
     return (<>
         <CmpHeader title='הביקורים שלי' />
         <div className='flex justify-center visits-container' >
             <DragDropContext
                 onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
             >
-                <VisitsList columns={columns} />
+                {columns && <VisitsList columns={columns} />}
             </DragDropContext>
         </div>
+        <button class="float flex align-center justify-center" >
+            <i class="fa fa-plus my-float"></i>
+        </button>
     </>
     );
 }
