@@ -86,8 +86,7 @@ export function AddVisitOrWorkshop({ editItem, onAdd, saveEdit, isVisit }) {
                     <div className='flex justify-center'>
                         <Controls.Button
                             type='submit'
-                            text={'הכנס איש קשר'}
-                        />
+                            text={editItem ? 'עדכון' : 'אישור'} />
                         <Controls.Button
                             text='אפס שדות'
                             color='default'

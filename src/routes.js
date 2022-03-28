@@ -58,6 +58,11 @@ const routes = [
         component: Visits,
         isExact: true
     },
+    {
+        path: '/workshops',
+        component: Visits,
+        isExact: true
+    },
 ]
 
 export default routes;

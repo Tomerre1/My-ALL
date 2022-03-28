@@ -10,8 +10,8 @@ export function Visits({ match }) {
     const [columns, setColumns] = useState(null);
     const [editItem, setEditItem] = useState(null)
     const [openPopup, setOpenPopup] = useState(false)
-    const title = !match.path.includes('visits') ? 'הוספת סדנא' : 'הוספת ביקור'
-
+    const popupTitle = !match.path.includes('visits') ? 'הוספת סדנא' : 'הוספת ביקור'
+    const headerTitle = !match.path.includes('visits') ? 'הסדנאות שלי' : 'הביקורים שלי'
     const onDragEnd = (result, columns, setColumns) => {
         if (!result.destination) return;
         const { source, destination } = result;
@@ -59,7 +59,7 @@ export function Visits({ match }) {
 
     useEffect(() => {
         const itemsFromBackend = [
-            { id: utilService.makeId(), content: "First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task", title: 'ביקור 1', date: new Date(), isDone: false },
+            { id: utilService.makeId(), lecture: 'תומר', content: "First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task", title: 'ביקור 1', date: new Date(), isDone: false },
             // { id: utilService.makeId(), content: "Second task", title: '1123123', date: new Date(), isDone: true },
             // { id: utilService.makeId(), content: "Third task", title: '1123', date: new Date(), isDone: true },
             // { id: utilService.makeId(), content: "Fourth task", title: '123', date: new Date(), isDone: true },
@@ -69,11 +69,11 @@ export function Visits({ match }) {
         const undoneItems = itemsFromBackend.filter(item => !item.isDone)
         const columnsFromBackend = {
             future: {
-                name: "ביקורים עתידיים",
+                name: !match.path.includes('visits') ? "סדנאות עתידיות" : "ביקורים עתידיים",
                 items: undoneItems
             },
             Done: {
-                name: "ביקורים שהסתיימו",
+                name: !match.path.includes('visits') ? "סדנאות שהסתיימו" : "ביקורים שהסתיימו",
                 items: doneItems
             }
         };
@@ -108,7 +108,7 @@ export function Visits({ match }) {
     console.log(columns)
 
     return (<>
-        <CmpHeader title='הביקורים שלי' />
+        <CmpHeader title={headerTitle} />
         <div className='flex justify-center visits-container' >
             <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
                 {columns && <VisitsList columns={columns} onRemove={onRemove} onEdit={onEdit} />}
@@ -118,7 +118,7 @@ export function Visits({ match }) {
             <i class="fa fa-plus my-float"></i>
         </button>
         <Popup
-            title={title}
+            title={popupTitle}
             openPopup={openPopup}
             setOpenPopup={setOpenPopup}
         >
