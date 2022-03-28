@@ -5,7 +5,9 @@ import { CmpHeader } from '../cmps/Header/CmpHeader'
 import { VisitsList } from '../cmps/Visits/VisitsList'
 import { Popup } from '../cmps/Popup/Popup'
 import { AddVisitOrWorkshop } from '../cmps/Visits/AddVisitOrWorkshop'
+
 export function Visits({ match }) {
+    console.log('%c  match:', 'color: white;background: red;', match);
     const [columns, setColumns] = useState(null);
     const [editItem, setEditItem] = useState(null)
     const [openPopup, setOpenPopup] = useState(false)
@@ -119,7 +121,10 @@ export function Visits({ match }) {
             openPopup={openPopup}
             setOpenPopup={setOpenPopup}
         >
-            <AddVisitOrWorkshop />
+            <AddVisitOrWorkshop
+                isVisit={match.path.includes('visits') ? true : false}
+                editItem={editItem}
+            />
         </Popup>
     </>
     );
