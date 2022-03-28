@@ -4,6 +4,7 @@ import { ContactsList } from '../cmps/Contacts/ContactsList'
 import { AddContact } from '../cmps/Contacts/AddContact'
 import { Popup } from '../cmps/Popup/Popup'
 import { CmpHeader } from '../cmps/Header/CmpHeader'
+
 export function Contacts() {
     const user = useSelector(state => state.userReducer.user)
     const [openPopup, setOpenPopup] = useState(false)

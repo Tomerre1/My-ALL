@@ -4,7 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { utilService } from '../../services/util.service'
 
-export function VisitPreview({ item, index, onEditVisit, onRemove }) {
+export function VisitPreview({ item, index, onRemove, onEdit }) {
     return (
         <Draggable
             key={item.id}
@@ -25,7 +25,7 @@ export function VisitPreview({ item, index, onEditVisit, onRemove }) {
                         }}
                     >
                         <div className="actions">
-                            <button onClick={() => onEditVisit(item)}><EditIcon /></button>
+                            <button onClick={() => onEdit(item)}><EditIcon /></button>
                             <button onClick={() => onRemove(item)}><DeleteIcon /></button>
                         </div>
                         <h3>{item.title}</h3>
