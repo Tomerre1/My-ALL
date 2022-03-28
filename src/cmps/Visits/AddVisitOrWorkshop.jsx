@@ -22,7 +22,7 @@ export function AddVisitOrWorkshop({ editItem, onAdd, saveEdit, isVisit }) {
     });
 
     const handleSubmit = (values) => {
-        if (editItem.id) {
+        if (editItem?.id) {
             saveEdit({ ...editItem, ...values })
         } else {
             onAdd({

@@ -7,7 +7,6 @@ import { Popup } from '../cmps/Popup/Popup'
 import { AddVisitOrWorkshop } from '../cmps/Visits/AddVisitOrWorkshop'
 
 export function Visits({ match }) {
-    console.log('%c  match:', 'color: white;background: red;', match);
     const [columns, setColumns] = useState(null);
     const [editItem, setEditItem] = useState(null)
     const [openPopup, setOpenPopup] = useState(false)
@@ -17,14 +16,15 @@ export function Visits({ match }) {
         if (!result.destination) return;
         const { source, destination } = result;
         if (source.droppableId !== destination.droppableId) {
-            console.log(source.droppableId);
-            console.log(destination.droppableId);
             const sourceColumn = columns[source.droppableId];
             const destColumn = columns[destination.droppableId];
             const sourceItems = [...sourceColumn.items];
             const destItems = [...destColumn.items];
             const [removed] = sourceItems.splice(source.index, 1);
-            destItems.splice(destination.index, 0, removed);
+            destItems.splice(destination.index, 0, {
+                ...removed,
+                isDone: destination.droppableId === 'Done' ? true : false
+            });
             setColumns({
                 ...columns,
                 [source.droppableId]: {
@@ -60,10 +60,10 @@ export function Visits({ match }) {
     useEffect(() => {
         const itemsFromBackend = [
             { id: utilService.makeId(), content: "First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task", title: 'ביקור 1', date: new Date(), isDone: false },
-            { id: utilService.makeId(), content: "Second task", title: '1123123', date: new Date(), isDone: true },
-            { id: utilService.makeId(), content: "Third task", title: '1123', date: new Date(), isDone: true },
-            { id: utilService.makeId(), content: "Fourth task", title: '123', date: new Date(), isDone: true },
-            { id: utilService.makeId(), content: "Fifth task", title: '1123213213', date: new Date(), isDone: true }
+            // { id: utilService.makeId(), content: "Second task", title: '1123123', date: new Date(), isDone: true },
+            // { id: utilService.makeId(), content: "Third task", title: '1123', date: new Date(), isDone: true },
+            // { id: utilService.makeId(), content: "Fourth task", title: '123', date: new Date(), isDone: true },
+            // { id: utilService.makeId(), content: "Fifth task", title: '1123213213', date: new Date(), isDone: true }
         ];
         const doneItems = itemsFromBackend.filter(item => item.isDone)
         const undoneItems = itemsFromBackend.filter(item => !item.isDone)
@@ -91,25 +91,26 @@ export function Visits({ match }) {
         setOpenPopup(true)
     }
 
-    // const saveEdit = (contact) => {
-    //     const updatedContacts = myContacts.map(currContact => currContact.id === contact.id ? contact : currContact)
-    //     setMyContacts(updatedContacts)
-    //     setEditContact(null)
-    //     setOpenPopup(false)
-    // }
+    const saveEdit = (item) => {
+        const attribute = item.isDone ? 'Done' : 'future';
+        columns[attribute].items = columns[attribute].items.map(currItem => currItem.id === item.id ? item : currItem)
+        setColumns({ ...columns })
+        setEditItem(null)
+        setOpenPopup(false)
+    }
 
-    // const onAdd = (contact) => {
-    //     setMyContacts([...myContacts, contact])
-    //     setOpenPopup(false)
-    // }
+    const onAdd = (item) => {
+        columns.future.items.push(item)
+        setColumns({ ...columns })
+        setOpenPopup(false)
+    }
 
+    console.log(columns)
 
     return (<>
         <CmpHeader title='הביקורים שלי' />
         <div className='flex justify-center visits-container' >
-            <DragDropContext
-                onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
-            >
+            <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
                 {columns && <VisitsList columns={columns} onRemove={onRemove} onEdit={onEdit} />}
             </DragDropContext>
         </div>
@@ -124,6 +125,8 @@ export function Visits({ match }) {
             <AddVisitOrWorkshop
                 isVisit={match.path.includes('visits') ? true : false}
                 editItem={editItem}
+                onAdd={onAdd}
+                saveEdit={saveEdit}
             />
         </Popup>
     </>
