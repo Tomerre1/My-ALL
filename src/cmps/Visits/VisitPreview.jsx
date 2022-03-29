@@ -24,9 +24,9 @@ export function VisitPreview({ item, index, onRemove, onEdit }) {
                             ...provided.draggableProps.style
                         }}
                     >
-                        <div className="actions">
-                            <button onClick={() => onEdit(item)}><EditIcon /></button>
-                            <button onClick={() => onRemove(item)}><DeleteIcon /></button>
+                        <div className="actions flex">
+                            <button className="clean-btn" onClick={() => onEdit(item)}><EditIcon /></button>
+                            <button className="clean-btn" onClick={() => onRemove(item)}><DeleteIcon /></button>
                         </div>
                         <h3>{item.title}</h3>
                         <p>{item.content}</p>
