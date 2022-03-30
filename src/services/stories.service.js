@@ -8,20 +8,22 @@ export const storiesService = {
 }
 
 async function query() {
-    const stories = await httpService.post('step/allsuccessStories/')
+    const stories = await httpService.get('successStories/allsuccessStories/')
     return stories
 }
-async function addStory({ mail }, { levelNumber, stepNumber }, isNextLevel, nextLevel) {
-    const updatedTimeline = await httpService.post('step/next/', { mail, levelNumber, stepNumber, isNextLevel, nextLevel })
-    return updatedTimeline
+async function addStory({ user, id, content, title, date }) {
+    console.log('%c  mail, id, content, title, date:', 'color: white;background: red;', JSON.stringify({ mail: user.mail, id, content, title, date }));
+    const updatedtStories = await httpService.post('successStories/addsuccessStory/', { mail: user.mail, id, content, title, date })
+    return updatedtStories
 }
-async function removeStory({ mail }, { levelNumber, stepNumber }, isBackLevel, backLevel) {
-    const updatedTimeline = await httpService.post('step/back/', { mail, levelNumber, stepNumber, isBackLevel, backLevel })
-    return updatedTimeline
+async function removeStory(storyId) {
+    console.log('%c  storyId', 'color: white;background: red;', JSON.stringify({ id: storyId }));
+    const updatedtStories = await httpService.delete('successStories/deletesuccessStory/', { id: storyId })
+    return updatedtStories
 }
 
-async function editStory({ mail }, date) {
-    console.log('%c  { mail }, date:', 'color: white;background: red;', { mail }, date);
-    const updatedTimeline = await httpService.post('step/delaysteps/', { mail, date })
-    return updatedTimeline
+async function editStory({ user, id, content, title, date }) {
+    console.log('%c  mail, id, content, title, date:', 'color: white;background: red;', JSON.stringify({ mail: user.mail, id, content, title, date }));
+    const updatedtStories = await httpService.put('successStories/updatesuccessStory/', { mail: user.mail, id, content, title, date })
+    return updatedtStories
 }

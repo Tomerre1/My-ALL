@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { SuccessStoriesList } from '../cmps/UserSuccessStoriesAndTips/SuccessStoriesList'
 import { FilterStoriesOrTips } from '../cmps/UserSuccessStoriesAndTips/FilterStoriesOrTips'
@@ -6,7 +6,8 @@ import { Popup } from '../cmps/Popup/Popup'
 import { utilService } from '../services/util.service'
 import { AddStoryOrTip } from '../cmps/UserSuccessStoriesAndTips/AddStoryOrTip'
 import { CmpHeader } from '../cmps/Header/CmpHeader'
-import {storiesService} from '../services/stories.service.js'
+import { storiesService } from '../services/stories.service.js'
+import { tipsService } from '../services/tips.service.js'
 
 export function SuccessStories({ match }) {
     const user = useSelector(state => state.userReducer.user)
@@ -14,26 +15,20 @@ export function SuccessStories({ match }) {
     const [search, setSearch] = useState('')
     const [selected, setSeleceted] = useState('')
     const [editItem, setEditItem] = useState(null)
-    const [stories, setStories] = useState([
-        { id: 1, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: '2', content: 'תגובה תגובה תגובה', date: new Date() },
-        { id: 2, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'tomerevach@gmail.com' }, title: '1', content: ' תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
-        { id: 3, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: '3', content: 'תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
-        { id: 4, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
-        { id: 5, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
-        { id: 6, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה תגובה', date: new Date() },
-        { id: 7, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
-        { id: 8, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
-        { id: 9, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
-        { id: 10, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
-        { id: 11, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() }
-    ])
+    const isStory = match.path.includes('success-stories') ? true : false
+    const [stories, setStories] = useState([])
+    // { id: 1, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: '2', content: 'תגובה תגובה תגובה', date: new Date() },
 
     useEffect(() => {
-    const queryStories= storiesService.query()
-    setStories(stories)
-      return () => {
-        
-      }
+        async function fetchStories() {
+            const queryStories = await storiesService.query()
+            setStories(queryStories)
+        }
+        async function fetchTips() {
+            const queryStories = await tipsService.query()
+            setStories(queryStories)
+        }
+        (isStory) ? fetchStories() : fetchTips()
     }, [])
 
     const sortStories = (sortedStories) => {
@@ -51,8 +46,9 @@ export function SuccessStories({ match }) {
         return sortedStories
     }
 
-    const onRemove = (itemId) => {
-        setStories(stories.filter(story => story.id !== itemId))
+    const onRemove = async (itemId) => {
+        setStories(stories.filter(story => story.id !== itemId));
+        (isStory) ? await storiesService.removeStory(itemId) : await tipsService.removeTip(itemId)
     }
 
     const onEditItem = (item) => {
@@ -60,16 +56,18 @@ export function SuccessStories({ match }) {
         setOpenPopup(true)
     }
 
-    const onAddItem = (item) => {
-        setStories([...stories, item])
-        setOpenPopup(false)
+    const onAddItem = async (item) => {
+        setStories([...stories, item]);
+        setOpenPopup(false);
+        (isStory) ? await storiesService.addStory(item) : await tipsService.addTip(item)
     }
 
-    const saveEditItem = (item) => {
+    const saveEditItem = async (item) => {
         const updatedItems = stories.map(currItem => currItem.id === item.id ? item : currItem)
         setStories(updatedItems)
         setEditItem(null)
-        setOpenPopup(false)
+        setOpenPopup(false);
+        (isStory) ? await storiesService.editStory(item) : await tipsService.editTip(item)
     }
 
     return (
@@ -105,7 +103,7 @@ export function SuccessStories({ match }) {
                     editItem={editItem}
                     saveEditItem={saveEditItem}
                     onAddItem={onAddItem}
-                    isStory={match.path.includes('success-stories') ? true : false}
+                    isStory={isStory}
                 />
             </Popup>
         </>
