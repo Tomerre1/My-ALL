@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { SuccessStoriesList } from '../cmps/UserSuccessStoriesAndTips/SuccessStoriesList'
 import { FilterStoriesOrTips } from '../cmps/UserSuccessStoriesAndTips/FilterStoriesOrTips'
@@ -6,6 +6,7 @@ import { Popup } from '../cmps/Popup/Popup'
 import { utilService } from '../services/util.service'
 import { AddStoryOrTip } from '../cmps/UserSuccessStoriesAndTips/AddStoryOrTip'
 import { CmpHeader } from '../cmps/Header/CmpHeader'
+import {storiesService} from '../services/stories.service.js'
 
 export function SuccessStories({ match }) {
     const user = useSelector(state => state.userReducer.user)
@@ -26,6 +27,14 @@ export function SuccessStories({ match }) {
         { id: 10, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() },
         { id: 11, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: 'כותרת', content: 'תגובה תגובה תגובה', date: new Date() }
     ])
+
+    useEffect(() => {
+    const queryStories= storiesService.query()
+    setStories(stories)
+      return () => {
+        
+      }
+    }, [])
 
     const sortStories = (sortedStories) => {
         if (selected === 'date') {
