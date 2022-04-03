@@ -5,14 +5,19 @@ import { CmpHeader } from '../cmps/Header/CmpHeader'
 import { VisitsList } from '../cmps/Visits/VisitsList'
 import { Popup } from '../cmps/Popup/Popup'
 import { AddVisitOrWorkshop } from '../cmps/Visits/AddVisitOrWorkshop'
-
+import { visitService } from '../services/visit.service'
+import { useSelector, useDispatch } from "react-redux";
+import { workshopService } from "../services/workshop.service";
 export function Visits({ match }) {
+    const user = useSelector(state => state.userReducer.user)
     const [columns, setColumns] = useState(null);
     const [editItem, setEditItem] = useState(null)
     const [openPopup, setOpenPopup] = useState(false)
     const popupTitle = !match.path.includes('visits') ? 'הוספת סדנא' : 'הוספת ביקור'
     const headerTitle = !match.path.includes('visits') ? 'הסדנאות שלי' : 'הביקורים שלי'
-    const onDragEnd = (result, columns, setColumns) => {
+    const isVisit = match.path.includes('visits')
+
+    const onDragEnd = async (result, columns, setColumns) => {
         if (!result.destination) return;
         const { source, destination } = result;
         if (source.droppableId !== destination.droppableId) {
@@ -36,6 +41,7 @@ export function Visits({ match }) {
                     items: destItems
                 }
             });
+            (isVisit) ? await visitService.updateIsDone(removed.id) : await workshopService.updateIsDone(removed.id)
         } else {
             const column = columns[source.droppableId];
             const copiedItems = [...column.items];
@@ -58,32 +64,31 @@ export function Visits({ match }) {
     }, [openPopup])
 
     useEffect(() => {
-        const itemsFromBackend = [
-            { id: utilService.makeId(), lecture: 'תומר', content: "First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task First task", title: 'ביקור 1', date: new Date(), isDone: false },
-            // { id: utilService.makeId(), content: "Second task", title: '1123123', date: new Date(), isDone: true },
-            // { id: utilService.makeId(), content: "Third task", title: '1123', date: new Date(), isDone: true },
-            // { id: utilService.makeId(), content: "Fourth task", title: '123', date: new Date(), isDone: true },
-            // { id: utilService.makeId(), content: "Fifth task", title: '1123213213', date: new Date(), isDone: true }
-        ];
-        const doneItems = itemsFromBackend.filter(item => item.isDone)
-        const undoneItems = itemsFromBackend.filter(item => !item.isDone)
-        const columnsFromBackend = {
-            future: {
-                name: !match.path.includes('visits') ? "סדנאות עתידיות" : "ביקורים עתידיים",
-                items: undoneItems
-            },
-            Done: {
-                name: !match.path.includes('visits') ? "סדנאות שהסתיימו" : "ביקורים שהסתיימו",
-                items: doneItems
-            }
-        };
-        setColumns(columnsFromBackend);
+        async function fetchVisitsOrWorkshops() {
+            const itemsFromBackend = isVisit ? await visitService.query(user.mail) : await workshopService.query(user.mail)
+            console.log('%c  itemsFromBackend:', 'color: white;background: red;', itemsFromBackend);
+            const doneItems = itemsFromBackend.filter(item => item.isDone)
+            const undoneItems = itemsFromBackend.filter(item => !item.isDone)
+            const columnsFromBackend = {
+                future: {
+                    name: !isVisit ? "סדנאות עתידיות" : "ביקורים עתידיים",
+                    items: undoneItems
+                },
+                Done: {
+                    name: !isVisit ? "סדנאות שהסתיימו" : "ביקורים שהסתיימו",
+                    items: doneItems
+                }
+            };
+            setColumns(columnsFromBackend);
+        }
+        fetchVisitsOrWorkshops()
     }, [])
 
-    const onRemove = (item) => {
+    const onRemove = async (item) => {
         const attribute = item.isDone ? 'Done' : 'future';
         columns[attribute].items = columns[attribute].items.filter(currItem => currItem.id !== item.id)
-        setColumns({ ...columns })
+        setColumns({ ...columns });
+        (isVisit) ? await visitService.removeVisit(item.id) : await workshopService.removeWorkshop(item.id)
     }
 
     const onEdit = (item) => {
@@ -91,18 +96,20 @@ export function Visits({ match }) {
         setOpenPopup(true)
     }
 
-    const saveEdit = (item) => {
+    const saveEdit = async (item) => {
         const attribute = item.isDone ? 'Done' : 'future';
         columns[attribute].items = columns[attribute].items.map(currItem => currItem.id === item.id ? item : currItem)
         setColumns({ ...columns })
         setEditItem(null)
-        setOpenPopup(false)
+        setOpenPopup(false);
+        (isVisit) ? await visitService.editVisit(user, item) : await workshopService.editWorkshop(user, item)
     }
 
-    const onAdd = (item) => {
+    const onAdd = async (item) => {
         columns.future.items.push(item)
         setColumns({ ...columns })
-        setOpenPopup(false)
+        setOpenPopup(false);
+        (isVisit) ? await visitService.addVisit(user, item) : await workshopService.addWorkshop(user, item)
     }
 
     console.log(columns)
@@ -123,7 +130,7 @@ export function Visits({ match }) {
             setOpenPopup={setOpenPopup}
         >
             <AddVisitOrWorkshop
-                isVisit={match.path.includes('visits') ? true : false}
+                isVisit={isVisit}
                 editItem={editItem}
                 onAdd={onAdd}
                 saveEdit={saveEdit}

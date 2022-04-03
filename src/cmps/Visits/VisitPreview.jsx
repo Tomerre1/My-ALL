@@ -30,7 +30,7 @@ export function VisitPreview({ item, index, onRemove, onEdit }) {
                         </div>
                         <h3>{item.title}</h3>
                         <p>{item.content}</p>
-                        {item.lecture && <p className="lecture">מרצה הסדנא: {item.lecture}</p>}
+                        {item.lecturer && <p className="lecture">מרצה הסדנא: {item.lecturer}</p>}
                         <p className='date'>{utilService.makeDate(item.date)}</p>
                     </div>
                 );

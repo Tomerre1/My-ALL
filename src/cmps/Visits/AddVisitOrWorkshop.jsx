@@ -17,7 +17,7 @@ export function AddVisitOrWorkshop({ editItem, onAdd, saveEdit, isVisit }) {
             .required('נדרש למלא את כותרת הביקור'),
         content: Yup.string()
             .required('נדרש למלא את תוכן הביקור'),
-        lecture: Yup.string()
+        lecturer: Yup.string()
             .required('נדרש למלא את שם המרצה'),
     });
 
@@ -38,7 +38,7 @@ export function AddVisitOrWorkshop({ editItem, onAdd, saveEdit, isVisit }) {
         initialValues={{
             title: editItem?.title || '',
             content: editItem?.content || '',
-            lecture: editItem?.lecture || '',
+            lecturer: editItem?.lecturer || '',
             date: editItem?.date || new Date(),
         }}
         validationSchema={isVisit ? validationSchemaAddVisit : validationSchemaAddWorkshop}
@@ -68,11 +68,11 @@ export function AddVisitOrWorkshop({ editItem, onAdd, saveEdit, isVisit }) {
                     />
 
                     {!isVisit && <Controls.Input
-                        name='lecture'
+                        name='lecturer'
                         label='מרצה הסדנא'
-                        value={props.values.lecture}
+                        value={props.values.lecturer}
                         onChange={props.handleChange}
-                        error={props.touched.lecture && props.errors.lecture ? props.errors.lecture : ''}
+                        error={props.touched.lecturer && props.errors.lecturer ? props.errors.lecturer : ''}
                     />}
 
                     <Controls.DatePicker
