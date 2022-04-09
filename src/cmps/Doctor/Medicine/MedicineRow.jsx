@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
   const [open, setOpen] = useState(false);
   return (
-    <>
+    <div className="table">
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell >
           <IconButton
@@ -60,6 +60,6 @@ export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
           </Collapse>
         </TableCell>
       </TableRow>
-    </>
+    </div>
   );
 };

@@ -11,7 +11,7 @@ import { MedicineAddEdit } from './MedicineAddEdit';
 import Button from '../../controls/Button';
 import { MedicineRow } from './MedicineRow';
 import { medicineService } from './../../../services/medicine.service';
-
+import { CmpHeader } from '../../Header/CmpHeader'
 export function MedicineTable() {
   const [openPopup, setOpenPopup] = useState(false);
   const [recordForEdit, setRecordForEdit] = useState(null);
@@ -57,47 +57,50 @@ export function MedicineTable() {
 
   return (
     <>
-      <TableContainer component={Paper}>
-        <Table aria-label='collapsible table' >
-          <TableHead>
-            <TableRow>
-              <TableCell colSpan={4} />
-              <TableCell colSpan={4} align='right'>שם תרופה</TableCell>
-              <TableCell colSpan={4} align='right'>שלב תרופה</TableCell>
-              <TableCell colSpan={4} align='right'>מינון תרופה</TableCell>
-              <TableCell colSpan={4} align='right'>צורך בצום</TableCell>
-              <TableCell colSpan={4} align='right'>ימים</TableCell>
-              <TableCell colSpan={4} align='right'>פעולות</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {medicines.map((row) => (
-              <MedicineRow
-                key={row.medicineName}
-                row={row}
-                openInPopup={openInPopup}
-                deleteMedicine={deleteMedicine}
-              />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Popup
-        title={recordForEdit ? 'עריכת תרופה' : 'הוספת תרופה'}
-        openPopup={openPopup}
-        setOpenPopup={setOpenPopup}
-      >
-        <MedicineAddEdit
-          recordForEdit={recordForEdit}
-          addOrEdit={addOrEdit}
-          setRecordForEdit={setRecordForEdit}
-          isRow={true}
-        />
-      </Popup>
-      <div style={{ direction: 'rtl' }}>
-        <Button onClick={() => {
-          setOpenPopup(true); setRecordForEdit(null);
-        }} text='הוספת תרופה' />
+      <CmpHeader title="ניהול תרופות" />
+      <div className="table">
+        <TableContainer component={Paper}>
+          <Table aria-label='collapsible table' >
+            <TableHead>
+              <TableRow>
+                <TableCell colSpan={4} />
+                <TableCell colSpan={4} align='right'>שם תרופה</TableCell>
+                <TableCell colSpan={4} align='right'>שלב תרופה</TableCell>
+                <TableCell colSpan={4} align='right'>מינון תרופה</TableCell>
+                <TableCell colSpan={4} align='right'>צורך בצום</TableCell>
+                <TableCell colSpan={4} align='right'>ימים</TableCell>
+                <TableCell colSpan={4} align='right'>פעולות</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {medicines.map((row) => (
+                <MedicineRow
+                  key={row.medicineName}
+                  row={row}
+                  openInPopup={openInPopup}
+                  deleteMedicine={deleteMedicine}
+                />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Popup
+          title={recordForEdit ? 'עריכת תרופה' : 'הוספת תרופה'}
+          openPopup={openPopup}
+          setOpenPopup={setOpenPopup}
+        >
+          <MedicineAddEdit
+            recordForEdit={recordForEdit}
+            addOrEdit={addOrEdit}
+            setRecordForEdit={setRecordForEdit}
+            isRow={true}
+          />
+        </Popup>
+        <div style={{ direction: 'rtl' }}>
+          <Button onClick={() => {
+            setOpenPopup(true); setRecordForEdit(null);
+          }} text='הוספת תרופה' />
+        </div>
       </div>
     </>
   );
