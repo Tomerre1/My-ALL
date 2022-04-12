@@ -3,7 +3,7 @@ const TOKEN = 'c112c22ebd6500f20bf91f0c992f56667071a540'
 
 const BASE_URL = process.env.NODE_ENV === 'production'
     ? '//myall-backend.herokuapp.com/'
-    : '//myall-backend.herokuapp.com/'
+    : '//localhost:8000/'
 // : '//localhost:8000/'
 
 export const httpService = {
