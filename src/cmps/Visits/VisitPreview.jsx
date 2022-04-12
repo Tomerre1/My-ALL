@@ -20,7 +20,7 @@ export function VisitPreview({ item, index, onRemove, onEdit }) {
                         style={{
                             backgroundColor: snapshot.isDragging
                                 ? "#456C86"
-                                : "#e2925c",
+                                : "#ff7518",
                             ...provided.draggableProps.style
                         }}
                     >
