@@ -80,6 +80,7 @@ export function Visits({ match }) {
                 }
             };
             setColumns(columnsFromBackend);
+            console.log('%c  columnsFromBackend:', 'color: white;background: red;', columnsFromBackend);
         }
         fetchVisitsOrWorkshops()
     }, [])
