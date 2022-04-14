@@ -24,9 +24,9 @@
         text-shadow: var(--text-shadow);
         text-transform: uppercase;
         color: var(--black);
-        font-size: 2.5rem;
+        font-size: em(40px);
         @include for-narrow-layout {
-            font-size: 5rem;
+            font-size: em(80px);
         }
         & span {
             text-transform: uppercase;
@@ -53,9 +53,9 @@
         color: var(--green);
         cursor: pointer;
         background: #fff;
-        font-size: 0.85rem;
+        font-size: em(16px);
         @include for-narrow-layout {
-            font-size: 1.6rem;
+            font-size: em(24px);
         }
         & span {
             padding: 0.7rem 1rem;
@@ -96,18 +96,18 @@
             color: var(--black);
             line-height: 1.8;
             text-shadow: var(--text-shadow);
-            font-size: 2.25rem;
+            font-size: em(36px);
             @include for-narrow-layout {
-                font-size: 4.5rem;
+                font-size: em(72px);
             }
         }
         & p {
             color: var(--light-color);
             line-height: 1.8;
             padding: 1rem 0;
-            font-size: 0.85rem;
+            font-size: em(16px);
             @include for-narrow-layout {
-                font-size: 1.7rem;
+                font-size: em(24px);
             }
         }
     }
@@ -134,25 +134,25 @@
             & i {
                 color: var(--green);
                 padding-bottom: 0.7rem;
-                font-size: 2.25rem;
+                font-size: em(36px);
                 @include for-narrow-layout {
-                    font-size: 4.5rem;
+                    font-size: em(72px);
                 }
             }
             & h3 {
                 color: var(--black);
                 padding: 0.5rem 0;
                 text-shadow: var(--text-shadow);
-                font-size: 2.25rem;
+                font-size: em(36px);
                 @include for-narrow-layout {
-                    font-size: 4.5rem;
+                    font-size: em(72px);
                 }
             }
             & p {
                 color: var(--light-color);
-                font-size: 0.85rem;
+                font-size: em(14px);
                 @include for-narrow-layout {
-                    font-size: 1.7rem;
+                    font-size: em(28px);
                 }
             }
         }
@@ -175,25 +175,25 @@
                 & i {
                     color: var(--green);
                     padding-bottom: 0.5rem;
-                    font-size: 2.5rem;
+                    font-size: em(40px);
                     @include for-narrow-layout {
-                        font-size: 5rem;
+                        font-size: em(80px);
                     }
                 }
                 & h3 {
                     color: var(--black);
                     padding: 1rem 0;
-                    font-size: 1.25rem;
+                    font-size: em(20px);
                     @include for-narrow-layout {
-                        font-size: 2.5rem;
+                        font-size: em(40px);
                     }
                 }
                 & p {
                     color: var(--light-color);
                     line-height: 2;
-                    font-size: 0.85rem;
+                    font-size: em(14px);
                     @include for-narrow-layout {
-                        font-size: 1.4rem;
+                        font-size: em(28px);
                     }
                 }
             }
@@ -219,19 +219,19 @@
                 & h3 {
                     color: var(--black);
                     text-shadow: var(--text-shadow);
-                    font-size: 2rem;
+                    font-size: em(36px);
                     @include for-narrow-layout {
-                        font-size: 4rem;
+                        font-size: em(72px);
                     }
                     line-height: 1.8;
                 }
                 & p {
                     color: var(--light-color);
                     padding: 1rem 0;
-                    font-size: 0.85rem;
+                    font-size: em(14px);
                     line-height: 1.8;
                     @include for-narrow-layout {
-                        font-size: 1.5rem;
+                        font-size: em(28px);
                     }
                 }
             }
@@ -268,10 +268,10 @@
                         align-items: center;
                         justify-content: space-between;
                         & a {
-                            font-size: 0.7rem;
+                            font-size: em(14px);
                             color: var(--light-color);
                             @include for-narrow-layout {
-                                font-size: 1.4rem;
+                                font-size: em(28px);
                             }
 
                             &:hover {
@@ -285,18 +285,18 @@
                     }
                     & h3 {
                         color: var(--black);
-                        font-size: 1.5rem;
+                        font-size: em(24px);
                         @include for-narrow-layout {
-                            font-size: 3rem;
+                            font-size: em(48px);
                         }
                     }
                     & p {
                         color: var(--light-color);
-                        font-size: 0.8rem;
+                        font-size: em(12px);
                         line-height: 1.8;
                         padding: 1rem 0;
                         @include for-narrow-layout {
-                            font-size: 1.5rem;
+                            font-size: em(24px);
                         }
                     }
                 }

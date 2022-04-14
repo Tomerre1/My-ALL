@@ -25,7 +25,7 @@
         background-blend-mode: overlay;
         .video-title {
             color: $clr4;
-            font-size: 24px;
+            font-size: em(24px);
             line-height: 30px;
             margin-bottom: 20px;
             font-weight: bold;
@@ -53,7 +53,7 @@
             background: rgba(255, 255, 255, 0.44);
             color: $clr4;
             padding: 3px 8px;
-            font-size: 12px;
+            font-size: em(12px);
             border-radius: 6px;
             position: absolute;
             right: 20px;
@@ -66,14 +66,14 @@
     direction: rtl;
     > p {
         color: black;
-        font-size: 24px;
+        font-size: em(24px);
         line-height: 30px;
         font-weight: bold;
         text-decoration: underline;
         text-align: center;
 
         & + p {
-            font-size: 1rem;
+            font-size: em(16px);
             font-weight: unset;
             color: black;
             text-decoration: unset;

@@ -3,7 +3,7 @@
     h1 {
         text-align: center;
         margin: 0;
-        font: bold 30px "Open Sans", sans-serif;
+        font: bold em(30px) "Open Sans", sans-serif;
         color: $clr1;
         text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa,
             0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3),
@@ -15,7 +15,7 @@
     }
     p {
         margin-top: 2rem;
-        font-size: 0.75rem;
+        font-size: em(14px);
         text-align: center;
     }
     --width: 2.7rem;
@@ -119,14 +119,14 @@
                 .todolist__header--date {
                     & svg {
                         color: #858585;
-                        font-size: 60px;
+                        font-size: em(60px);
                         &:hover {
                             color: $clr1;
                         }
                     }
 
                     & span:nth-child(1) {
-                        font-size: 48px;
+                        font-size: em(48px);
                         color: #858585;
                         font-weight: 400;
                     }
@@ -138,12 +138,12 @@
                     .warpper {
                         margin-left: 10px;
                         & span:nth-child(1) {
-                            font-size: 16px;
+                            font-size: em(16px);
                             color: #858585;
                             font-weight: 500;
                         }
                         & span:nth-child(2) {
-                            font-size: 16px;
+                            font-size: em(16px);
                             color: #858585;
                             font-weight: 300;
                         }
@@ -206,7 +206,7 @@
                         transition-timing-function: ease-in;
                     }
                     & i {
-                        font-size: 20px;
+                        font-size: em(20px);
                     }
                 }
             }

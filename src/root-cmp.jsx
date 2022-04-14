@@ -23,7 +23,15 @@ export function RootCmp() {
             textToSpeech: 'טקסט לדיבור',
             speechToText: 'הקראת טקסט',
         };
-        var options = { labels: labels };
+        const icon = {
+            position: {
+                bottom: { size: 10, units: 'px' },
+                left: { size: 0, units: 'px' },
+                type: 'fixed'
+
+            }
+        }
+        var options = { labels, icon };
         options.textToSpeechLang = 'he'; // or any other language
         options.speechToTextLang = 'he'; // or any other language
         window.addEventListener('load', function () { new Accessibility(options); }, false);

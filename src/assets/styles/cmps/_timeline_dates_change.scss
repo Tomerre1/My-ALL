@@ -9,7 +9,7 @@
                 box-shadow: none;
                 border: none;
                 color: #fff;
-                font-size: 14px;
+                font-size: em(14px);
                 line-height: 20px;
                 font-weight: 400;
                 border-radius: 3px;
@@ -18,7 +18,7 @@
             }
             &:nth-child(2) {
                 color: #172b4d;
-                font-size: 14px;
+                font-size: em(14px);
                 line-height: 20px;
                 font-weight: 400;
                 border-radius: 3px;
