@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { SuccessStoriesList } from '../cmps/UserSuccessStoriesAndTips/SuccessStoriesList'
 import { FilterStoriesOrTips } from '../cmps/UserSuccessStoriesAndTips/FilterStoriesOrTips'
 import { Popup } from '../cmps/Popup/Popup'
@@ -8,25 +8,31 @@ import { AddStoryOrTip } from '../cmps/UserSuccessStoriesAndTips/AddStoryOrTip'
 import { CmpHeader } from '../cmps/Header/CmpHeader'
 import { storiesService } from '../services/stories.service.js'
 import { tipsService } from '../services/tips.service.js'
+import { Loader } from '../cmps/Loader/Loader'
+import { setLoadingOn, setLoadingOff } from '../store/system.actions'
 
 export function SuccessStories({ match }) {
     const user = useSelector(state => state.userReducer.user)
+    const isLoading = useSelector(state => state.systemReducer.isLoading)
+    const dispatch = useDispatch()
     const [openPopup, setOpenPopup] = useState(false)
     const [search, setSearch] = useState('')
     const [selected, setSeleceted] = useState('')
     const [editItem, setEditItem] = useState(null)
     const isStory = match.path.includes('success-stories') ? true : false
     const [stories, setStories] = useState([])
-    // { id: 1, user: { fullname: 'תומר רווח', userType: 'מטופל', mail: 'revahtomer@gmail.com' }, title: '2', content: 'תגובה תגובה תגובה', date: new Date() },
 
     useEffect(() => {
+        dispatch(setLoadingOn())
         async function fetchStories() {
             const queryStories = await storiesService.query()
             setStories(queryStories)
+            dispatch(setLoadingOff())
         }
         async function fetchTips() {
             const queryStories = await tipsService.query()
             setStories(queryStories)
+            dispatch(setLoadingOff())
         }
         (isStory) ? fetchStories() : fetchTips()
     }, [])
@@ -70,7 +76,9 @@ export function SuccessStories({ match }) {
         (isStory) ? await storiesService.editStory(item) : await tipsService.editTip(item)
     }
 
-    return (
+    return (isLoading) ?
+        <Loader />
+        :
         <>
             <div className="success-stories">
                 <CmpHeader title={match.path.includes('success-stories') ? 'סיפורי הצלחה' : 'טיפים'} />
@@ -107,6 +115,5 @@ export function SuccessStories({ match }) {
                 />
             </Popup>
         </>
-    )
 }
 

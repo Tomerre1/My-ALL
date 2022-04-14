@@ -6,8 +6,10 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Popup } from '../cmps/Popup/Popup';
 import { medicineService } from '../services/medicine.service';
 import { AddMedicine } from '../cmps/UserMedicine/AddMedicine'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { CmpHeader } from '../cmps/Header/CmpHeader'
+import { Loader } from '../cmps/Loader/Loader'
+import { setLoadingOn, setLoadingOff } from '../store/system.actions'
 
 export function MedicinesChecklist() {
     const [selected, setSeleceted] = useState(new Date().toLocaleDateString('he-IL', { weekday: 'long' }).split(' ')[1])
@@ -16,7 +18,8 @@ export function MedicinesChecklist() {
     const [userMedicines, setUserMedicines] = useState([])
     const [allmedicines, setAllMedicines] = useState([])
     const user = useSelector(state => state.userReducer.user)
-
+    const isLoading = useSelector(state => state.systemReducer.isLoading)
+    const dispatch = useDispatch()
     const days = ['שבת', 'ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי']
     const weekDaysOrganized = ['שבת', 'שישי', 'חמישי', 'רביעי', 'שלישי', 'שני', 'ראשון']
 
@@ -26,13 +29,19 @@ export function MedicinesChecklist() {
 
     useEffect(() => {
         async function getMedicines() {
+            dispatch(setLoadingOn())
             if (selected === 'ראשון') {
-                await medicineService.resetUserMedicineForNewWeek(user.mail)
+                Promise.all([await medicineService.resetUserMedicineForNewWeek(user.mail), await medicineService.queryMedicines(user.mail), await medicineService.query()]).then(values => {
+                    setUserMedicines(values[1])
+                    setAllMedicines(values[2])
+                });
+            } else {
+                Promise.all([await medicineService.queryMedicines(user.mail), await medicineService.query()]).then(values => {
+                    setUserMedicines(values[0])
+                    setAllMedicines(values[1])
+                });
             }
-            const userMedicines = await medicineService.queryMedicines(user.mail)
-            setUserMedicines(userMedicines)
-            const allMedicines = await medicineService.query()
-            setAllMedicines(allMedicines)
+            dispatch(setLoadingOff())
         }
         getMedicines()
     }, [user])
@@ -94,55 +103,58 @@ export function MedicinesChecklist() {
 
     const dateBySelectedDay = getDateByDaySelected()
 
-    return <>
-        <CmpHeader title='התרופות שלי' />
-        <div className="container flex column align-center justify-center">
-            <div className="switches-container">
-                {weekDaysOrganized.map((day) => <input type="radio" onChange={onChangeDay} id={day} name="switchPlan" value={day} checked={selected === day} />)}
-                {weekDaysOrganized.map((day) => <label for={day}>{day}</label>)}
-                <div className="switch-wrapper">
-                    <div className="switch">
-                        {weekDaysOrganized.map((day) => <div>{day}</div>)}
-                    </div>
-                </div>
-            </div>
-            <div className="todolist flex align-center justify-center">
-                <div className="todolist__main flex column">
-                    <div className="todolist__header">
-                        <div className="todolist__header--date flex align-center">
-                            <span className="date--day">{dateBySelectedDay.day}</span>
-                            <div className="warpper flex column">
-                                <span className="date--month">{dateBySelectedDay.month}</span>
-                                <span className="date--year">{dateBySelectedDay.year}</span>
-                            </div>
-                            <button onClick={() => setOpenPopup(true)} className="add__circle clean-btn"><AddCircleOutlineIcon /></button>
+    return (isLoading) ?
+        <Loader />
+        :
+        <>
+            <CmpHeader title='התרופות שלי' />
+            <div className="container flex column align-center justify-center">
+                <div className="switches-container">
+                    {weekDaysOrganized.map((day) => <input type="radio" onChange={onChangeDay} id={day} name="switchPlan" value={day} checked={selected === day} />)}
+                    {weekDaysOrganized.map((day) => <label for={day}>{day}</label>)}
+                    <div className="switch-wrapper">
+                        <div className="switch">
+                            {weekDaysOrganized.map((day) => <div>{day}</div>)}
                         </div>
                     </div>
-                    <div className="todolist__result">
-                        <ul className="clean-list">
-                            {selectedDayMedicines?.length > 0 ? selectedDayMedicines.map(med => <li onClick={() => onClickMedicine(med.medicineName)} className="list__task flex align-center space-between">
-                                <div className="flex">
-                                    <button className={`list__task--check clean-btn ${med.isActive ? 'active' : ''}`}> {!med.isActive ? <RadioButtonUncheckedRoundedIcon /> : <CheckCircleOutlineRoundedIcon />}</button>
-                                    <div className={`list__task--text ${med.isActive ? 'active' : ''}`}>{`${med.medicineName} ${med.count}`}</div>
+                </div>
+                <div className="todolist flex align-center justify-center">
+                    <div className="todolist__main flex column">
+                        <div className="todolist__header">
+                            <div className="todolist__header--date flex align-center">
+                                <span className="date--day">{dateBySelectedDay.day}</span>
+                                <div className="warpper flex column">
+                                    <span className="date--month">{dateBySelectedDay.month}</span>
+                                    <span className="date--year">{dateBySelectedDay.year}</span>
                                 </div>
-                                <div className="wrapper--left">
-                                    <button onClick={(e) => { e.stopPropagation(); onDeleteMedicine(med.medicineName); }} className={`list__task--del clean-btn ${med.isActive ? 'active' : ''}`}><DeleteForeverRoundedIcon /></button>
-                                </div>
-                            </li>) :
-                                <h1>אין תרופות להיום</h1>}
-                        </ul>
+                                <button onClick={() => setOpenPopup(true)} className="add__circle clean-btn"><AddCircleOutlineIcon /></button>
+                            </div>
+                        </div>
+                        <div className="todolist__result">
+                            <ul className="clean-list">
+                                {selectedDayMedicines?.length > 0 ? selectedDayMedicines.map(med => <li onClick={() => onClickMedicine(med.medicineName)} className="list__task flex align-center space-between">
+                                    <div className="flex">
+                                        <button className={`list__task--check clean-btn ${med.isActive ? 'active' : ''}`}> {!med.isActive ? <RadioButtonUncheckedRoundedIcon /> : <CheckCircleOutlineRoundedIcon />}</button>
+                                        <div className={`list__task--text ${med.isActive ? 'active' : ''}`}>{`${med.medicineName} ${med.count}`}</div>
+                                    </div>
+                                    <div className="wrapper--left">
+                                        <button onClick={(e) => { e.stopPropagation(); onDeleteMedicine(med.medicineName); }} className={`list__task--del clean-btn ${med.isActive ? 'active' : ''}`}><DeleteForeverRoundedIcon /></button>
+                                    </div>
+                                </li>) :
+                                    <h1>אין תרופות להיום</h1>}
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div >
-        <Popup
-            title={'הוספת תרופה'}
-            openPopup={openPopup}
-            setOpenPopup={setOpenPopup}
-        >
-            <AddMedicine day={selected} medicines={allmedicines} isRow={false} addMedicine={onAddMedicine} />
-        </Popup>
-    </>
+            </div >
+            <Popup
+                title={'הוספת תרופה'}
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+            >
+                <AddMedicine day={selected} medicines={allmedicines} isRow={false} addMedicine={onAddMedicine} />
+            </Popup>
+        </>
 }
 
 export default MedicinesChecklist;

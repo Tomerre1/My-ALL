@@ -1,40 +1,27 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { ContactsList } from '../cmps/Contacts/ContactsList'
 import { AddContact } from '../cmps/Contacts/AddContact'
 import { Popup } from '../cmps/Popup/Popup'
 import { CmpHeader } from '../cmps/Header/CmpHeader'
 import { contactService } from '../services/contact.service'
-// {
-//     name: 'תומר רווח',
-//     phone: '0503031330',
-//     job: 'רופא',
-//     mail: 'tomer@gmail.com',
-//     img: "https://blackhistorywall.files.wordpress.com/2010/02/picture-device-independent-bitmap-119.jpg",
-//     id: '3'
-
-// },
-// {
-//     name: 'תומר רווח',
-//     phone: '0503031330',
-//     mail: 'tomer@gmail.com',
-//     job: 'אח',
-//     img: "https://blackhistorywall.files.wordpress.com/2010/02/picture-device-independent-bitmap-119.jpg",
-//     id: '4'
-
-// }
+import { Loader } from '../cmps/Loader/Loader'
+import { setLoadingOn, setLoadingOff } from '../store/system.actions'
 
 export function Contacts() {
     const user = useSelector(state => state.userReducer.user)
+    const isLoading = useSelector(state => state.systemReducer.isLoading)
     const [openPopup, setOpenPopup] = useState(false)
     const [editContact, setEditContact] = useState(null)
     const [myContacts, setMyContacts] = useState([])
-
+    const dispatch = useDispatch()
     useEffect(() => {
         async function fetchContacts() {
+            dispatch(setLoadingOn())
             const queryContacts = await contactService.query(user)
             console.log('%c  queryContacts:', 'color: white;background: red;', queryContacts);
             setMyContacts(queryContacts)
+            dispatch(setLoadingOff())
         }
         fetchContacts()
     }, [])
@@ -72,7 +59,9 @@ export function Contacts() {
         await contactService.addContact(user, contact)
     }
 
-    return (
+    return (isLoading) ?
+        <Loader />
+        :
         <>
             <CmpHeader title='אנשי קשר' />
             {myContacts.length > 0 && <div className="contacts-container">
@@ -90,6 +79,6 @@ export function Contacts() {
                 <AddContact user={user} onAddContact={onAddContact} editContact={editContact} saveEditContact={saveEditContact} />
             </Popup>
         </>
-    )
+
 }
 

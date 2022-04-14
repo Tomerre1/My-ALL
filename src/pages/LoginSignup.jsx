@@ -6,7 +6,8 @@ import { onLogin, onSignup } from './../store/user.actions'
 import { useDispatch } from 'react-redux'
 import loginImage from '../assets/img/login.jpeg'
 import { GoogleLogin } from "react-google-login";
-
+import { Loader } from '../cmps/Loader/Loader'
+import { setLoadingOn, setLoadingOff } from '../store/system.actions'
 
 export function LoginSignup(props) {
   const [isLogin, setIsLogin] = useState(true);
@@ -36,7 +37,7 @@ export function LoginSignup(props) {
     if (mail.trim() && password.trim()) {
       if (!isLogin) {
         // dispatch(onSignup({ mail, fullname: fullName, password, userType: 'אדמין' }));
-        dispatch(onSignup({ mail, fullname: fullName, password, userType: 'מטופל' }));
+        await dispatch(onSignup({ mail, fullname: fullName, password, userType: 'מטופל' }));
         props.history.push('/');
         resetForm();
         setIsLogin(true);

@@ -12,21 +12,26 @@ import { timelineService } from '../services/timeline.service';
 import Swal from 'sweetalert2'
 import { TimelineFooter } from '../cmps/Footer/TimelineFooter'
 import "react-vertical-timeline-component/style.min.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Popup } from "../cmps/Popup/Popup";
 import { TimelineDatesChange } from "../cmps/Timeline/TimelineDatesChange";
 import { CmpHeader } from '../cmps/Header/CmpHeader'
+import { Loader } from '../cmps/Loader/Loader'
+import { setLoadingOn, setLoadingOff } from '../store/system.actions'
 
 export function Timeline() {
     const [path, setPath] = useState([])
     const [levelsOnlyPath, setLevelsOnlyPath] = useState([])
     const currUser = useSelector(state => state.userReducer.user)
+    const isLoading = useSelector(state => state.systemReducer.isLoading)
+    const dispatch = useDispatch()
     const [isLastStep, setIsLastStep] = useState(false)
     const [currStation, setCurrStation] = useState(null)
     const [openPopup, setOpenPopup] = useState(false);
 
     useEffect(() => {
         async function queryUserTimeline() {
+            dispatch(setLoadingOn())
             const timeline = await timelineService.query(currUser);
             const currLevel = timeline.find(steps => steps.find(step => step.isCurrStep))
             const currLevelIndex = timeline.findIndex(level => level === currLevel)
@@ -36,6 +41,7 @@ export function Timeline() {
                 setIsLastStep(true)
             }
             setPath(timeline);
+            dispatch(setLoadingOff())
             if (userCurrStepIndex === 1 && currLevelIndex === 0) {
                 await Swal.fire({
                     title: `ברוך הבא למסלול של  
@@ -182,7 +188,9 @@ export function Timeline() {
     }
 
     const userPath = !levelsOnlyPath.length ? path : levelsOnlyPath
-    return (
+    return (isLoading) ?
+        <Loader />
+        :
         <>
             <CmpHeader title={'מסלול ההתקדמות'} />
             <div className="time-line-container">
@@ -245,5 +253,4 @@ export function Timeline() {
                 <TimelineDatesChange onCancel={onCancel} onSubmit={onSubmit} />
             </Popup>
         </>
-    );
 }

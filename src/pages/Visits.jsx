@@ -8,8 +8,13 @@ import { AddVisitOrWorkshop } from '../cmps/Visits/AddVisitOrWorkshop'
 import { visitService } from '../services/visit.service'
 import { useSelector, useDispatch } from "react-redux";
 import { workshopService } from "../services/workshop.service";
+import { Loader } from '../cmps/Loader/Loader'
+import { setLoadingOn, setLoadingOff } from '../store/system.actions'
+
 export function Visits({ match }) {
     const user = useSelector(state => state.userReducer.user)
+    const isLoading = useSelector(state => state.systemReducer.isLoading)
+    const dispatch = useDispatch()
     const [columns, setColumns] = useState(null);
     const [editItem, setEditItem] = useState(null)
     const [openPopup, setOpenPopup] = useState(false)
@@ -64,9 +69,9 @@ export function Visits({ match }) {
     }, [openPopup])
 
     useEffect(() => {
+        dispatch(setLoadingOn())
         async function fetchVisitsOrWorkshops() {
             const itemsFromBackend = isVisit ? await visitService.query(user.mail) : await workshopService.query(user.mail)
-            console.log('%c  itemsFromBackend:', 'color: white;background: red;', itemsFromBackend);
             const doneItems = itemsFromBackend.filter(item => item.isDone)
             const undoneItems = itemsFromBackend.filter(item => !item.isDone)
             const columnsFromBackend = {
@@ -80,7 +85,7 @@ export function Visits({ match }) {
                 }
             };
             setColumns(columnsFromBackend);
-            console.log('%c  columnsFromBackend:', 'color: white;background: red;', columnsFromBackend);
+            dispatch(setLoadingOff())
         }
         fetchVisitsOrWorkshops()
     }, [])
@@ -113,31 +118,32 @@ export function Visits({ match }) {
         (isVisit) ? await visitService.addVisit(user, item) : await workshopService.addWorkshop(user, item)
     }
 
-    console.log(columns)
 
-    return (<>
-        <CmpHeader title={headerTitle} />
-        <div className='flex justify-center visits-container' >
-            <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
-                {columns && <VisitsList columns={columns} onRemove={onRemove} onEdit={onEdit} />}
-            </DragDropContext>
-        </div>
-        <button class="float flex align-center justify-center" onClick={() => setOpenPopup(true)}>
-            <i class="fa fa-plus my-float"></i>
-        </button>
-        <Popup
-            title={popupTitle}
-            openPopup={openPopup}
-            setOpenPopup={setOpenPopup}
-        >
-            <AddVisitOrWorkshop
-                isVisit={isVisit}
-                editItem={editItem}
-                onAdd={onAdd}
-                saveEdit={saveEdit}
-            />
-        </Popup>
-    </>
-    );
+    return (isLoading) ?
+        <Loader />
+        :
+        <>
+            <CmpHeader title={headerTitle} />
+            <div className='flex justify-center visits-container' >
+                <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
+                    {columns && <VisitsList columns={columns} onRemove={onRemove} onEdit={onEdit} />}
+                </DragDropContext>
+            </div>
+            <button class="float flex align-center justify-center" onClick={() => setOpenPopup(true)}>
+                <i class="fa fa-plus my-float"></i>
+            </button>
+            <Popup
+                title={popupTitle}
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+            >
+                <AddVisitOrWorkshop
+                    isVisit={isVisit}
+                    editItem={editItem}
+                    onAdd={onAdd}
+                    saveEdit={saveEdit}
+                />
+            </Popup>
+        </>
 }
 
