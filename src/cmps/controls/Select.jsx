@@ -20,13 +20,16 @@ export default function Select(props) {
             {...(error && { error: true })}>
             <InputLabel>{label}</InputLabel>
             <MuiSelect
-                renderValue={(selected) => (
-                    <div>
-                        {selected.map((value) => (
-                            <Chip key={value} label={value} />
-                        ))}
-                    </div>
-                )}
+                renderValue={(selected) => {
+                    console.log('%c  selected:', 'color: white;background: red;', selected);
+                    return (
+                        <div>
+                            {selected.map((value) => (
+                                <Chip key={value} label={value} />
+                            ))}
+                        </div>
+                    )
+                }}
                 multiple={isMultiple ? true : false}
                 label={label}
                 name={name}

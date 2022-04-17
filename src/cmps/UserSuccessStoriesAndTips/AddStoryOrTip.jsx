@@ -5,10 +5,14 @@ import * as Yup from 'yup';
 import { utilService } from '../../services/util.service'
 
 export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem }) {
+
+    const [selected, setSelected] = useState({
+        label: []
+    })
     const [options, setOptions] = useState([])
     useEffect(() => {
         if (!isStory) {
-            setOptions([{ id: 1, title: 'שלב א' }, { id: 2, title: 'שלב ב' }, { id: 3, title: 'שלב ג' }, { id: 4, title: 'שלב ד' }, { id: 5, title: 'שלב ה' }])
+            setOptions([{ id: '1', title: 'שלב א' }, { id: '2', title: 'שלב ב' }, { id: '3', title: 'שלב ג' }, { id: '4', title: 'שלב ד' }, { id: '5', title: 'שלב ה' }])
         }
     }, [isStory])
 
@@ -44,6 +48,17 @@ export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem
             })
         }
     };
+
+    const handleChangeMultiSelect = (event) => {
+        const { name, value } = event.target;
+        console.log('%c   typeof value === string:', 'color: white;background: red;', typeof value === 'string');
+        setSelected({
+            ...selected,
+            [name]: typeof value === 'string' ? value.split(',') : value
+
+        });
+    };
+
 
     return <Formik
         onSubmit={handleSubmit}
@@ -81,8 +96,8 @@ export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem
                     {!isStory && <Controls.Select
                         name='label'
                         label='מספר תחנה'
-                        value={props.values.label}
-                        onChange={props.handleChange}
+                        value={selected.label}
+                        onChange={handleChangeMultiSelect}
                         options={options}
                         error={props.touched.label && props.errors.label ? props.errors.label : ''}
                     />}
