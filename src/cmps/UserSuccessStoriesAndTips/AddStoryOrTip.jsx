@@ -6,8 +6,10 @@ import { utilService } from '../../services/util.service'
 
 export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem }) {
 
-    const [selected, setSelected] = useState({
-        label: []
+    const [state, setState] = useState({
+        label: editItem?.label || [],
+        title: editItem?.title || '',
+        content: editItem?.content || '',
     })
     const [options, setOptions] = useState([])
     useEffect(() => {
@@ -22,6 +24,7 @@ export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem
         content: Yup.string()
             .required('נדרש למלא תוכן'),
     });
+
     const validationSchemaAddTip = Yup.object().shape({
         title: Yup.string()
             .required('נדרש למלא כותרת'),
@@ -49,23 +52,37 @@ export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem
         }
     };
 
-    const handleChangeMultiSelect = (event) => {
-        const { name, value } = event.target;
-        console.log('%c   typeof value === string:', 'color: white;background: red;', typeof value === 'string');
-        setSelected({
-            ...selected,
-            [name]: typeof value === 'string' ? value.split(',') : value
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setState({
+            ...state,
+            [name]: value
+        })
+    }
 
-        });
+    const handleChangeMultiSelect = (event) => {
+        const { value } = event.target;
+        if (state?.label?.includes(value)) {
+            setState({ ...state, label: state.label.filter(item => item !== value) })
+        } else {
+            setState({ ...state, label: [...state.label, value] })
+        }
     };
 
+    const resetForm = () => {
+        setState({
+            title: '',
+            content: '',
+            label: []
+        })
+    }
 
     return <Formik
         onSubmit={handleSubmit}
         initialValues={{
-            title: editItem?.title || '',
-            content: editItem?.content || '',
-            label: isStory ? ' ' : (editItem?.label || [])
+            title: state.title,
+            content: state.content,
+            label: isStory ? ' ' : (state.label)
         }}
         validationSchema={isStory ? validationSchemaAddStory : validationSchemaAddTip}
         enableReinitialize={true}
@@ -80,7 +97,7 @@ export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem
                         name='title'
                         label='כותרת'
                         value={props.values.title}
-                        onChange={props.handleChange}
+                        onChange={handleChange}
                         error={props.touched.title && props.errors.title ? props.errors.title : ''}
                     />
 
@@ -89,14 +106,14 @@ export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem
                         rows={5}
                         name='content'
                         value={props.values.content}
-                        onChange={props.handleChange}
+                        onChange={handleChange}
                         error={props.touched.content && props.errors.content ? props.errors.content : ''}
                     />
 
                     {!isStory && <Controls.Select
                         name='label'
                         label='מספר תחנה'
-                        value={selected.label}
+                        value={state.label}
                         onChange={handleChangeMultiSelect}
                         options={options}
                         error={props.touched.label && props.errors.label ? props.errors.label : ''}
@@ -110,7 +127,7 @@ export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem
                         <Controls.Button
                             text='אפס שדות'
                             color='default'
-                            onClick={props.resetForm}
+                            onClick={resetForm}
                         />
                     </div>
                 </form>

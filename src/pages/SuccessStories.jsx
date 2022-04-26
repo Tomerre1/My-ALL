@@ -37,6 +37,12 @@ export function SuccessStories({ match }) {
         (isStory) ? fetchStories() : fetchTips()
     }, [])
 
+    useEffect(() => {
+        if (!openPopup) {
+            setEditItem(null)
+        }
+    }, [openPopup])
+
     const sortStories = (sortedStories) => {
         if (selected === 'date') {
             return utilService.sortByDate(sortedStories)
