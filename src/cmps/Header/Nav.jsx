@@ -18,3 +18,5 @@ export const Nav = ({ open, toggleOpen, user, onLogout }) => {
     </ul>
   )
 }
+
+

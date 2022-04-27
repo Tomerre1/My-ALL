@@ -19,7 +19,6 @@ export function Contacts() {
         async function fetchContacts() {
             dispatch(setLoadingOn())
             const queryContacts = await contactService.query(user)
-            console.log('%c  queryContacts:', 'color: white;background: red;', queryContacts);
             setMyContacts(queryContacts)
             dispatch(setLoadingOff())
         }

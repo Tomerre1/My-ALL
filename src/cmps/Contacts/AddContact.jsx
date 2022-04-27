@@ -41,12 +41,9 @@ export function AddContact({ editContact, onAddContact, saveEditContact }) {
     };
 
     const uploadFile = async (ev) => {
-        dispatch(setLoadingOn())
         ev.preventDefault()
         const res = await cloudinaryService.uploadFile(ev)
         setProfileImage(res.secure_url)
-        console.log('%c  res.secure_url:', 'color: white;background: red;', res.secure_url);
-        dispatch(setLoadingOff())
     }
 
     return <Formik
