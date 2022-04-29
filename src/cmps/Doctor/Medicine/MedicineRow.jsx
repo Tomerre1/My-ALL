@@ -54,9 +54,7 @@ export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
               {row.badInfluence && <Typography variant='h6' gutterBottom component='div'>
                 תופעות לוואי לתרופה
               </Typography>}
-              <div>
-                hi
-              </div>
+
               {row.badInfluence.map((item) => (
                 <p key={item.id}>{item}</p>
               ))}

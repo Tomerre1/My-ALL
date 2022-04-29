@@ -12,11 +12,13 @@ import Button from '../../controls/Button';
 import { UserRow } from './UserRow';
 import { CmpHeader } from '../../Header/CmpHeader';
 import { userService } from '../../../services/user.service';
+import { utilService } from '../../../services/util.service';
+
 
 export function UserTable() {
   const [openPopup, setOpenPopup] = useState(false);
   const [recordForEdit, setRecordForEdit] = useState(null);
-  const [users, setUsers] = useState([{ mail: "revahtomer@gmail.com", fullname: "Tomer Revah", userType: ["מטופל"] }]);
+  const [users, setUsers] = useState([{ id: utilService.makeId(), mail: "revahtomer@gmail.com", fullname: "Tomer Revah", userType: ["מטופל"] }]);
 
   const openInPopup = (row) => {
     setRecordForEdit(row);
@@ -27,7 +29,7 @@ export function UserTable() {
     async function queryUsers() {
       // const users = await userService.query();
       // const formattedUsers = users.map(user => {
-      //   return { ...user, userType: [user.userType] }
+      //   return { ...user, userType: [user.userType],id:user?.id||utilService.makeId()}
       // })
       // setUsers(formattedUsers);
     }
@@ -37,15 +39,16 @@ export function UserTable() {
   const addOrEdit = async (record) => {
     if (recordForEdit) {
       const newUsers = users.map((user) =>
-        user.mail === record.mail
+        user.id === record.id
           ? record
           : user
       );
+      console.log('%c  newUsers:', 'color: white;background: red;', newUsers);
       // const updatedUser = await userService.updateUser({ ...record, userType: record.userType[0] });
       setUsers(newUsers);
       console.log('%c  newUsers:', 'color: white;background: red;', newUsers);
     } else {
-      setUsers([...users, record]);
+      setUsers([...users, { ...record, id: utilService.makeId() }]);
       // const newUser = await userService.addUser({ ...record, userType: record.userType[0] });
       console.log('%c  [...users, record]:', 'color: white;background: red;', [...users, record]);
     }

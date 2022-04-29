@@ -105,6 +105,7 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit, isRow }) {
       <Controls.Select
         name='levels'
         label='שלב תרופה'
+        isMultiple={true}
         value={values.levels}
         onChange={handleChangeMultiSelect}
         options={levels}
@@ -113,6 +114,7 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit, isRow }) {
       <Controls.Select
         name='badInfluence'
         label='תופעות לוואי'
+        isMultiple={true}
         value={values.badInfluence}
         onChange={handleChangeMultiSelect}
         options={badInfluenceOptions}
@@ -129,6 +131,7 @@ export function MedicineAddEdit({ addOrEdit, recordForEdit, isRow }) {
         name='days'
         label='ימי נטילת תרופה'
         value={values.days}
+        isMultiple={true}
         onChange={handleChangeMultiSelect}
         options={dayOptions}
         error={errors.days}
