@@ -8,6 +8,7 @@ export const Nav = ({ open, toggleOpen, user, onLogout }) => {
       <NavLink onClick={toggleOpen} to="/videos">סרטונים</NavLink>
       {user?.userType === 'מטופל' && <NavLink onClick={toggleOpen} to="/medicines">תרופות</NavLink>}
       {user?.userType === 'אדמין' && <NavLink onClick={toggleOpen} to="/admin">טבלת תרופות</NavLink>}
+      {user?.userType === 'אדמין' && <NavLink onClick={toggleOpen} to="/users">ניהול משתמשים</NavLink>}
       <NavLink onClick={toggleOpen} to="/success-stories"> הצלחות</NavLink>
       <NavLink onClick={toggleOpen} to="tips"> טיפים</NavLink>
       {user?.userType === 'מטופל' && <NavLink onClick={toggleOpen} to="/visits">ביקורים</NavLink>}
