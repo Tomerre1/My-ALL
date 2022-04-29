@@ -60,15 +60,21 @@ export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem
         })
     }
 
+    // const handleChangeMultiSelect = (event) => {
+    //     const { value } = event.target;
+    //     if (state?.label?.includes(value)) {
+    //         setState({ ...state, label: state.label.filter(item => item !== value) })
+    //     } else {
+    //         setState({ ...state, label: [...state.label, value] })
+    //     }
+    // };
     const handleChangeMultiSelect = (event) => {
-        const { value } = event.target;
-        if (state?.label?.includes(value)) {
-            setState({ ...state, label: state.label.filter(item => item !== value) })
-        } else {
-            setState({ ...state, label: [...state.label, value] })
-        }
+        const { name, value } = event.target;
+        setState({
+            ...state,
+            [name]: typeof value === 'string' ? value.split(',') : value
+        });
     };
-
     const resetForm = () => {
         setState({
             title: '',
@@ -113,6 +119,7 @@ export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem
                     {!isStory && <Controls.Select
                         name='label'
                         label='מספר תחנה'
+                        isMultiple={true}
                         value={state.label}
                         onChange={handleChangeMultiSelect}
                         options={options}
