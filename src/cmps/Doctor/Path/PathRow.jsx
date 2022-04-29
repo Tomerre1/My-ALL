@@ -10,10 +10,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-export const PathRow = ({ row, openInPopup, deleteMedicine, setRecord }) => {
+export const PathRow = ({ row, openInPopup, deletePathObj, setRecord }) => {
   const [open, setOpen] = useState(false);
   return (
-
     <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
@@ -31,8 +30,8 @@ export const PathRow = ({ row, openInPopup, deleteMedicine, setRecord }) => {
         </TableCell>
         <TableCell align='right' style={{ color: row?.stepNumber ? 'black' : 'blue' }}>{row?.levelNumber || ''}</TableCell>
         <TableCell align='right'>
-          <EditIcon onClick={() => openInPopup(row)} />
-          <DeleteIcon onClick={() => deleteMedicine(row)} />
+          <EditIcon onClick={() => { openInPopup(row); setRecord(row?.stepNumber ? false : true, row) }} />
+          <DeleteIcon onClick={() => deletePathObj(row)} />
           {/* {!(row?.stepNumber) && <AddCircleIcon onClick={() => setRecord(row)} />} */}
         </TableCell>
       </TableRow>

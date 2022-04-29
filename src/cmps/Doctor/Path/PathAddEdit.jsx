@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Controls from '../../controls/Controls';
 
 export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
   const initialFValues = {
-    requirements: '',
-    description: '',
-    stepNumber: '',
-    levelNumber: []
+    requirements: recordForEdit?.requirements || '',
+    description: recordForEdit?.description || '',
+    stepNumber: recordForEdit?.stepNumber || '',
+    levelNumber: recordForEdit?.levelNumber ? recordForEdit.levelNumber : []
   };
+  const [values, setValues] = useState(initialFValues);
+  const [errors, setErrors] = useState({});
+
   const isLevel = isAddLevel !== null ?
     isAddLevel :
     recordForEdit?.stepNumber ?
       false : true
-  const [values, setValues] = useState(initialFValues);
-  const [errors, setErrors] = useState({});
+
+  const type = isLevel ? 'שלב' : 'תחנה'
 
   const levels = path.map(step => {
     return {
@@ -25,10 +28,13 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
     const { name, value } = event.target;
     setValues({
       ...values,
-      [name]: name === 'levelNumber' ? [value] : /^-?\d+$/.test(value) && name === 'stepNumber' ? +value : value,
+      [name]: name === 'levelNumber' ? value : /^-?\d+$/.test(value) && name === 'stepNumber' ? +value : value,
 
     });
-    validate({ [name]: name === 'levelNumber' ? [value] : value, num: name === 'stepNumber' ? +value : value });
+    validate({
+      [name]: name === 'levelNumber' ? [value] : value,
+      stepNumber: name === 'stepNumber' ? +value : value
+    });
   };
 
   const resetForm = () => {
@@ -38,24 +44,26 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    if ('levelNumber' in fieldValues)
+    if ('levelNumber' in fieldValues) {
       temp.levelNumber = fieldValues.levelNumber.length > 0
         ? ''
         : 'נדרש לבחור שלב';
+      temp.levelNumber += (fieldValues.levelNumber.length > 0 && /^-?\d+$/.test(fieldValues.levelNumber[0])) ?
+        '' : 'נדרש למלא מספר שלב תקין'
+    }
+
     if ('description' in fieldValues)
       temp.description = fieldValues.description.length > 0
         ? ''
         : 'נדרש למלא תיאור';
+
     if (!isLevel && 'stepNumber' in fieldValues) {
       temp.stepNumber = /^-?\d+$/.test(fieldValues.stepNumber) ? '' : 'נדרש למלא מספר תחנה תקין'
-      console.log('%c  fieldValues.stepNumber:', 'color: white;background: red;', fieldValues.stepNumber);
-
-      console.log('%c  values.levelNumber:', 'color: white;background: red;', values.levelNumber);
-      console.log('%c  path[fieldValues.levelNumber[0].length - 1]:', 'color: white;background: red;', path[values.levelNumber.length - 1]);
-      temp.stepNumber += path[values.levelNumber.length - 1].some(step => {
+      temp.stepNumber += fieldValues?.levelNumber?.length > 0 && path[(fieldValues.levelNumber[0] - 1)]?.some(step => {
         return (step?.stepNumber && step?.stepNumber === fieldValues.stepNumber)
       }) ? ' נדרש לבחור מספר תחנה שאינו קיים בשלב זה' : ''
     }
+
     if (!isLevel && 'requirements' in fieldValues)
       temp.requirements =
         fieldValues.requirements.length > 0
@@ -70,25 +78,17 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      addOrEdit(values);
+      addOrEdit({ ...values });
 
     }
   };
-
-  // useEffect(() => {
-  //   if (recordForEdit != null)
-  //     setValues({
-  //       ...recordForEdit,
-  //     });
-  // }, [recordForEdit]);
 
   return (
     <form
       onSubmit={handleSubmit}
       style={{ gap: '20px', display: 'flex', flexDirection: 'column' }}
     >
-
-      <Controls.Select
+      {!isLevel && <Controls.Select
         name='levelNumber'
         label='בחירת שלב'
         value={values.levelNumber}
@@ -96,8 +96,15 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
         options={levels}
         error={errors.levelNumber}
       />
-
-      {values.levelNumber.length > 0 && < Controls.Input
+      }
+      {!recordForEdit && isLevel && <Controls.Input
+        name='levelNumber'
+        label='מספר שלב'
+        value={values.levelNumber}
+        onChange={handleInputChange}
+        error={errors.levelNumber}
+      />}
+      {values.levelNumber.length > 0 && !isLevel && < Controls.Input
         name='stepNumber'
         label='מספר תחנה'
         value={values.stepNumber}
@@ -106,51 +113,21 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
       />}
 
       <Controls.Input
-        label={isLevel ? 'תיאור תחנה' : 'תיאור שלב'}
+        label={`תיאור ${type}`}
         rows={5}
         name='description'
         value={values.description}
         onChange={handleInputChange}
         error={errors.description}
       />
-      <Controls.Input
-        label='דרישות לתחנה'
+      {!isLevel && <Controls.Input
+        label={`דרישות ${type}`}
         rows={5}
-        name='description'
-        value={values.description}
+        name='requirements'
+        value={values.requirements}
         onChange={handleInputChange}
-        error={errors.description}
-      />
-
-
-
-      {/* <Controls.Select
-        name='badInfluence'
-        label='תופעות לוואי'
-        isMultiple={true}
-        value={values.badInfluence}
-        onChange={handleChangeMultiSelect}
-        options={badInfluenceOptions}
-        error={errors.badInfluence}
-      /> */}
-
-      {/* <Controls.Input
-        name='count'
-        label='מינון'
-        value={values.count}
-        onChange={handleInputChange}
-        error={errors.count}
-      /> */}
-
-      {/* <Controls.Select
-        name='days'
-        label='ימי נטילת תרופה'
-        value={values.days}
-        isMultiple={true}
-        onChange={handleChangeMultiSelect}
-        options={}
-        error={errors.days}
-      /> */}
+        error={errors.requirements}
+      />}
 
       <div className='flex justify-center'>
         <Controls.Button

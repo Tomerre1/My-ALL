@@ -12,7 +12,7 @@ import Button from '../../controls/Button';
 import { PathRow } from './PathRow';
 import { medicineService } from '../../../services/medicine.service';
 import { CmpHeader } from '../../Header/CmpHeader'
-
+import { utilService } from '../../../services/util.service'
 export function PathTable() {
   const [openPopup, setOpenPopup] = useState(false);
   const [recordForEdit, setRecordForEdit] = useState(null);
@@ -149,34 +149,54 @@ export function PathTable() {
 
   useEffect(() => {
     async function queryMedicines() {
-      const path = await medicineService.query();
-      setPath(path);
+      const formattedPath = path.map(step => step.map((step, idx) => { return { ...step, levelNumber: [step.levelNumber], isLevel: idx === 0 ? true : false } }));
+      console.log('%c  formattedPath:', 'color: white;background: red;', formattedPath);
+      setPath(formattedPath);
     }
-    // queryMedicines();
+    queryMedicines();
   }, []);
 
-  const addOrEdit = async (record) => {
+  const addOrEdit = async (pathObj) => {
+    console.log('%c  pathObj:', 'color: white;background: red;', pathObj);
+    const isPathLevel = pathObj?.stepNumber ? false : true
     if (recordForEdit) {
-      const updatedMedicine = await medicineService.updateMedicine(record);
-      const newMedicines = path.map((medicine) =>
-        medicine.medicineName === record.medicineName
-          ? updatedMedicine
-          : medicine
-      );
-      setPath(newMedicines);
-    } else {
-      const newMedicine = await medicineService.addMedicine(record);
-      setPath([...path, newMedicine]);
+      if (isPathLevel) {
+        const idx = path.findIndex((group) => {
+          return group[0].levelNumber[0] === pathObj.levelNumber[0]
+        });
+        const updatedLevel = path[idx].map((step, index) => (step.levelNumber[0] === pathObj.levelNumber[0] && index === 0) ? { ...pathObj } : step)
+        const updatedPath = [...path.slice(0, idx), updatedLevel, ...path.slice(idx + 1)]
+        setPath(updatedPath);
+      } else {
+        const idx = path.findIndex((group) => {
+          return group[0].levelNumber[0] === pathObj.levelNumber[0]
+        });
+        const updatedLevel = path[idx].map((step) => (step.levelNumber[0] === pathObj.levelNumber[0] && step.stepNumber === pathObj.stepNumber) ? { ...pathObj } : step)
+        const updatedPath = [...path.slice(0, idx), updatedLevel, ...path.slice(idx + 1)]
+        setPath(updatedPath);
+      }
+      // setPath([...path]);
     }
+    // else {
+    //   const newMedicine = await medicineService.addMedicine(record);
+    //   setPath([...path, newMedicine]);
+    // }
     setOpenPopup(false);
   };
 
-  const deleteMedicine = async (deleteMedicine) => {
-    await medicineService.removeMedicine(deleteMedicine);
-    const newMedicines = path.filter(
-      (medicine) => medicine.medicineName !== deleteMedicine.medicineName
-    );
-    setPath(newMedicines);
+  const deletePathObj = (pathObj) => {
+    const isPathLevel = pathObj?.stepNumber ? false : true
+    if (isPathLevel) {
+      const idx = path.findIndex((group, idx) => group[0].levelNumber === pathObj.levelNumber);
+      const updatedPath = path.filter((el, index) => index !== idx)
+      setPath(updatedPath);
+    } else {
+      const updatedPath = path.map((group) =>
+        group.filter(step => step.stepNumber !== pathObj.stepNumber)
+      )
+      setPath(updatedPath);
+    }
+    // await medicineService.removeMedicine(deleteMedicine);
   };
 
   const setRecord = (isLevel, record = null) => {
@@ -202,10 +222,10 @@ export function PathTable() {
             {path.map((steps, index) => (
               steps.map((step) => (
                 <PathRow
-                  key={index + step.levelNumber}
+                  key={step.description}
                   row={step}
                   openInPopup={openInPopup}
-                  deleteMedicine={deleteMedicine}
+                  deletePathObj={deletePathObj}
                   setRecord={setRecord}
                 />))
             ))}
@@ -213,7 +233,7 @@ export function PathTable() {
         </Table>
       </TableContainer>
       <Popup
-        title={recordForEdit ? 'עריכת תרופה' : 'הוספת תרופה'}
+        title={`${recordForEdit ? 'עריכת' : 'הוספת'} ${isAddLevel ? 'שלב' : 'תחנה'}`}
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
       >
