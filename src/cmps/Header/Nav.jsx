@@ -7,8 +7,9 @@ export const Nav = ({ open, toggleOpen, user, onLogout }) => {
       {user?.userType === 'מטופל' && <NavLink onClick={toggleOpen} to="/timeline">מסלול</NavLink>}
       <NavLink onClick={toggleOpen} to="/videos">סרטונים</NavLink>
       {user?.userType === 'מטופל' && <NavLink onClick={toggleOpen} to="/medicines">תרופות</NavLink>}
-      {user?.userType === 'אדמין' && <NavLink onClick={toggleOpen} to="/admin">טבלת תרופות</NavLink>}
-      {user?.userType === 'אדמין' && <NavLink onClick={toggleOpen} to="/users">ניהול משתמשים</NavLink>}
+      {user?.userType === 'אדמין' && <NavLink onClick={toggleOpen} to="/admin-medicines">ניהול תרופות</NavLink>}
+      {user?.userType === 'אדמין' && <NavLink onClick={toggleOpen} to="/admin-users">ניהול משתמשים</NavLink>}
+      {user?.userType === 'אדמין' && <NavLink onClick={toggleOpen} to="/admin-path">ניהול מסלול</NavLink>}
       <NavLink onClick={toggleOpen} to="/success-stories"> הצלחות</NavLink>
       <NavLink onClick={toggleOpen} to="tips"> טיפים</NavLink>
       {user?.userType === 'מטופל' && <NavLink onClick={toggleOpen} to="/visits">ביקורים</NavLink>}

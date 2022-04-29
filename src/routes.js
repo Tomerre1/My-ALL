@@ -2,6 +2,7 @@ import { AppPage } from './pages/AppPage'
 import { LoginSignup } from './pages/LoginSignup'
 import { MedicineTable } from './cmps/Doctor/Medicine/MedicineTable'
 import { UserTable } from './cmps/Doctor/Users/UserTable'
+import { PathTable } from './cmps/Doctor/Path/PathTable'
 import { Timeline } from './pages/Timeline.jsx'
 import { MedicinesChecklist } from './pages/MedicinesChecklist'
 import { SuccessStories } from './pages/SuccessStories'
@@ -20,13 +21,18 @@ const routes = [
         isExact: true
     },
     {
-        path: '/admin',
+        path: '/admin-medicines',
         component: MedicineTable,
         isExact: true
     },
     {
-        path: '/users',
+        path: '/admin-users',
         component: UserTable,
+        isExact: true
+    },
+    {
+        path: '/admin-path',
+        component: PathTable,
         isExact: true
     },
     {

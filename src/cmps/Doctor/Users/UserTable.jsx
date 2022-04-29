@@ -64,47 +64,47 @@ export function UserTable() {
   return (
     <>
       <CmpHeader title="ניהול משתמשים" />
-      <div className="table">
-        <TableContainer component={Paper}>
-          <Table aria-label='collapsible table' >
-            <TableHead>
-              <TableRow>
-                <TableCell align='right'>שם מלא</TableCell>
-                <TableCell align='right'>אימייל</TableCell>
-                <TableCell align='right'>סוג משתמש</TableCell>
-                <TableCell align='right'>פעולות</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.map((user) => (
-                <UserRow
-                  key={user.mail}
-                  row={user}
-                  openInPopup={openInPopup}
-                  deleteUser={deleteUser}
-                />
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Popup
-          title={recordForEdit ? 'עריכת משתמש' : 'הוספת משתמש'}
-          openPopup={openPopup}
-          setOpenPopup={setOpenPopup}
-        >
-          <UserAddEdit
-            recordForEdit={recordForEdit}
-            addOrEdit={addOrEdit}
-            setRecordForEdit={setRecordForEdit}
-            isRow={true}
-          />
-        </Popup>
-        <div style={{ direction: 'rtl' }}>
-          <Button onClick={() => {
-            setOpenPopup(true); setRecordForEdit(null);
-          }} text='הוספת משתמש' />
-        </div>
+
+      <TableContainer component={Paper}>
+        <Table aria-label='collapsible table' >
+          <TableHead>
+            <TableRow>
+              <TableCell align='right'>שם מלא</TableCell>
+              <TableCell align='right'>אימייל</TableCell>
+              <TableCell align='right'>סוג משתמש</TableCell>
+              <TableCell align='right'>פעולות</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users.map((user) => (
+              <UserRow
+                key={user.mail}
+                row={user}
+                openInPopup={openInPopup}
+                deleteUser={deleteUser}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Popup
+        title={recordForEdit ? 'עריכת משתמש' : 'הוספת משתמש'}
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+      >
+        <UserAddEdit
+          recordForEdit={recordForEdit}
+          addOrEdit={addOrEdit}
+          setRecordForEdit={setRecordForEdit}
+          isRow={true}
+        />
+      </Popup>
+      <div style={{ direction: 'rtl', paddingTop: '20px' }}>
+        <Button onClick={() => {
+          setOpenPopup(true); setRecordForEdit(null);
+        }} text='הוספת משתמש' />
       </div>
+
     </>
   );
 }

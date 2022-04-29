@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Input(props) {
     const classes = useStyles();
-    const { name, rows, label, value, error = null, onChange, ...other } = props;
+    const { name, rows, label, value, error = null, onChange, type, ...other } = props;
     return (
         <TextField
             multiline

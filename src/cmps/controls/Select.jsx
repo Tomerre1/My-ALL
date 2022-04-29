@@ -21,7 +21,6 @@ export default function Select(props) {
             <InputLabel>{label}</InputLabel>
             <MuiSelect
                 renderValue={(selected) => {
-                    console.log('%c  selected:', 'color: white;background: red;', selected);
                     return (
                         <div>
                             {selected.map((value) => (

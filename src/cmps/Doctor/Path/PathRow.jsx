@@ -9,8 +9,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+export const PathRow = ({ row, openInPopup, deleteMedicine, setRecord }) => {
   const [open, setOpen] = useState(false);
   return (
 
@@ -26,19 +26,17 @@ export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
           </IconButton>
         </TableCell>
 
-        <TableCell align='right' component='th' scope='row' >
-          {row.medicineName}
+        <TableCell align='right' component='th' scope='row' style={{ color: row?.stepNumber ? 'blue' : 'black' }}>
+          {row?.stepNumber || ''}
         </TableCell>
-        <TableCell align='right'>{row?.levels?.join(', ') || ''}</TableCell>
-        <TableCell align='right'>{row.count}</TableCell>
-        <TableCell align='right'>{row.foodOrNot}</TableCell>
-        <TableCell align='right'>{row?.days.join(', ') || ''}</TableCell>
+        <TableCell align='right' style={{ color: row?.stepNumber ? 'black' : 'blue' }}>{row?.levelNumber || ''}</TableCell>
         <TableCell align='right'>
           <EditIcon onClick={() => openInPopup(row)} />
           <DeleteIcon onClick={() => deleteMedicine(row)} />
+          {/* {!(row?.stepNumber) && <AddCircleIcon onClick={() => setRecord(row)} />} */}
         </TableCell>
       </TableRow>
-      <TableRow align='right'>
+      <TableRow align='right' >
         <TableCell align='right' colSpan={12} style={{ paddingBottom: 0, paddingTop: 0 }}  >
           <Collapse in={open} timeout='auto' unmountOnExit align='right' >
             <Box
@@ -48,16 +46,16 @@ export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
               }}
             >
               <Typography variant='h6' gutterBottom component='div' style={{ display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
-                תיאור תרופה
+                תיאור
               </Typography>
               <p>{row.description}</p>
-              {row.badInfluence && <Typography variant='h6' gutterBottom component='div'>
-                תופעות לוואי לתרופה
-              </Typography>}
-
-              {row.badInfluence.map((item) => (
-                <p key={item.id}>{item}</p>
-              ))}
+              {row.requirements &&
+                <>
+                  <Typography variant='h6' gutterBottom component='div' style={{ display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
+                    דרישות
+                  </Typography>
+                  <p>{row.requirements}</p>
+                </>}
             </Box>
           </Collapse>
         </TableCell>

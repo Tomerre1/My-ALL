@@ -31,7 +31,6 @@ export function MedicineTable() {
   }, []);
 
   const addOrEdit = async (record) => {
-    console.log('%c  record:', 'color: white;background: red;', record);
     if (recordForEdit) {
       const updatedMedicine = await medicineService.updateMedicine(record);
       const newMedicines = medicines.map((medicine) =>
@@ -62,13 +61,13 @@ export function MedicineTable() {
         <Table aria-label='collapsible table' >
           <TableHead>
             <TableRow>
-              <TableCell colSpan={4} />
-              <TableCell colSpan={4} align='right'>שם תרופה</TableCell>
-              <TableCell colSpan={4} align='right'>שלב תרופה</TableCell>
-              <TableCell colSpan={4} align='right'>מינון תרופה</TableCell>
-              <TableCell colSpan={4} align='right'>צורך בצום</TableCell>
-              <TableCell colSpan={4} align='right'>ימים</TableCell>
-              <TableCell colSpan={4} align='right'>פעולות</TableCell>
+              <TableCell />
+              <TableCell align='right'>שם תרופה</TableCell>
+              <TableCell align='right'>שלב תרופה</TableCell>
+              <TableCell align='right'>מינון תרופה</TableCell>
+              <TableCell align='right'>צורך בצום</TableCell>
+              <TableCell calign='right'>ימים</TableCell>
+              <TableCell align='right'>פעולות</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -95,7 +94,7 @@ export function MedicineTable() {
           isRow={true}
         />
       </Popup>
-      <div style={{ direction: 'rtl' }}>
+      <div style={{ direction: 'rtl', paddingTop: '20px' }}>
         <Button onClick={() => {
           setOpenPopup(true); setRecordForEdit(null);
         }} text='הוספת תרופה' />
