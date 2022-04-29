@@ -13,9 +13,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="table">
+
+    <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell >
+        <TableCell>
           <IconButton
             aria-label='expand row'
             size='small'
@@ -37,22 +38,25 @@ export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
           <DeleteIcon onClick={() => deleteMedicine(row)} />
         </TableCell>
       </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
-          <Collapse in={open} timeout='auto' unmountOnExit>
+      <TableRow align='right'>
+        <TableCell align='right' style={{ paddingBottom: 0, paddingTop: 0 }}  >
+          <Collapse in={open} timeout='auto' unmountOnExit align='right' >
             <Box
               sx={{
                 margin: 1,
                 textAlign: 'right',
               }}
             >
-              <Typography variant='h6' gutterBottom component='div'>
+              <Typography variant='h6' gutterBottom component='div' style={{ display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
                 תיאור תרופה
               </Typography>
               <p>{row.description}</p>
-              <Typography variant='h6' gutterBottom component='div'>
+              {row.badInfluence && <Typography variant='h6' gutterBottom component='div'>
                 תופעות לוואי לתרופה
-              </Typography>
+              </Typography>}
+              <div>
+                hi
+              </div>
               {row.badInfluence.map((item) => (
                 <p key={item.id}>{item}</p>
               ))}
@@ -60,6 +64,6 @@ export const MedicineRow = ({ row, openInPopup, deleteMedicine }) => {
           </Collapse>
         </TableCell>
       </TableRow>
-    </div>
+    </>
   );
 };
