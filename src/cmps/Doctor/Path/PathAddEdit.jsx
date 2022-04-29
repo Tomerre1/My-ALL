@@ -20,7 +20,7 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
 
   const levels = path.map(step => {
     return {
-      title: `שלב ${step[0].levelNumber}`, id: step[0].levelNumber
+      title: `שלב ${step[0].levelNumber[0]}`, id: step[0].levelNumber[0]
     }
   })
 
@@ -28,11 +28,11 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
     const { name, value } = event.target;
     setValues({
       ...values,
-      [name]: name === 'levelNumber' ? value : /^-?\d+$/.test(value) && name === 'stepNumber' ? +value : value,
+      [name]: name === 'levelNumber' ? [+value] : /^-?\d+$/.test(value) && name === 'stepNumber' ? +value : value,
 
     });
     validate({
-      [name]: name === 'levelNumber' ? [value] : value,
+      [name]: name === 'levelNumber' ? [+value] : value,
       stepNumber: name === 'stepNumber' ? +value : value
     });
   };
@@ -45,41 +45,46 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     if ('levelNumber' in fieldValues) {
+      const levelsIds = levels.map(lvl => lvl.id)
       temp.levelNumber = fieldValues.levelNumber.length > 0
         ? ''
         : 'נדרש לבחור שלב';
-      temp.levelNumber += (fieldValues.levelNumber.length > 0 && /^-?\d+$/.test(fieldValues.levelNumber[0])) ?
-        '' : 'נדרש למלא מספר שלב תקין'
+      if (isAddLevel && !recordForEdit) {
+        temp.levelNumber += (fieldValues.levelNumber.length > 0 && /^-?\d+$/.test(fieldValues.levelNumber[0]) && fieldValues.levelNumber[0] > 0 && !levelsIds.includes(+(fieldValues.levelNumber[0]))) ?
+          '' : 'נדרש למלא מספר שלב תקין ושלא קיים במערכת'
+      }
     }
 
-    if ('description' in fieldValues)
+    if ('description' in fieldValues) {
       temp.description = fieldValues.description.length > 0
         ? ''
         : 'נדרש למלא תיאור';
+    }
 
     if (!isLevel && 'stepNumber' in fieldValues) {
       temp.stepNumber = /^-?\d+$/.test(fieldValues.stepNumber) ? '' : 'נדרש למלא מספר תחנה תקין'
-      temp.stepNumber += fieldValues?.levelNumber?.length > 0 && path[(fieldValues.levelNumber[0] - 1)]?.some(step => {
+      temp.stepNumber += fieldValues?.levelNumber?.length > 0 && values.stepNumber !== recordForEdit.stepNumber && path[(fieldValues.levelNumber[0] - 1)]?.some(step => {
         return (step?.stepNumber && step?.stepNumber === fieldValues.stepNumber)
       }) ? ' נדרש לבחור מספר תחנה שאינו קיים בשלב זה' : ''
     }
 
-    if (!isLevel && 'requirements' in fieldValues)
+    if (!isLevel && 'requirements' in fieldValues) {
       temp.requirements =
         fieldValues.requirements.length > 0
           ? ''
           : 'נדרש למלא דרישות.'
+    }
     setErrors({
       ...temp,
     });
+    console.log('%c  temp:', 'color: white;background: red;', temp);
     return Object.values(temp).every((x) => x == '');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      addOrEdit({ ...values });
-
+      addOrEdit({ ...values, levelNumber: Array.isArray(values.levelNumber) ? values.levelNumber : [+values.levelNumber] });
     }
   };
 
@@ -91,6 +96,7 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
       {!isLevel && <Controls.Select
         name='levelNumber'
         label='בחירת שלב'
+        disabled={recordForEdit ? true : false}
         value={values.levelNumber}
         onChange={handleInputChange}
         options={levels}

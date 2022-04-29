@@ -150,14 +150,12 @@ export function PathTable() {
   useEffect(() => {
     async function queryMedicines() {
       const formattedPath = path.map(step => step.map((step, idx) => { return { ...step, levelNumber: [step.levelNumber], isLevel: idx === 0 ? true : false } }));
-      console.log('%c  formattedPath:', 'color: white;background: red;', formattedPath);
       setPath(formattedPath);
     }
     queryMedicines();
   }, []);
 
   const addOrEdit = async (pathObj) => {
-    console.log('%c  pathObj:', 'color: white;background: red;', pathObj);
     const isPathLevel = pathObj?.stepNumber ? false : true
     if (recordForEdit) {
       if (isPathLevel) {
@@ -165,22 +163,40 @@ export function PathTable() {
           return group[0].levelNumber[0] === pathObj.levelNumber[0]
         });
         const updatedLevel = path[idx].map((step, index) => (step.levelNumber[0] === pathObj.levelNumber[0] && index === 0) ? { ...pathObj } : step)
+        console.log('%c  updatedLevel:', 'color: white;background: red;', updatedLevel);
         const updatedPath = [...path.slice(0, idx), updatedLevel, ...path.slice(idx + 1)]
         setPath(updatedPath);
       } else {
         const idx = path.findIndex((group) => {
           return group[0].levelNumber[0] === pathObj.levelNumber[0]
         });
-        const updatedLevel = path[idx].map((step) => (step.levelNumber[0] === pathObj.levelNumber[0] && step.stepNumber === pathObj.stepNumber) ? { ...pathObj } : step)
+
+        const updatedLevel = path[idx].map((step) => {
+          return (step.levelNumber[0] === pathObj.levelNumber[0] && step.stepNumber === recordForEdit.stepNumber) ? { ...pathObj } : step
+        }).sort((a, b) => a.stepNumber - b.stepNumber);
         const updatedPath = [...path.slice(0, idx), updatedLevel, ...path.slice(idx + 1)]
         setPath(updatedPath);
       }
       // setPath([...path]);
     }
-    // else {
-    //   const newMedicine = await medicineService.addMedicine(record);
-    //   setPath([...path, newMedicine]);
-    // }
+    else {
+      if (isPathLevel) {
+        const updatedPath = [...path, [{ ...pathObj }]]
+        const sortByLevel = updatedPath.sort((a, b) => {
+          return a[0].levelNumber[0] - b[0].levelNumber[0]
+        })
+        setPath(sortByLevel);
+      }
+      else {
+        const idx = path.findIndex((group) => {
+          return +(group[0].levelNumber[0]) === +(pathObj.levelNumber[0])
+        });
+        const addWithOutSort = [...path[idx], pathObj];
+        const sortByStepNumber = addWithOutSort.sort((a, b) => a.stepNumber - b.stepNumber);
+        path[idx] = sortByStepNumber;
+        setPath([...path]);
+      }
+    }
     setOpenPopup(false);
   };
 

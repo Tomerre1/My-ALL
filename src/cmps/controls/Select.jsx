@@ -3,7 +3,7 @@ import { FormControl, InputLabel, Select as MuiSelect, MenuItem, FormHelperText 
 import Chip from '@mui/material/Chip';
 
 export default function Select(props) {
-    const { name, label, value, error = null, onChange, options, isMultiple } = props;
+    const { name, label, value, error = null, onChange, options, isMultiple, disabled } = props;
     const MenuProps = {
         anchorOrigin: {
             vertical: "bottom",
@@ -21,9 +21,10 @@ export default function Select(props) {
             <InputLabel>{label}</InputLabel>
             <MuiSelect
                 renderValue={(selected) => {
+                    const antiCrash = Array.isArray(selected) ? selected : [selected]
                     return (
                         <div>
-                            {selected.map((value) => (
+                            {antiCrash.map((value) => (
                                 <Chip key={value} label={value} />
                             ))}
                         </div>
@@ -33,6 +34,7 @@ export default function Select(props) {
                 label={label}
                 name={name}
                 value={value}
+                disabled={disabled ? true : false}
                 MenuProps={MenuProps}
                 onChange={onChange}>
                 {
