@@ -12,16 +12,16 @@ export function AppPage() {
                 </div>
 
                 <div className="content">
-                    <h3>stay safe, stay healthy</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem sed autem vero? Magnam, est laboriosam!</p>
-                    <a className="btn"> contact us <span className="fas fa-chevron-right"></span> </a>
+                    <h3 className="right">ברוכים הבאים</h3>
+                    <p>אפליקציית MY-ALL נועדה ללוות את תהליך הטיפול וההחלמה בקרב ילדים חולי לוקמיה</p>
+                    <a className="btn"> להרשמה <span className="fas fa-chevron-right"></span> </a>
                 </div>
             </section>
 
             <section className="icons-container">
                 <div className="icons">
                     <i className="fas fa-user-md"></i>
-                    <h3>140+</h3>
+                    <h3>1+</h3>
                     <p>doctors at work</p>
                 </div>
 
@@ -46,48 +46,48 @@ export function AppPage() {
 
 
             <section className="services" id="services">
-                <h1 className="heading"> our <span>services</span> </h1>
+                <h1 className="heading"> השירותים <span>שלנו</span> </h1>
 
                 <div className="box-container">
 
                     <div className="box">
                         <i className="fas fa-notes-medical"></i>
-                        <h3>free checkups</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
+                        <h3 className="right">מסלול מעקב</h3>
+                        <p>אפשרות למעקב אחר מצבו של המטופל בטיפול ע״י מסלול עם מידע רלוונטי עבור כל תחנה ושלב בטיפול.</p>
                         <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
 
                     <div className="box">
                         <i className="fas fa-ambulance"></i>
-                        <h3>24/7 ambulance</h3>
+                        <h3 className="right">24/7 ambulance</h3>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
                         <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
 
                     <div className="box">
                         <i className="fas fa-user-md"></i>
-                        <h3>expert doctors</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
+                        <h3 className="right">רשימת קשר</h3>
+                        <p>ניהול רשימת קשר של אנשי צוות הרפואי שאליהם ניתן לפנות למתן שאלות וקבלת תשובות.</p>
                         <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
 
                     <div className="box">
                         <i className="fas fa-pills"></i>
-                        <h3>medicines</h3>
+                        <h3 className="right">medicines</h3>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
                         <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
 
                     <div className="box">
                         <i className="fas fa-procedures"></i>
-                        <h3>bed facility</h3>
+                        <h3 className="right">bed facility</h3>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
                         <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
 
                     <div className="box">
                         <i className="fas fa-heartbeat"></i>
-                        <h3>total care</h3>
+                        <h3 className="right">total care</h3>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
                         <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
@@ -98,7 +98,7 @@ export function AppPage() {
 
             <section className="about" id="about">
 
-                <h1 className="heading"> <span>about</span> us </h1>
+                <h1 className="heading"> <span>קצת</span> עלינו </h1>
 
                 <div className="row">
 
@@ -107,12 +107,10 @@ export function AppPage() {
                     </div>
 
                     <div className="content">
-                        <h3>we take care of your healthy life</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure ducimus, quod ex cupiditate ullam in
-                            assumenda maiores et culpa odit tempora ipsam qui, quisquam quis facere iste fuga, minus nesciunt.
-                        </p>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus vero ipsam laborum porro voluptates
-                            voluptatibus a nihil temporibus deserunt vel?</p>
+                        <h3 className="right">המטרה שלנו</h3>
+                        <p>אפליקציית MY-ALL נועדה לאפשר למטופלים ולמשפחותיהם הנגשה לקבלת מידע רפואי מהימן אודות מחלת הלוקמיה וגם אפשרות למעקב אחר התהליך אותו עובר המטופל במהלך הטיפול</p>
+
+
                         <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
                     </div>
 
@@ -198,7 +196,7 @@ export function AppPage() {
             </section> */}
 
             <section className="blogs" id="blogs">
-                <h1 className="heading"> our <span>blogs</span> </h1>
+                <h1 className="heading"> מחקרים <span>שפורסמו</span> </h1>
                 <div className="box-container">
                     <div className="box">
                         <div className="image">
@@ -206,7 +204,7 @@ export function AppPage() {
                         </div>
                         <div className="content">
                             <div className="icon">
-                                <a href="#"> <i className="fas fa-calendar"></i> 1st may, 2021 </a>
+                                <a href="#"> <i className="fas fa-calendar"></i> 1st may, 2022 </a>
                                 <a href="#"> <i className="fas fa-user"></i> by admin </a>
                             </div>
                             <h3>blog title goes here</h3>
@@ -221,7 +219,7 @@ export function AppPage() {
                         </div>
                         <div className="content">
                             <div className="icon">
-                                <a href="#"> <i className="fas fa-calendar"></i> 1st may, 2021 </a>
+                                <a href="#"> <i className="fas fa-calendar"></i> 1st may, 2022 </a>
                                 <a href="#"> <i className="fas fa-user"></i> by admin </a>
                             </div>
                             <h3>blog title goes here</h3>
@@ -236,7 +234,7 @@ export function AppPage() {
                         </div>
                         <div className="content">
                             <div className="icon">
-                                <a href="#"> <i className="fas fa-calendar"></i> 1st may, 2021 </a>
+                                <a href="#"> <i className="fas fa-calendar"></i> 1st may, 2022 </a>
                                 <a href="#"> <i className="fas fa-user"></i> by admin </a>
                             </div>
                             <h3>blog title goes here</h3>
