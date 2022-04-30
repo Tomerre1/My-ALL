@@ -63,7 +63,7 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
 
     if (!isLevel && 'stepNumber' in fieldValues) {
       temp.stepNumber = /^-?\d+$/.test(fieldValues.stepNumber) ? '' : 'נדרש למלא מספר תחנה תקין'
-      temp.stepNumber += fieldValues?.levelNumber?.length > 0 && values.stepNumber !== recordForEdit.stepNumber && path[(fieldValues.levelNumber[0] - 1)]?.some(step => {
+      temp.stepNumber += fieldValues?.levelNumber?.length > 0 && values?.stepNumber !== recordForEdit?.stepNumber && path[(fieldValues.levelNumber[0] - 1)]?.some(step => {
         return (step?.stepNumber && step?.stepNumber === fieldValues.stepNumber)
       }) ? ' נדרש לבחור מספר תחנה שאינו קיים בשלב זה' : ''
     }
