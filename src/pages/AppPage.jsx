@@ -3,7 +3,10 @@ import aboutSvg from '../assets/img/about-img.svg'
 import blog1 from '../assets/img/blog-1.jpg'
 import blog2 from '../assets/img/blog-2.jpg'
 import blog3 from '../assets/img/blog-3.jpg'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 export function AppPage() {
+    const user = useSelector(state => state.userReducer.user)
     return (
         <div className="app-page">
             <section className="home" id="home">
@@ -14,8 +17,7 @@ export function AppPage() {
                 <div className="content">
                     <h3 className="right">ברוכים הבאים</h3>
                     <p>אפליקציית MY-ALL נועדה ללוות את תהליך הטיפול וההחלמה בקרב ילדים חולי לוקמיה</p>
-                    <a className="btn"> להרשמה <span className="fas fa-chevron-right"></span> </a>
-                </div>
+                    {!user && <Link to="/auth" className="btn"> להרשמה <span className="fas fa-chevron-right"></span> </Link>}                </div>
             </section>
 
             {/* <section className="icons-container">
@@ -59,7 +61,7 @@ export function AppPage() {
                         <p>אפליקציית MY-ALL נועדה לאפשר למטופלים ולמשפחותיהם הנגשה לקבלת מידע רפואי מהימן אודות מחלת הלוקמיה וגם אפשרות למעקב אחר התהליך אותו עובר המטופל במהלך הטיפול</p>
 
 
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                        {/* <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a> */}
                     </div>
 
                 </div>
@@ -71,14 +73,15 @@ export function AppPage() {
                 <div className="box-container">
 
                     <div className="box">
-                        <i className="fas fa-notes-medical"></i>
+                        <i className="fas fa-road"></i>
+                        <i class="fa-solid fa-road-circle-check"></i>
                         <h3 className="right">מסלול מעקב</h3>
                         <p>אפשרות למעקב אחר מצבו של המטופל בטיפול ע״י מסלול עם מידע רלוונטי עבור כל תחנה ושלב בטיפול.</p>
                         {/* <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a> */}
                     </div>
 
                     <div className="box">
-                        <i className="fas fa-ambulance"></i>
+                        <i className="far fa-calendar-alt"></i>
                         <h3 className="right">ביקורים וסדנאות</h3>
                         <p>ניהול יומן ביקורים וסדנאות בנושא הטיפול.</p>
                         {/* <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a> */}
@@ -99,7 +102,7 @@ export function AppPage() {
                     </div>
 
                     <div className="box">
-                        <i className="fas fa-procedures"></i>
+                        <i className="fab fa-youtube		"></i>
                         <h3 className="right">סרטוני הסבר</h3>
                         <p>סרטוני הסבר המאפשרים הנגשה והסברה אודות הטיפול עבור המטופל.</p>
                         {/* <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a> */}
