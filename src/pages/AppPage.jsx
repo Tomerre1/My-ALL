@@ -74,42 +74,42 @@ export function AppPage() {
                         <i className="fas fa-notes-medical"></i>
                         <h3 className="right">מסלול מעקב</h3>
                         <p>אפשרות למעקב אחר מצבו של המטופל בטיפול ע״י מסלול עם מידע רלוונטי עבור כל תחנה ושלב בטיפול.</p>
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                        {/* <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a> */}
                     </div>
 
                     <div className="box">
                         <i className="fas fa-ambulance"></i>
                         <h3 className="right">ביקורים וסדנאות</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                        <p>ניהול יומן ביקורים וסדנאות בנושא הטיפול.</p>
+                        {/* <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a> */}
                     </div>
 
                     <div className="box">
                         <i className="fas fa-user-md"></i>
                         <h3 className="right">רשימת קשר</h3>
                         <p>ניהול רשימת קשר של אנשי צוות הרפואי שאליהם ניתן לפנות למתן שאלות וקבלת תשובות.</p>
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                        {/* <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a> */}
                     </div>
 
                     <div className="box">
                         <i className="fas fa-pills"></i>
                         <h3 className="right">מעקב תרופתי</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                        <p>מעקב תרופתי אחר נטילת תרופות הטיפול במהלך היום יום.</p>
+                        {/* <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a> */}
                     </div>
 
                     <div className="box">
                         <i className="fas fa-procedures"></i>
                         <h3 className="right">סרטוני הסבר</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                        <p>סרטוני הסבר המאפשרים הנגשה והסברה אודות הטיפול עבור המטופל.</p>
+                        {/* <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a> */}
                     </div>
 
                     <div className="box">
                         <i className="fas fa-heartbeat"></i>
                         <h3 className="right">סיפורי הצלחה וטיפים</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                        <p>סיפורי הצלחה וטיפים של הורים וילדים אשר עברו את התהליך.</p>
+                        {/* <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a> */}
                     </div>
                 </div>
             </section>
