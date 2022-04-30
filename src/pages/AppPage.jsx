@@ -18,7 +18,7 @@ export function AppPage() {
                 </div>
             </section>
 
-            <section className="icons-container">
+            {/* <section className="icons-container">
                 <div className="icons">
                     <i className="fas fa-user-md"></i>
                     <h3>1+</h3>
@@ -42,59 +42,7 @@ export function AppPage() {
                     <h3>80+</h3>
                     <p>available hospitals</p>
                 </div>
-            </section>
-
-
-            <section className="services" id="services">
-                <h1 className="heading"> השירותים <span>שלנו</span> </h1>
-
-                <div className="box-container">
-
-                    <div className="box">
-                        <i className="fas fa-notes-medical"></i>
-                        <h3 className="right">מסלול מעקב</h3>
-                        <p>אפשרות למעקב אחר מצבו של המטופל בטיפול ע״י מסלול עם מידע רלוונטי עבור כל תחנה ושלב בטיפול.</p>
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
-                    </div>
-
-                    <div className="box">
-                        <i className="fas fa-ambulance"></i>
-                        <h3 className="right">24/7 ambulance</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
-                    </div>
-
-                    <div className="box">
-                        <i className="fas fa-user-md"></i>
-                        <h3 className="right">רשימת קשר</h3>
-                        <p>ניהול רשימת קשר של אנשי צוות הרפואי שאליהם ניתן לפנות למתן שאלות וקבלת תשובות.</p>
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
-                    </div>
-
-                    <div className="box">
-                        <i className="fas fa-pills"></i>
-                        <h3 className="right">medicines</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
-                    </div>
-
-                    <div className="box">
-                        <i className="fas fa-procedures"></i>
-                        <h3 className="right">bed facility</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
-                    </div>
-
-                    <div className="box">
-                        <i className="fas fa-heartbeat"></i>
-                        <h3 className="right">total care</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
-                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
-                    </div>
-                </div>
-            </section>
-
-
+            </section> */}
 
             <section className="about" id="about">
 
@@ -116,6 +64,59 @@ export function AppPage() {
 
                 </div>
             </section>
+
+            <section className="services" id="services">
+                <h1 className="heading"> השירותים <span>שלנו</span> </h1>
+
+                <div className="box-container">
+
+                    <div className="box">
+                        <i className="fas fa-notes-medical"></i>
+                        <h3 className="right">מסלול מעקב</h3>
+                        <p>אפשרות למעקב אחר מצבו של המטופל בטיפול ע״י מסלול עם מידע רלוונטי עבור כל תחנה ושלב בטיפול.</p>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                    </div>
+
+                    <div className="box">
+                        <i className="fas fa-ambulance"></i>
+                        <h3 className="right">ביקורים וסדנאות</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                    </div>
+
+                    <div className="box">
+                        <i className="fas fa-user-md"></i>
+                        <h3 className="right">רשימת קשר</h3>
+                        <p>ניהול רשימת קשר של אנשי צוות הרפואי שאליהם ניתן לפנות למתן שאלות וקבלת תשובות.</p>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                    </div>
+
+                    <div className="box">
+                        <i className="fas fa-pills"></i>
+                        <h3 className="right">מעקב תרופתי</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                    </div>
+
+                    <div className="box">
+                        <i className="fas fa-procedures"></i>
+                        <h3 className="right">סרטוני הסבר</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                    </div>
+
+                    <div className="box">
+                        <i className="fas fa-heartbeat"></i>
+                        <h3 className="right">סיפורי הצלחה וטיפים</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
+                        <a href="#" className="btn"> learn more <span className="fas fa-chevron-right"></span> </a>
+                    </div>
+                </div>
+            </section>
+
+
+
+
 
 
             {/* <section className="doctors" id="doctors">
@@ -195,7 +196,7 @@ export function AppPage() {
                 </div>
             </section> */}
 
-            <section className="blogs" id="blogs">
+            {/* <section className="blogs" id="blogs">
                 <h1 className="heading"> מחקרים <span>שפורסמו</span> </h1>
                 <div className="box-container">
                     <div className="box">
@@ -243,7 +244,7 @@ export function AppPage() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
         </div>
     )
