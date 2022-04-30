@@ -12,9 +12,31 @@ export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem
         content: editItem?.content || '',
     })
     const [options, setOptions] = useState([])
+
     useEffect(() => {
         if (!isStory) {
-            setOptions([{ id: '1', title: 'שלב א' }, { id: '2', title: 'שלב ב' }, { id: '3', title: 'שלב ג' }, { id: '4', title: 'שלב ד' }, { id: '5', title: 'שלב ה' }])
+            const fetchData = [
+                "שלב 1 תחנה 4",
+                "שלב 1 תחנה 11",
+                "שלב 1 תחנה 21",
+                "שלב 1 תחנה 28",
+                "שלב 2 תחנה 3",
+                "שלב 2 תחנה 10",
+                "שלב 2 תחנה 17",
+                "שלב 3 תחנה 4",
+                "שלב 3 תחנה 15",
+                "שלב 3 תחנה 21",
+                "שלב 4 תחנה 12",
+                "שלב 4 תחנה 17",
+                "שלב 4 תחנה 22",
+                "שלב 4 תחנה 30"
+            ]
+            const formattedData = fetchData.map(item => {
+                return {
+                    id: item, title: item
+                }
+            })
+            setOptions(formattedData)
         }
     }, [isStory])
 
