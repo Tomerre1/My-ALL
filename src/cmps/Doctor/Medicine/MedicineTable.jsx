@@ -66,7 +66,7 @@ export function MedicineTable() {
               <TableCell align='right'>שלב תרופה</TableCell>
               <TableCell align='right'>מינון תרופה</TableCell>
               <TableCell align='right'>צורך בצום</TableCell>
-              <TableCell calign='right'>ימים</TableCell>
+              <TableCell align='right'>ימים</TableCell>
               <TableCell align='right'>פעולות</TableCell>
             </TableRow>
           </TableHead>
