@@ -8,10 +8,10 @@ export const timelineService = {
     queryAdmin,
     removeLevel,
     removeStep,
-    // addLevel,
-    // addStep,
-    // updateLevel,
-    // updateStep,
+    addLevel,
+    addStep,
+    updateLevel,
+    updateStep,
 }
 
 async function query({ mail }) {
@@ -25,11 +25,35 @@ async function queryAdmin() {
 }
 
 async function removeLevel({ levelNumber }) {
-    const timeline = await httpService.delete('deleteLevel/', { levelNumber })
+    const timeline = await httpService.delete('level/deleteLevel/', { levelNumber: levelNumber[0] })
     return timeline
 }
+
 async function removeStep({ levelNumber, stepNumber }) {
-    const timeline = await httpService.delete('deleteLevel/', { levelNumber, stepNumber })
+    const timeline = await httpService.delete('step/deleteStep/', { levelNumber: levelNumber[0], stepNumber })
+    return timeline
+}
+
+async function addLevel(level) {
+    const timeline = await httpService.post('level/InsertLevel/', { description: level.description, levelNumber: level.levelNumber[0] })
+    return timeline
+}
+
+async function addStep(step) {
+    const timeline = await httpService.post('step/InsertStep/', { ...step, levelNumber: step.levelNumber[0] })
+    return timeline
+}
+
+async function updateLevel(level) {
+    const timeline = await httpService.put('level/updateLevel/', {
+        description: level.description,
+        levelNumber: level.levelNumber[0],
+    })
+    return timeline
+}
+
+async function updateStep(step) {
+    const timeline = await httpService.put('step/updateStep/', { ...step, levelNumber: step.levelNumber[0] })
     return timeline
 }
 

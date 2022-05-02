@@ -3,6 +3,7 @@ import Controls from '../controls/Controls'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { utilService } from '../../services/util.service'
+import { tipsService } from '../../services/tips.service';
 
 export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem }) {
 
@@ -14,29 +15,17 @@ export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem
     const [options, setOptions] = useState([])
 
     useEffect(() => {
-        if (!isStory) {
-            const fetchData = [
-                "שלב 1 תחנה 4",
-                "שלב 1 תחנה 11",
-                "שלב 1 תחנה 21",
-                "שלב 1 תחנה 28",
-                "שלב 2 תחנה 3",
-                "שלב 2 תחנה 10",
-                "שלב 2 תחנה 17",
-                "שלב 3 תחנה 4",
-                "שלב 3 תחנה 15",
-                "שלב 3 תחנה 21",
-                "שלב 4 תחנה 12",
-                "שלב 4 תחנה 17",
-                "שלב 4 תחנה 22",
-                "שלב 4 תחנה 30"
-            ]
+        async function fetchSteps() {
+            const fetchData = await tipsService.getSteps()
             const formattedData = fetchData.map(item => {
                 return {
                     id: item, title: item
                 }
             })
             setOptions(formattedData)
+        }
+        if (!isStory) {
+            fetchSteps()
         }
     }, [isStory])
 
@@ -82,14 +71,6 @@ export function AddStoryOrTip({ isStory, user, editItem, onAddItem, saveEditItem
         })
     }
 
-    // const handleChangeMultiSelect = (event) => {
-    //     const { value } = event.target;
-    //     if (state?.label?.includes(value)) {
-    //         setState({ ...state, label: state.label.filter(item => item !== value) })
-    //     } else {
-    //         setState({ ...state, label: [...state.label, value] })
-    //     }
-    // };
     const handleChangeMultiSelect = (event) => {
         const { name, value } = event.target;
         setState({

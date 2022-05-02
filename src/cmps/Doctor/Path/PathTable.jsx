@@ -15,130 +15,7 @@ import { timelineService } from '../../../services/timeline.service'
 export function PathTable() {
   const [openPopup, setOpenPopup] = useState(false);
   const [recordForEdit, setRecordForEdit] = useState(null);
-  const [path, setPath] = useState([
-    [
-      {
-        "levelNumber": 1,
-        "description": "שלב ראשון-פיילוט"
-      },
-      {
-        "levelNumber": 1,
-        "stepNumber": 4,
-        "description": "תחנה מס' 4 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      },
-      {
-        "levelNumber": 1,
-        "stepNumber": 11,
-        "description": "תחנה מס' 11 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      },
-      {
-        "levelNumber": 1,
-        "stepNumber": 21,
-        "description": "תחנה מס' 21 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      },
-      {
-        "levelNumber": 1,
-        "stepNumber": 28,
-        "description": "תחנה מס' 28 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      }
-    ],
-    [
-      {
-        "levelNumber": 2,
-        "description": "שלב שני-פיילוט"
-      },
-      {
-        "levelNumber": 2,
-        "stepNumber": 3,
-        "description": "תחנה מס' 3 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      },
-      {
-        "levelNumber": 2,
-        "stepNumber": 10,
-        "description": "תחנה מס' 10 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      },
-      {
-        "levelNumber": 2,
-        "stepNumber": 17,
-        "description": "תחנה מס' 17 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      }
-    ],
-    [
-      {
-        "levelNumber": 3,
-        "description": "שלב שלישי-פיילוט"
-      },
-      {
-        "levelNumber": 3,
-        "stepNumber": 4,
-        "description": "תחנה מס' 4 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      },
-      {
-        "levelNumber": 3,
-        "stepNumber": 15,
-        "description": "תחנה מס' 15 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      },
-      {
-        "levelNumber": 3,
-        "stepNumber": 21,
-        "description": "תחנה מס' 21 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      }
-    ],
-    [
-      {
-        "levelNumber": 4,
-        "description": "שלב רבעי-פיילוט"
-      },
-      {
-        "levelNumber": 4,
-        "stepNumber": 12,
-        "description": "תחנה מס' 12 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      },
-      {
-        "levelNumber": 4,
-        "stepNumber": 17,
-        "description": "תחנה מס' 17 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      },
-      {
-        "levelNumber": 4,
-        "stepNumber": 22,
-        "description": "תחנה מס' 22 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      },
-      {
-        "levelNumber": 4,
-        "stepNumber": 30,
-        "description": "תחנה מס' 30 - פיילוט",
-        "date": null,
-        "requirements": "מידע אודות התחנה הנוכחית -פיילוט"
-      }
-    ]
-  ]);
+  const [path, setPath] = useState([]);
   const [isAddLevel, setIsAddLevel] = useState(false)
 
   const openInPopup = (row) => {
@@ -147,11 +24,12 @@ export function PathTable() {
   };
 
   useEffect(() => {
-    async function queryMedicines() {
-      const formattedPath = path.map(step => step.map((step, idx) => { return { ...step, levelNumber: [step.levelNumber], isLevel: idx === 0 ? true : false } }));
+    async function queryPath() {
+      const fetchedPath = await timelineService.queryAdmin()
+      const formattedPath = fetchedPath.map(step => step.map((step, idx) => { return { ...step, levelNumber: [step.levelNumber], isLevel: idx === 0 ? true : false } }));
       setPath(formattedPath);
     }
-    queryMedicines();
+    queryPath();
   }, []);
 
   const addOrEdit = async (pathObj) => {
@@ -164,26 +42,26 @@ export function PathTable() {
         const updatedLevel = path[idx].map((step, index) => (step.levelNumber[0] === pathObj.levelNumber[0] && index === 0) ? { ...pathObj } : step)
         const updatedPath = [...path.slice(0, idx), updatedLevel, ...path.slice(idx + 1)]
         setPath(updatedPath)
+        await timelineService.updateLevel(pathObj)
       } else {
         const idx = path.findIndex((group) => {
           return group[0].levelNumber[0] === pathObj.levelNumber[0]
         });
-
         const updatedLevel = path[idx].map((step) => {
           return (step.levelNumber[0] === pathObj.levelNumber[0] && step.stepNumber === recordForEdit.stepNumber) ? { ...pathObj } : step
         }).sort((a, b) => a.stepNumber - b.stepNumber);
         const updatedPath = [...path.slice(0, idx), updatedLevel, ...path.slice(idx + 1)]
         setPath(updatedPath);
+        await timelineService.updateStep(pathObj)
       }
-      // setPath([...path]);
-    }
-    else {
+    } else {
       if (isPathLevel) {
         const updatedPath = [...path, [{ ...pathObj }]]
         const sortByLevel = updatedPath.sort((a, b) => {
           return a[0].levelNumber[0] - b[0].levelNumber[0]
         })
         setPath(sortByLevel);
+        await timelineService.addLevel(pathObj)
       }
       else {
         const idx = path.findIndex((group) => {
@@ -193,6 +71,7 @@ export function PathTable() {
         const sortByStepNumber = addWithOutSort.sort((a, b) => a.stepNumber - b.stepNumber);
         path[idx] = sortByStepNumber;
         setPath([...path]);
+        await timelineService.addStep(pathObj)
       }
     }
     setOpenPopup(false);

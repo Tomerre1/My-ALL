@@ -115,6 +115,7 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
         value={values.stepNumber}
         onChange={handleInputChange}
         error={errors.stepNumber}
+        disabled={recordForEdit ? true : false}
       />}
 
       <Controls.Input

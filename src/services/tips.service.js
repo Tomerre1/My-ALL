@@ -4,7 +4,8 @@ export const tipsService = {
     query,
     addTip,
     removeTip,
-    editTip
+    editTip,
+    getSteps
 }
 
 async function query() {
@@ -24,3 +25,9 @@ async function editTip({ user, id, content, title, date, label }) {
     const updatedtTips = await httpService.put('tip/updatetip/', { mail: user.mail, id, content, title, date, label })
     return updatedtTips
 }
+
+async function getSteps() {
+    const steps = await httpService.get('step/getstepsnames/')
+    return steps
+}
+
