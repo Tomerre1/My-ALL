@@ -32,8 +32,11 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
 
     });
     validate({
-      [name]: name === 'levelNumber' ? [+value] : value,
-      stepNumber: name === 'stepNumber' ? +value : value
+      [name]: (name === 'levelNumber' || name === 'stepNumber')
+        ? name === 'levelNumber' ?
+          [+value] : (name === 'stepNumber')
+            ? +value : value
+        : value,
     });
   };
 
@@ -62,10 +65,13 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
     }
 
     if (!isLevel && 'stepNumber' in fieldValues) {
-      temp.stepNumber = /^-?\d+$/.test(fieldValues.stepNumber) ? '' : 'נדרש למלא מספר תחנה תקין'
-      temp.stepNumber += fieldValues?.levelNumber?.length > 0 && values?.stepNumber !== recordForEdit?.stepNumber && path[(fieldValues.levelNumber[0] - 1)]?.some(step => {
-        return (step?.stepNumber && step?.stepNumber === fieldValues.stepNumber)
-      }) ? ' נדרש לבחור מספר תחנה שאינו קיים בשלב זה' : ''
+      console.log('%c  fieldValues:', 'color: white;background: red;', fieldValues);
+      temp.stepNumber = /^-?\d+$/.test((fieldValues.stepNumber)) ? '' : 'נדרש למלא מספר תחנה תקין'
+      if (!recordForEdit) {
+        temp.stepNumber += fieldValues?.levelNumber?.length > 0 && values?.stepNumber !== recordForEdit?.stepNumber && path[(fieldValues.levelNumber[0] - 1)]?.some(step => {
+          return (step?.stepNumber && step?.stepNumber === fieldValues.stepNumber)
+        }) ? ' נדרש לבחור מספר תחנה שאינו קיים בשלב זה' : ''
+      }
     }
 
     if (!isLevel && 'requirements' in fieldValues) {
@@ -109,7 +115,7 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
         onChange={handleInputChange}
         error={errors.levelNumber}
       />}
-      {values.levelNumber.length > 0 && !isLevel && < Controls.Input
+      {values.levelNumber.length > 0 && !isLevel && <Controls.Input
         name='stepNumber'
         label='מספר תחנה'
         value={values.stepNumber}
