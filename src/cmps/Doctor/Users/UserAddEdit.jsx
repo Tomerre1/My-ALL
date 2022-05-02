@@ -36,7 +36,6 @@ export function UserAddEdit({ addOrEdit, recordForEdit, isRow }) {
   };
 
   const validate = (fieldValues = values) => {
-    console.log('%c  values:', 'color: white;background: red;', values);
     let temp = { ...errors };
     if ('fullname' in fieldValues)
       temp.fullname = fieldValues.fullname.length > 0
@@ -107,6 +106,7 @@ export function UserAddEdit({ addOrEdit, recordForEdit, isRow }) {
         value={values.mail}
         onChange={handleInputChange}
         error={errors.mail}
+        disabled={recordForEdit ? true : false}
       />
 
       <Controls.Input

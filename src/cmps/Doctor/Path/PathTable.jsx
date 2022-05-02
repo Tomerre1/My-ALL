@@ -10,9 +10,8 @@ import { Popup } from '../../Popup/Popup';
 import { PathAddEdit } from './PathAddEdit';
 import Button from '../../controls/Button';
 import { PathRow } from './PathRow';
-import { medicineService } from '../../../services/medicine.service';
 import { CmpHeader } from '../../Header/CmpHeader'
-import { utilService } from '../../../services/util.service'
+import { timelineService } from '../../../services/timeline.service'
 export function PathTable() {
   const [openPopup, setOpenPopup] = useState(false);
   const [recordForEdit, setRecordForEdit] = useState(null);
@@ -163,9 +162,8 @@ export function PathTable() {
           return group[0].levelNumber[0] === pathObj.levelNumber[0]
         });
         const updatedLevel = path[idx].map((step, index) => (step.levelNumber[0] === pathObj.levelNumber[0] && index === 0) ? { ...pathObj } : step)
-        console.log('%c  updatedLevel:', 'color: white;background: red;', updatedLevel);
         const updatedPath = [...path.slice(0, idx), updatedLevel, ...path.slice(idx + 1)]
-        setPath(updatedPath);
+        setPath(updatedPath)
       } else {
         const idx = path.findIndex((group) => {
           return group[0].levelNumber[0] === pathObj.levelNumber[0]
@@ -200,19 +198,20 @@ export function PathTable() {
     setOpenPopup(false);
   };
 
-  const deletePathObj = (pathObj) => {
+  const deletePathObj = async (pathObj) => {
     const isPathLevel = pathObj?.stepNumber ? false : true
     if (isPathLevel) {
       const idx = path.findIndex((group, idx) => group[0].levelNumber === pathObj.levelNumber);
       const updatedPath = path.filter((el, index) => index !== idx)
       setPath(updatedPath);
+      await timelineService.removeLevel(pathObj)
     } else {
       const updatedPath = path.map((group) =>
         group.filter(step => step.stepNumber !== pathObj.stepNumber)
       )
       setPath(updatedPath);
+      await timelineService.removeStep(pathObj)
     }
-    // await medicineService.removeMedicine(deleteMedicine);
   };
 
   const setRecord = (isLevel, record = null) => {

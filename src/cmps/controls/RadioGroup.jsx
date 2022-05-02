@@ -10,7 +10,6 @@ import FormHelperText from '@mui/material/FormHelperText';
 
 
 export default function RadioGroup({ name, label, value, onChange, items, isRow, error }) {
-  console.log('%c  error:', 'color: white;background: red;', error);
   return (
     <FormControl error={error}>
       <FormLabel>{label}</FormLabel>

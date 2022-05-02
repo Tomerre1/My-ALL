@@ -77,7 +77,6 @@ export function PathAddEdit({ addOrEdit, recordForEdit, path, isAddLevel }) {
     setErrors({
       ...temp,
     });
-    console.log('%c  temp:', 'color: white;background: red;', temp);
     return Object.values(temp).every((x) => x == '');
   };
 

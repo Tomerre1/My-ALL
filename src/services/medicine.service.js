@@ -53,7 +53,6 @@ async function addUserMedicineChecklist({ medicineName, count }, mail, day) {
     return medicines
 }
 async function resetUserMedicineForNewWeek(mail) {
-    console.log('%c  mail:', 'color: white;background: red;', mail);
     const medicines = await httpService.post('medicine/restartMedicineList/', { mail })
     return medicines
 }

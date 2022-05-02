@@ -21,7 +21,6 @@ export function AddVideo({ addVideo, onRemoveVideo, onEditVideo }) {
             videoDescription: values.videoDescription,
             videoName: values.videoName
         })
-        console.log('%c  values:', 'color: white;background: red;', values);
     };
 
     return <Formik
@@ -38,7 +37,6 @@ export function AddVideo({ addVideo, onRemoveVideo, onEditVideo }) {
         validateOnMount={true}
     >
         {props => {
-            console.log(props.errors, props.touched);
             return (
                 <form className="flex column add-contact" onSubmit={props.handleSubmit}>
                     <Controls.Input

@@ -23,7 +23,6 @@ export const httpService = {
 
 async function ajax(endpoint, method = 'GET', data = null) {
     try {
-        console.log('%c  `url`:', 'color: white;background: red;', `${BASE_URL}${endpoint}`);
         const res = await fetch(`${BASE_URL}${endpoint}`, {
             method,
             // mode: 'cors',

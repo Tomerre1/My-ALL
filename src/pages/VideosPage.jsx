@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { CmpHeader } from '../cmps/Header/CmpHeader'
 import { Loader } from '../cmps/Loader/Loader'
 import { setLoadingOn, setLoadingOff } from '../store/system.actions'
-
+import { videoService } from '../services/video.service.js'
 export function VideosPage() {
     const [videos, setVideos] = useState([])
     const [openPopup, setOpenPopup] = useState(false)
@@ -32,26 +32,18 @@ export function VideosPage() {
     useEffect(() => {
         async function fetchVideosData() {
             dispatch(setLoadingOn())
-            const res = await fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC-9-kyTW8ZkZNDHQJ6FgpwQ&maxResults=10&order=date&key=AIzaSyBxe9n_zywx_EH1njOLVtNXGIlojjcAhbs')
-            // const videos = await res.json()
-            // setVideos(videos.items)
-            // console.log('%c  videos.items:', 'color: white;background: red;', videos.items);
-            // const futureFetch = ['https://www.youtube.com/watch?v=lzQyH-nX0u0', 'https://www.youtube.com/watch?v=lzQyH-nX0u0', 'https://www.youtube.com/watch?v=lzQyH-nX0u0']
-            // const videosWithDuration = futureFetch.map(async (videoUrl) => {
-            //     var urlRequest = "https://www.googleapis.com/youtube/v3/videos?id=" + utilService.getYouTubeId(videoUrl) + "&key=AIzaSyBxe9n_zywx_EH1njOLVtNXGIlojjcAhbs&part=snippet,contentDetails"
-            //     const res = await fetch(urlRequest)
-            //     const video = await res.json()
-            //     const duration = utilService.formatYoutubeDuration(video.items[0].contentDetails.duration)
-            //     return { videoUrl, duration, img: video.items[0].snippet.thumbnails?.high.videoUrl || video.items[0].snippet.thumbnails.default.videoUrl }
-            // })
-            // Promise.all(videosWithDuration).then(videos => {
-            //     setVideos(videos)
-            // })
+            const videos = await videoService.query()
+            const videosWithDuration = videos.map(async (currVideo) => {
+                const video = await fetchVideo(currVideo)
+                return video
+            })
+            Promise.all(videosWithDuration).then(videos => {
+                setVideos(videos)
+            })
             dispatch(setLoadingOff())
 
         }
         fetchVideosData()
-
 
     }, [])
 
@@ -59,7 +51,6 @@ export function VideosPage() {
         setIsAdminAddVideo(false)
         setVideo(vid)
         setOpenPopup(true)
-        // console.log('%c  video:', 'color: white;background: red;', video.items[0].snippet.thumbnails.default.videoUrl);
     }
 
     const onAddVideo = () => {
@@ -72,6 +63,7 @@ export function VideosPage() {
         setIsAdminAddVideo(false)
         const newVideo = await fetchVideo(vid)
         setVideos([...videos, newVideo])
+        await videoService.addVideo(vid)
     }
 
     return (isLoading) ?
@@ -80,7 +72,7 @@ export function VideosPage() {
         <>
             <CmpHeader title="סרטוני הסבר" />
             <VideosList videos={videos} onVideoClick={onVideoClick} user={user} />
-            {user?.mail &&
+            {user?.mail && user?.userType === 'אדמין' &&
                 <button class="float flex align-center justify-center" onClick={onAddVideo}>
                     <i class="fa fa-plus my-float"></i>
                 </button>

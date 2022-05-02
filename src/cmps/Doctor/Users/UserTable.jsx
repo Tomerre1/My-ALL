@@ -27,11 +27,11 @@ export function UserTable() {
 
   useEffect(() => {
     async function queryUsers() {
-      // const users = await userService.query();
-      // const formattedUsers = users.map(user => {
-      //   return { ...user, userType: [user.userType],id:user?.id||utilService.makeId()}
-      // })
-      // setUsers(formattedUsers);
+      const users = await userService.queryUsers();
+      const formattedUsers = users.map(user => {
+        return { ...user, userType: [user.userType], id: user?.id || utilService.makeId() }
+      })
+      setUsers(formattedUsers);
     }
     queryUsers();
   }, []);
@@ -43,14 +43,11 @@ export function UserTable() {
           ? record
           : user
       );
-      console.log('%c  newUsers:', 'color: white;background: red;', newUsers);
-      // const updatedUser = await userService.updateUser({ ...record, userType: record.userType[0] });
       setUsers(newUsers);
-      console.log('%c  newUsers:', 'color: white;background: red;', newUsers);
+      await userService.updateUser(record);
     } else {
       setUsers([...users, { ...record, id: utilService.makeId() }]);
-      // const newUser = await userService.addUser({ ...record, userType: record.userType[0] });
-      console.log('%c  [...users, record]:', 'color: white;background: red;', [...users, record]);
+      await userService.signup(record);
     }
     setOpenPopup(false);
   };
@@ -58,7 +55,7 @@ export function UserTable() {
   const deleteUser = async (deleteUser) => {
     const newUsers = users.filter(user => user.mail !== deleteUser.mail);
     setUsers(newUsers);
-    // await userService.removeUser(deleteUser);
+    await userService.removeUser(deleteUser);
   };
 
   return (
