@@ -17,7 +17,7 @@ async function addVideo({ videoName, videoDescription, videoUrl }) {
 }
 
 async function removeVideo({ videoName }) {
-    const updatedVideos = await httpService.delete('visit/deletevisit/', { videoName })
+    const updatedVideos = await httpService.delete('video/deletevideo/', { videoName })
     return updatedVideos
 }
 

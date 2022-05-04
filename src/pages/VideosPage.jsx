@@ -65,13 +65,18 @@ export function VideosPage() {
         setVideos([...videos, newVideo])
         await videoService.addVideo(vid)
     }
+    const onRemoveVideo = async (vid) => {
+        const videosAfterRemove = videos.filter(video => video.videoName !== vid.videoName)
+        setVideos(videosAfterRemove)
+        await videoService.removeVideo(vid)
+    }
 
     return (isLoading) ?
         <Loader />
         :
         <>
             <CmpHeader title="סרטוני הסבר" />
-            <VideosList videos={videos} onVideoClick={onVideoClick} user={user} />
+            <VideosList videos={videos} onVideoClick={onVideoClick} onRemoveVideo={onRemoveVideo} user={user} />
             {user?.mail && user?.userType === 'אדמין' &&
                 <button class="float flex align-center justify-center" onClick={onAddVideo}>
                     <i class="fa fa-plus my-float"></i>
