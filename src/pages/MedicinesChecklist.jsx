@@ -93,8 +93,11 @@ export function MedicinesChecklist() {
     }
 
     const getDateByDaySelected = () => {
-        const dayIndex = days.indexOf(selected)
+        const today = new Date().toLocaleDateString('he-IL', { weekday: 'long' }).split(' ')[1]
+        const dayIndex = (selected === today) ? 0 : days.indexOf(selected)
+        // console.log('%c  dayIndex:', 'color: white;background: red;', dayIndex);
         const date = new Date(new Date().setDate(new Date().getDate() + dayIndex))
+        // console.log('%c  date:', 'color: white;background: red;', date);
         const day = date.toLocaleDateString('he-IL').split('.')[0]
         const month = date.toLocaleDateString('he-IL', { month: 'long' });
         const year = date.getFullYear()
@@ -122,7 +125,7 @@ export function MedicinesChecklist() {
                     <div className="todolist__main flex column">
                         <div className="todolist__header">
                             <div className="todolist__header--date flex align-center">
-                                <span className="date--day">{dateBySelectedDay.day}</span>
+                                <span className="date--day">{`יום ${selected}`}</span>
                                 <div className="warpper flex column">
                                     <span className="date--month">{dateBySelectedDay.month}</span>
                                     <span className="date--year">{dateBySelectedDay.year}</span>
